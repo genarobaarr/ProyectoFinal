@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLCU07_ConsultarAvanceController">
+   <children>
+      <TableView fx:id="tvEstudiantes" layoutX="199.0" layoutY="53.0" prefHeight="294.0" prefWidth="220.0">
+        <columns>
+          <TableColumn editable="false" prefWidth="199.0" />
+        </columns>
+      </TableView>
+      <Label layoutX="163.0" layoutY="14.0" text="Estudiantes">
+         <font>
+            <Font name="Gill Sans MT" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="163.0" layoutY="35.0" text="con al menos un reporte mensual en su expediente">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="136.0" layoutY="360.0" mnemonicParsing="false" onAction="#btnConsultarAvance" prefHeight="26.0" prefWidth="127.0" text="Consultar avance">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="382.0" layoutY="360.0" mnemonicParsing="false" onAction="#btnCancelar" prefWidth="75.0" text="Cancelar">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

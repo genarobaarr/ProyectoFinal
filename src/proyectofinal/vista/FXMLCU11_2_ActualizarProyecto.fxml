@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLCU11_2_ActualizarProyectoController">
+   <children>
+      <Label layoutX="150.0" layoutY="4.0" text="Proyectos">
+         <font>
+            <Font name="Gill Sans MT" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="148.0" layoutY="27.0" text="Buscando por">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblBusquedaProyecto" layoutX="230.0" layoutY="27.0">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tvProyectosEncontrados" layoutX="137.0" layoutY="43.0" prefHeight="294.0" prefWidth="327.0">
+         <columns>
+            <TableColumn prefWidth="326.0" />
+         </columns>
+      </TableView>
+      <Button layoutX="230.0" layoutY="353.0" mnemonicParsing="false" onAction="#btnActualizarProyecto" prefHeight="26.0" prefWidth="141.0" text="Actualizar proyecto">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

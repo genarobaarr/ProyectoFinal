@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLProyectosController">
+   <children>
+      <Pane layoutY="361.0" prefHeight="39.0" prefWidth="600.0" style="-fx-background-color: #00AF4D; -fx-border-color: #00AF4D;">
+         <children>
+            <Label layoutX="351.0" layoutY="15.0" text="Sistema de Prácticas Profesionales" textFill="#26408b">
+               <font>
+                  <Font name="Gill Sans MT" size="18.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="58.0" fitWidth="56.0" layoutX="9.0" layoutY="-27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recursos/mainlogo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutY="72.0" prefHeight="13.0" prefWidth="600.0" style="-fx-background-color: #00AF4D; -fx-border-color: #00AF4D;" />
+      <Button layoutX="14.0" layoutY="20.0" mnemonicParsing="false" onAction="#clicBotonRegresar" prefHeight="37.0" prefWidth="105.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Regresar" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recursos/iconoRegresar.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="39.0" layoutY="159.0" mnemonicParsing="false" onAction="#clicBotonRegistrarProyecto" prefHeight="82.0" prefWidth="173.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Registrar proyecto" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Gill Sans MT" size="18.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recursos/iconoProyectoRegistrar.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="214.0" layoutY="159.0" mnemonicParsing="false" onAction="#clicBotonModificarProyecto" prefHeight="82.0" prefWidth="173.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Modificar proyecto" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Gill Sans MT" size="18.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recursos/iconoProyectoModificar.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="389.0" layoutY="159.0" mnemonicParsing="false" onAction="#clicBotonAsignarProyecto" prefHeight="82.0" prefWidth="173.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Asignar proyecto" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Gill Sans MT" size="18.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recursos/iconoProyectoAsignar.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label fx:id="lbReloj" layoutX="495.0" layoutY="31.0" textFill="#26408b">
+         <font>
+            <Font name="Gill Sans MT" size="13.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="463.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../recursos/iconoReloj.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

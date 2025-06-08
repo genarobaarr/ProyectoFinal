@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLInicioSesionController">
+   <children>
+      <AnchorPane layoutX="300.0" prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;">
+         <children>
+            <Label layoutX="33.0" layoutY="23.0" text="Bienvenido(a)">
+               <font>
+                  <Font name="Gill Sans MT Bold" size="36.0" />
+               </font>
+            </Label>
+            <Label layoutX="26.0" layoutY="56.0" prefHeight="60.0" prefWidth="248.0" text="Ingresa tu usuario y contraseña para iniciar sesión" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Gill Sans MT" size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfUsuario" layoutX="25.0" layoutY="155.0" onKeyPressed="#tfUsuarioPresionaEnter" promptText="Usuario" style="-fx-border-color: #0F084B;">
+               <font>
+                  <Font name="Gill Sans MT" size="18.0" />
+               </font>
+            </TextField>
+            <Button layoutX="72.0" layoutY="320.0" mnemonicParsing="false" onAction="#btnClicVerificarSesion" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Iniciar sesión" textFill="WHITE">
+               <font>
+                  <Font name="Gill Sans MT" size="23.0" />
+               </font>
+            </Button>
+            <PasswordField fx:id="tfPassword" layoutX="25.0" layoutY="238.0" onKeyPressed="#tfPasswordPresionaEnter" promptText="Contraseña" style="-fx-border-color: #0F084B;">
+               <font>
+                  <Font name="Gill Sans MT" size="18.0" />
+               </font>
+            </PasswordField>
+            <Label layoutX="24.0" layoutY="123.0" prefHeight="32.0" prefWidth="65.0" text="Usuario" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Gill Sans MT" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="26.0" layoutY="206.0" prefHeight="32.0" prefWidth="105.0" text="Contraseña" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Gill Sans MT" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbErrorUsuario" layoutX="25.0" layoutY="190.0" prefHeight="20.0" prefWidth="250.0" textAlignment="CENTER" textFill="RED" wrapText="true">
+               <font>
+                  <Font name="Gill Sans MT" size="11.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbErrorPassword" layoutX="25.0" layoutY="273.0" prefHeight="20.0" prefWidth="250.0" textAlignment="CENTER" textFill="RED" wrapText="true">
+               <font>
+                  <Font name="Gill Sans MT" size="11.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: #0F084B;">
+         <children>
+            <ImageView fitHeight="249.0" fitWidth="163.0" layoutX="4.0" layoutY="180.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recursos/mainlogo.png" />
+               </image></ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
