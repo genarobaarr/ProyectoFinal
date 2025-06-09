@@ -34,3 +34,5 @@ logs/
 # Archivos de respaldo de merge
 *.orig
 *.rej
+
+ConexionBD.java
