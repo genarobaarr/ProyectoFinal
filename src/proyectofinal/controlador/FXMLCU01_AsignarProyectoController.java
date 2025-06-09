@@ -31,5 +31,10 @@ public class FXMLCU01_AsignarProyectoController implements Initializable {
     @FXML
     private void btnSalir(ActionEvent event) {
     }
-    
+
+    public FXMLCU01_AsignarProyectoController() {
+    }
+    private void cargardatos(){
+        
+    }
 }
