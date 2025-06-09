@@ -135,7 +135,7 @@ public class FXMLInicioSesionController implements Initializable {
             Scene escenaPrincipal = new Scene(vista);
             escenarioBase.setScene(escenaPrincipal);
             escenarioBase.setTitle(titulo);
-            escenarioBase.showAndWait();
+            escenarioBase.show();
         } catch (IOException ex) {
             ex.printStackTrace();
         }

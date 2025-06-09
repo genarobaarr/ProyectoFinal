@@ -64,7 +64,7 @@ public class FXMLPrincipalController implements Initializable {
             Stage escenarioBase = (Stage) lbNombre.getScene().getWindow();
             escenarioBase.setScene(new Scene(FXMLLoader.load(ProyectoFinal.class.getResource("vista/FXMLInicioSesion.fxml"))));
             escenarioBase.setTitle("Inicio de sesión");
-            escenarioBase.showAndWait();
+            escenarioBase.show();
             usuarioSesion = null;
         } catch (IOException ex) {
             ex.printStackTrace();
