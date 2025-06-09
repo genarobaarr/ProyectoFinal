@@ -18,7 +18,6 @@ public class Utilidad {
         alerta.setHeaderText(null);
         alerta.setContentText(contenido);
         alerta.showAndWait();
-        
     }
     
     public static boolean mostrarAlertaConfirmacion(String titulo, String contenido) {
