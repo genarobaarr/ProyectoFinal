@@ -1,0 +1,36 @@
+# Archivos y directorios generados por NetBeans
+/nbproject/private/
+/build/
+/dist/
+nbbuild/
+.nb-gradle/
+nbproject/project.xml.orig
+nbproject/remote/
+nbproject/private/private.properties
+nbproject/private/platform-references.properties
+nbproject/private/retrieve-project.properties
+
+# Archivos de compilación de Java
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.rar
+*.tar
+*.gz
+*.log
+*.tmp
+*.bak
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de logs
+*.log
+logs/
+
+# Archivos de respaldo de merge
+*.orig
+*.rej
