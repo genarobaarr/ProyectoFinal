@@ -1,5 +1,5 @@
 /*
- * Alejandro Martínez Ramírez
+ * Genaro Alejandro Barradas Sánchez
  * 07-06-2025
  */
 package proyectofinal.controlador;

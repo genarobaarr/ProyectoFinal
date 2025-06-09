@@ -1,5 +1,5 @@
 /*
- * Alejandro Martínez Ramírez
+ * Genaro Alejandro Barradas Sánchez
  * 07-06-2025
  */
 package proyectofinal.controlador;
@@ -21,7 +21,7 @@ public class FXMLCU10_1_RegistrarProyectoController implements Initializable {
 
     @FXML
     private TableView<OrganizacionVinculada> tvOrganizacionesVinculadas;
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
