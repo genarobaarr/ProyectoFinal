@@ -46,6 +46,7 @@ public class FXMLCU10_1_RegistrarProyectoController implements Initializable {
 
     @FXML
     private void btnAceptar(ActionEvent event) {
+        
     }
     
     private void cerrarVentana(){
