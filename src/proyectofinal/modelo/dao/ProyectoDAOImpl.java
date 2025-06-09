@@ -22,7 +22,7 @@ public class ProyectoDAOImpl implements ProyectoDAO {
     @Override
     public List<Proyecto> obtenerProyectosSinAsignar() {
         List<Proyecto> proyectos = new ArrayList<>();
-        String query = "SELECT p.idProyecto, p.descripcion, p.fechaInicio, p.fechaFin, p.nombre, p.idResponsableDeProyecto, p.idCoordinador " +
+        String query = "SELECT p.idProyecto, p.descripcion, p.fechaInicio, p.fechaFin, p.nombre, p.objetivos, p.idResponsableDeProyecto, p.idCoordinador " +
                        "FROM proyecto p " +
                        "LEFT JOIN expediente exp ON p.idProyecto = exp.idProyecto AND exp.estatus = 'Activo' " +
                        "WHERE exp.idProyecto IS NULL " +
@@ -40,10 +40,11 @@ public class ProyectoDAOImpl implements ProyectoDAO {
                 Date fechaFinSql = rs.getDate("fechaFin");
                 String fechaFin = (fechaFinSql != null) ? fechaFinSql.toString() : null; 
                 String nombre = rs.getString("nombre");
+                String objetivos = rs.getString("objetivos");
                 int idResponsableDeProyecto = rs.getInt("idResponsableDeProyecto");
                 int idCoordinador = rs.getInt("idCoordinador");
 
-                Proyecto proyecto = new Proyecto(idProyecto, descripcion, fechaInicio, fechaFin, nombre, idResponsableDeProyecto, idCoordinador);
+                Proyecto proyecto = new Proyecto(idProyecto, descripcion, fechaInicio, fechaFin, nombre, objetivos, idResponsableDeProyecto, idCoordinador);
                 proyectos.add(proyecto);
             }
         } catch (SQLException e) {

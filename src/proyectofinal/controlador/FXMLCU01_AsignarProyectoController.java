@@ -75,9 +75,8 @@ public class FXMLCU01_AsignarProyectoController implements Initializable {
         
         Alert confirmacionAsignacion = new Alert(Alert.AlertType.CONFIRMATION);
         confirmacionAsignacion.setTitle("Confirmación");
-        confirmacionAsignacion.setHeaderText("¿Está seguro que desea asignar el proyecto " +
-                                            "[" + proyectoSeleccionado.getNombre() + "] al estudiante " +
-                                            "[" + estudianteSeleccionado.toString() + "]?");
+        confirmacionAsignacion.setHeaderText("¿Está seguro que desea asignar el proyecto " + proyectoSeleccionado.getNombre() + 
+                                             " al estudiante " + estudianteSeleccionado.toString() + "?");
 
         ButtonType botonSi = new ButtonType("Sí");
         ButtonType botonNo = new ButtonType("No");

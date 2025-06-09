@@ -10,18 +10,20 @@ public class Proyecto {
     private String fechaInicio;
     private String fechaFin;
     private String nombre;
+    private String objetivos;
     private int idResponsableDeProyecto; //idUsuario
     private int idCoordinador; //idUsuario
 
     public Proyecto() {
     }
 
-    public Proyecto(int idProyecto, String descripcion, String fechaInicio, String fechaFin, String nombre, int idResponsableDeProyecto, int idCoordinador) {
+    public Proyecto(int idProyecto, String descripcion, String fechaInicio, String fechaFin, String nombre, String objetivos, int idResponsableDeProyecto, int idCoordinador) {
         this.idProyecto = idProyecto;
         this.descripcion = descripcion;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.nombre = nombre;
+        this.objetivos = objetivos;
         this.idResponsableDeProyecto = idResponsableDeProyecto;
         this.idCoordinador = idCoordinador;
     }
@@ -64,6 +66,14 @@ public class Proyecto {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getObjetivos() {
+        return objetivos;
+    }
+
+    public void setObjetivos(String objetivos) {
+        this.objetivos = objetivos;
     }
 
     public int getIdResponsableDeProyecto() {
