@@ -12,17 +12,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 
 public class FXMLCU05_HabilitarEntregasController implements Initializable {
 
-    @FXML
-    private TextField tfTitulo;
     @FXML
     private TextArea taDescripcion;
     @FXML
     private DatePicker dpFechaInicio;
     @FXML
     private DatePicker dpFechaFin;
+    @FXML
+    private TextField tfTituloAsignacion;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -30,11 +31,15 @@ public class FXMLCU05_HabilitarEntregasController implements Initializable {
     }    
 
     @FXML
-    private void btnHabilitar(ActionEvent event) {
+    private void tfTituloAsignacionPresionaEnter(KeyEvent event) {
     }
 
     @FXML
-    private void btnCancelar(ActionEvent event) {
+    private void clicBotonCancelar(ActionEvent event) {
+    }
+
+    @FXML
+    private void clicBotonHabilitar(ActionEvent event) {
     }
     
 }

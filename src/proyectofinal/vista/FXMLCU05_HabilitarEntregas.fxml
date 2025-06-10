@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,47 +8,59 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="proyectofinal.controlador.FXMLCU05_HabilitarEntregasController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FEFEFE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLCU05_HabilitarEntregasController">
    <children>
-      <TextField fx:id="tfTitulo" layoutX="14.0" layoutY="52.0" prefHeight="25.0" prefWidth="300.0" promptText="Titulo" />
-      <Label layoutX="14.0" layoutY="38.0" text="Título">
+      <Label layoutX="14.0" layoutY="10.0" text="Datos de la asignación">
          <font>
-            <Font name="Gill Sans MT" size="12.0" />
+            <Font name="Gill Sans MT" size="20.0" />
          </font>
       </Label>
-      <TextArea fx:id="taDescripcion" layoutX="14.0" layoutY="110.0" prefHeight="102.0" prefWidth="300.0" promptText="Descripción" />
-      <Label layoutX="15.0" layoutY="96.0" text="Descripción">
-         <font>
-            <Font name="Gill Sans MT" size="12.0" />
-         </font>
-      </Label>
-      <DatePicker fx:id="dpFechaInicio" layoutX="402.0" layoutY="52.0" promptText="Fecha de inicio" />
-      <Label layoutX="402.0" layoutY="38.0" text="Fecha de inicio">
-         <font>
-            <Font name="Gill Sans MT" size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="402.0" layoutY="96.0" text="Fecha de fin">
-         <font>
-            <Font name="Gill Sans MT" size="12.0" />
-         </font>
-      </Label>
-      <DatePicker fx:id="dpFechaFin" layoutX="402.0" layoutY="110.0" promptText="Fecha de fin" />
-      <Button layoutX="263.0" layoutY="308.0" mnemonicParsing="false" onAction="#btnHabilitar" prefWidth="75.0" text="Habiilitar">
+      <Label layoutX="327.0" layoutY="194.0" text="Fecha de fin">
          <font>
             <Font name="Gill Sans MT" size="14.0" />
          </font>
-      </Button>
-      <Button layoutX="365.0" layoutY="308.0" mnemonicParsing="false" onAction="#btnCancelar" prefWidth="75.0" text="Cancelar">
+      </Label>
+      <DatePicker fx:id="dpFechaFin" layoutX="327.0" layoutY="210.0" prefHeight="25.0" prefWidth="252.0" promptText="Fecha de fin" style="-fx-border-color: #00AC4F;" />
+      <TextArea fx:id="taDescripcion" layoutX="25.0" layoutY="145.0" prefHeight="153.0" prefWidth="252.0" style="-fx-border-color: #00AC4F;">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </TextArea>
+      <Label layoutX="25.0" layoutY="126.0" text="Descripción">
          <font>
             <Font name="Gill Sans MT" size="14.0" />
          </font>
-      </Button>
-      <Label layoutX="14.0" layoutY="10.0" text="Datos de la asignación:">
+      </Label>
+      <TextField fx:id="tfTituloAsignacion" layoutX="25.0" layoutY="68.0" onKeyPressed="#tfTituloAsignacionPresionaEnter" prefHeight="25.0" prefWidth="252.0" promptText="Título" style="-fx-border-color: #00AC4F;">
          <font>
-            <Font name="Gill Sans MT" size="18.0" />
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="25.0" layoutY="51.0" text="Título">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
          </font>
       </Label>
+      <DatePicker fx:id="dpFechaInicio" layoutX="327.0" layoutY="142.0" prefHeight="25.0" prefWidth="252.0" promptText="Fecha de inicio" style="-fx-border-color: #00AC4F;" />
+      <Label layoutX="327.0" layoutY="126.0" text="Fecha de inicio">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="65.0" fitWidth="60.0" layoutX="533.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../recursos/lis_ONLYlogo.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="325.0" layoutY="332.0" mnemonicParsing="false" onAction="#clicBotonCancelar" prefWidth="77.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: hand;" text="Cancelar" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </Button>
+      <Button layoutX="199.0" layoutY="332.0" mnemonicParsing="false" onAction="#clicBotonHabilitar" prefWidth="77.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Habilitar" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

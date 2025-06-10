@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,77 +8,101 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="proyectofinal.controlador.FXMLCU04_2_EntregaReportesController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #FEFEFE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLCU04_2_EntregaReportesController">
    <children>
-      <Label layoutX="14.0" layoutY="14.0" text="Registro de reporte mensual">
+      <Label layoutX="14.0" layoutY="4.0" text="Registro de reporte mensual">
+         <font>
+            <Font name="Gill Sans MT" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="340.0" layoutY="46.0" text="Descripción (Actividades y observaciones)">
          <font>
             <Font name="Gill Sans MT" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="48.0" text="Número de reporte">
+      <TextArea fx:id="taDescripcion" layoutX="340.0" layoutY="63.0" prefHeight="266.0" prefWidth="245.0" style="-fx-border-color: #00AC4F;" />
+      <TextField fx:id="tfNumeroReporte" layoutX="13.0" layoutY="63.0" onKeyPressed="#tfNumeroReportePresionaEnter" prefHeight="25.0" prefWidth="140.0" promptText="Reporte" style="-fx-border-color: #00AC4F;">
          <font>
-            <Font name="Gill Sans MT" size="12.0" />
+            <Font name="Gill Sans MT" size="15.0" />
          </font>
-      </Label>
-      <TextField fx:id="tfNumeroReporte" layoutX="14.0" layoutY="62.0" prefHeight="10.0" prefWidth="140.0" promptText="Número de reporte" />
-      <Label layoutX="177.0" layoutY="48.0" text="Número de horas">
-         <font>
-            <Font name="Gill Sans MT" size="12.0" />
-         </font>
-      </Label>
-      <TextField fx:id="tfNumeroHoras" layoutX="177.0" layoutY="62.0" prefHeight="10.0" prefWidth="140.0" promptText="Número de horas" />
-      <TextField fx:id="tfNombreEstudiante" layoutX="14.0" layoutY="104.0" prefHeight="25.0" prefWidth="300.0" promptText="Nombre del estudiante" />
-      <Label layoutX="14.0" layoutY="90.0" text="Nombre del estudiante">
-         <font>
-            <Font name="Gill Sans MT" size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="14.0" layoutY="131.0" text="Matrícula">
-         <font>
-            <Font name="Gill Sans MT" size="12.0" />
-         </font>
-      </Label>
-      <TextField fx:id="tfMatricula" layoutX="14.0" layoutY="145.0" prefHeight="10.0" prefWidth="140.0" promptText="Matrícula" />
-      <Label layoutX="177.0" layoutY="131.0" text="Periodo">
-         <font>
-            <Font name="Gill Sans MT" size="12.0" />
-         </font>
-      </Label>
-      <TextField fx:id="tfPeriodo" layoutX="177.0" layoutY="145.0" prefHeight="10.0" prefWidth="140.0" promptText="Periodo" />
-      <Label layoutX="14.0" layoutY="172.0" text="Proyecto Vinculado">
-         <font>
-            <Font name="Gill Sans MT" size="12.0" />
-         </font>
-      </Label>
-      <TextField fx:id="tfProyectoVinculado" layoutX="14.0" layoutY="186.0" prefHeight="25.0" prefWidth="300.0" promptText="Proyecto vinculado" />
-      <Label layoutX="15.0" layoutY="215.0" text="Organizacion Vinculada">
-         <font>
-            <Font name="Gill Sans MT" size="12.0" />
-         </font>
-      </Label>
-      <TextField fx:id="tfOrganizacionVinculada" layoutX="15.0" layoutY="229.0" prefHeight="25.0" prefWidth="300.0" promptText="Proyecto vinculado" />
-      <Label layoutX="15.0" layoutY="256.0" text="Responsable de proyecto">
-         <font>
-            <Font name="Gill Sans MT" size="12.0" />
-         </font>
-      </Label>
-      <TextField fx:id="tfResponsabkeProyecto" layoutX="15.0" layoutY="270.0" prefHeight="25.0" prefWidth="300.0" promptText="Responsable de proyecto" />
-      <Label layoutX="347.0" layoutY="48.0" text="Descripción (Actividades y observaciones)">
-         <font>
-            <Font name="Gill Sans MT" size="12.0" />
-         </font>
-      </Label>
-      <TextArea fx:id="taDescripcion" layoutX="340.0" layoutY="69.0" prefHeight="235.0" prefWidth="245.0" />
-      <Button layoutX="340.0" layoutY="349.0" mnemonicParsing="false" onAction="#btnCancelar" prefWidth="75.0" text="Cancelar">
+      </TextField>
+      <Label layoutX="13.0" layoutY="46.0" text="Número de reporte">
          <font>
             <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="65.0" fitWidth="60.0" layoutX="14.0" layoutY="432.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../recursos/lis_ONLYlogo.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="325.0" layoutY="432.0" mnemonicParsing="false" onAction="#clicBotonCancelar" prefWidth="77.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: hand;" text="Cancelar" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
          </font>
       </Button>
-      <Button layoutX="239.0" layoutY="349.0" mnemonicParsing="false" onAction="#btnGuardar" prefWidth="75.0" text="Guardar">
+      <Button layoutX="199.0" layoutY="432.0" mnemonicParsing="false" onAction="#clicBotonRegistrar" prefWidth="77.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Registrar" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </Button>
+      <Label layoutX="174.0" layoutY="46.0" text="Número de horas">
          <font>
             <Font name="Gill Sans MT" size="14.0" />
          </font>
-      </Button>
+      </Label>
+      <TextField fx:id="tfNumeroHoras" layoutX="174.0" layoutY="63.0" onKeyPressed="#tfNumeroHorasPresionaEnter" prefHeight="25.0" prefWidth="140.0" promptText="Horas" style="-fx-border-color: #00AC4F;">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="14.0" layoutY="105.0" text="Nombre del estudiante">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfNombreEstudiante" layoutX="14.0" layoutY="122.0" onKeyPressed="#tfNombreEstudiantePresionaEnter" prefHeight="25.0" prefWidth="300.0" promptText="Nombre del estudiante" style="-fx-border-color: #00AC4F;">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="tfMatricula" layoutX="14.0" layoutY="181.0" onKeyPressed="#tfMatriculaPresionaEnter" prefHeight="25.0" prefWidth="300.0" promptText="Matrícula del estudiante" style="-fx-border-color: #00AC4F;">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="14.0" layoutY="164.0" text="Matrícula del estudiante">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="223.0" text="Periodo del reporte">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfPeriodoReporte" layoutX="14.0" layoutY="240.0" onKeyPressed="#tfPeriodoReportePresionaEnter" prefHeight="25.0" prefWidth="300.0" promptText="Mes-Mes (ej. Febrero-Abril) " style="-fx-border-color: #00AC4F;">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="14.0" layoutY="282.0" text="Proyecto vinculado">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cbProyectos" layoutX="14.0" layoutY="298.0" prefHeight="31.0" prefWidth="300.0" promptText="Proyecto" style="-fx-background-color: #FEFEFE; -fx-border-color: #00AC4F; -fx-cursor: HAND;" />
+      <ComboBox fx:id="cbResponsables" layoutX="14.0" layoutY="361.0" prefHeight="33.0" prefWidth="241.0" promptText="Responsable de proyecto" style="-fx-background-color: #FEFEFE; -fx-border-color: #00AC4F; -fx-cursor: HAND;" />
+      <Label layoutX="14.0" layoutY="344.0" text="Responsable de proyecto">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="314.0" layoutY="344.0" text="Organización vinculada">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cbOrganizaciones" layoutX="314.0" layoutY="361.0" prefHeight="33.0" prefWidth="241.0" promptText="Organización vinculada" style="-fx-background-color: #FEFEFE; -fx-border-color: #00AC4F; -fx-cursor: HAND;" />
    </children>
 </AnchorPane>

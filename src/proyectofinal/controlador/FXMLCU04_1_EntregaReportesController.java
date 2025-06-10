@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 
@@ -16,6 +17,8 @@ public class FXMLCU04_1_EntregaReportesController implements Initializable {
 
     @FXML
     private TableView<?> tvReportesMensuales;
+    @FXML
+    private TableColumn colNombres;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -23,11 +26,11 @@ public class FXMLCU04_1_EntregaReportesController implements Initializable {
     }    
 
     @FXML
-    private void btnNuevoReporte(ActionEvent event) {
+    private void clicBotonNuevoReporte(ActionEvent event) {
     }
 
     @FXML
-    private void btnCancelar(ActionEvent event) {
+    private void clicBotonCancelar(ActionEvent event) {
     }
     
 }
