@@ -20,12 +20,9 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import proyectofinal.modelo.pojo.Estudiante;
 import proyectofinal.modelo.pojo.Proyecto;
-import proyectofinal.modelo.dao.EstudianteDAO;
 import proyectofinal.modelo.dao.ProyectoDAO;
 import proyectofinal.modelo.dao.PeriodoDAO;
-import proyectofinal.modelo.dao.EstudianteDAOImpl;
-import proyectofinal.modelo.dao.ProyectoDAOImpl;
-import proyectofinal.modelo.dao.PeriodoDAOImpl;
+import proyectofinal.modelo.dao.EstudianteDAO;
 
 
 public class FXMLCU01_AsignarProyectoController implements Initializable {
@@ -47,9 +44,9 @@ public class FXMLCU01_AsignarProyectoController implements Initializable {
     private PeriodoDAO periodoDAO;
 
     public FXMLCU01_AsignarProyectoController() {
-        this.estudianteDAO = new EstudianteDAOImpl();
-        this.proyectoDAO = new ProyectoDAOImpl();
-        this.periodoDAO = new PeriodoDAOImpl();
+        this.estudianteDAO = new EstudianteDAO();
+        this.proyectoDAO = new ProyectoDAO();
+        this.periodoDAO = new PeriodoDAO();
     }
 
     @Override
