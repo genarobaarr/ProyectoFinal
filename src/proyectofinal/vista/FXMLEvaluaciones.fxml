@@ -8,8 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="proyectofinal.controlador.FXMLEvaluacionesController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLEvaluacionesController">
    <children>
       <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="463.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -26,7 +25,7 @@
             <Font name="Gill Sans MT" size="18.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="ivEvaluarOrganizacion" fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../recursos/iconoEvaluacionOrganizacion.png" />
                </image>
@@ -38,7 +37,7 @@
             <Font name="Gill Sans MT" size="18.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="ivRegistrarEvaluacion" fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../recursos/iconoEvaluacionRegistrar.png" />
                </image>

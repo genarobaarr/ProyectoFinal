@@ -19,6 +19,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -35,22 +37,16 @@ public class FXMLAvanceController implements Initializable {
     private Button btnSubirDocumento;
     @FXML
     private Label lbReloj;
+    @FXML
+    private ImageView ivConsultarAvance;
+    @FXML
+    private ImageView ivSubirDocumentos;
     
     private final DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         mostrarHora();
-    }
-    
-    public void inicializarInformacion(Usuario usuario) {
-        if (usuario instanceof Academico) {
-            btnConsultarAvance.setDisable(false);
-            btnSubirDocumento.setDisable(true);
-        } else if (usuario instanceof Estudiante) {
-            btnConsultarAvance.setDisable(true);
-            btnSubirDocumento.setDisable(false);
-        }
     }
 
     @FXML
@@ -66,6 +62,22 @@ public class FXMLAvanceController implements Initializable {
     @FXML
     private void clicBotonSubirDocumento(ActionEvent event) {
         irPantalla("vista/FXMLCU03_ActualizarExpediente.fxml", "Actualizar expediente");
+    }
+    
+    public void inicializarInformacion(Usuario usuario) {
+        if (usuario instanceof Academico) {
+            btnConsultarAvance.setDisable(false);
+            
+            btnSubirDocumento.setDisable(true);
+            btnSubirDocumento.setText("No disponible");
+            ivSubirDocumentos.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
+        } else if (usuario instanceof Estudiante) {
+            btnConsultarAvance.setDisable(true);
+            btnConsultarAvance.setText("No disponible");
+            ivConsultarAvance.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
+            
+            btnSubirDocumento.setDisable(false);
+        }
     }
     
     public void irPantalla(String fxmlPath, String titulo) {
