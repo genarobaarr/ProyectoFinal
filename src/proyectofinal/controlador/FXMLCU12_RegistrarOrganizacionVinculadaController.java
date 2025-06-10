@@ -117,8 +117,8 @@ public class FXMLCU12_RegistrarOrganizacionVinculadaController implements Initia
         if (telefono.isEmpty()) {
             camposValidos = false;
         } else {
-            String telefonoSoloDigitos = telefono.replace("[^0-9]", "");
-            if (telefono.length() < 8 || telefono.length() > 15) {
+            String telefonoSoloDigitos = telefono.replaceAll("[^0-9]", "");
+            if (telefonoSoloDigitos.length() < 8 || telefonoSoloDigitos.length() > 15) {
                 camposValidos =  false;
                 tfTelefono.setText("");
             }
@@ -131,7 +131,7 @@ public class FXMLCU12_RegistrarOrganizacionVinculadaController implements Initia
         organizacion.setDireccion(tfDireccion.getText());
         organizacion.setEmail(tfCorreoElectronico.getText());
         organizacion.setNombre(tfNombreOrganizacion.getText());
-        organizacion.setTelefono(tfTelefono.getText());
+        organizacion.setTelefono(tfTelefono.getText().replaceAll("[^0-9]", ""));
         return organizacion;
     }
     
