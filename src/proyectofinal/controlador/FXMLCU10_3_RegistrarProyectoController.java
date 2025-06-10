@@ -49,7 +49,6 @@ public class FXMLCU10_3_RegistrarProyectoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //
     }    
 
     @FXML
