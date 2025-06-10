@@ -45,22 +45,6 @@ public class FXMLReportesController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         mostrarHora();
     }
-    
-    public void inicializarInformacion(Usuario usuario) {
-        if (usuario instanceof Academico) {
-            btnValidarReportes.setDisable(false);
-            btnNuevoReporte.setDisable(true);
-            btnHabilitarEntrega.setDisable(true);
-        } else if (usuario instanceof Estudiante) {
-            btnValidarReportes.setDisable(true);
-            btnNuevoReporte.setDisable(false);
-            btnHabilitarEntrega.setDisable(true);
-        } else if (usuario instanceof Coordinador) {
-            btnValidarReportes.setDisable(true);
-            btnNuevoReporte.setDisable(true);
-            btnHabilitarEntrega.setDisable(false);
-        }
-    }
 
     @FXML
     private void clicBotonValidarReportes(ActionEvent event) {
@@ -80,6 +64,22 @@ public class FXMLReportesController implements Initializable {
     @FXML
     private void clicBotonRegresar(ActionEvent event) {
         cerrarVentana();
+    }
+    
+    public void inicializarInformacion(Usuario usuario) {
+        if (usuario instanceof Academico) {
+            btnValidarReportes.setDisable(false);
+            btnNuevoReporte.setDisable(true);
+            btnHabilitarEntrega.setDisable(true);
+        } else if (usuario instanceof Estudiante) {
+            btnValidarReportes.setDisable(true);
+            btnNuevoReporte.setDisable(false);
+            btnHabilitarEntrega.setDisable(true);
+        } else if (usuario instanceof Coordinador) {
+            btnValidarReportes.setDisable(true);
+            btnNuevoReporte.setDisable(true);
+            btnHabilitarEntrega.setDisable(false);
+        }
     }
     
     public void irPantalla(String fxmlPath, String titulo) {

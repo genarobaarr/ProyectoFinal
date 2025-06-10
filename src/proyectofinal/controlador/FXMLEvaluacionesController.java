@@ -42,16 +42,6 @@ public class FXMLEvaluacionesController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         mostrarHora();
     }
-    
-    public void inicializarInformacion(Usuario usuario) {
-        if (usuario instanceof AcademicoEvaluador) {
-            btnEvaluarOrganizacion.setDisable(true);
-            btnRegistrarEvaluacion.setDisable(false);
-        } else if (usuario instanceof Estudiante) {
-            btnEvaluarOrganizacion.setDisable(false);
-            btnRegistrarEvaluacion.setDisable(true);
-        }
-    }
 
     @FXML
     private void clicBotonEvaluarOrganizacion(ActionEvent event) {
@@ -67,6 +57,16 @@ public class FXMLEvaluacionesController implements Initializable {
     private void clicBotonRegresar(ActionEvent event) {
         cerrarVentana();
         
+    }
+    
+    public void inicializarInformacion(Usuario usuario) {
+        if (usuario instanceof AcademicoEvaluador) {
+            btnEvaluarOrganizacion.setDisable(true);
+            btnRegistrarEvaluacion.setDisable(false);
+        } else if (usuario instanceof Estudiante) {
+            btnEvaluarOrganizacion.setDisable(false);
+            btnRegistrarEvaluacion.setDisable(true);
+        }
     }
     
     public void irPantalla(String fxmlPath, String titulo) {

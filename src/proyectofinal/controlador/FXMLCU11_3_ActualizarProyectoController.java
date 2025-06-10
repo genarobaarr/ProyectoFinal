@@ -8,8 +8,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,12 +20,10 @@ import javafx.stage.Stage;
 import proyectofinal.modelo.dao.OrganizacionVinculadaDAO;
 import proyectofinal.modelo.dao.ProyectoDAO;
 import proyectofinal.modelo.dao.ResponsableDeProyectoDAO;
-import proyectofinal.modelo.pojo.Coordinador;
 import proyectofinal.modelo.pojo.OrganizacionVinculada;
 import proyectofinal.modelo.pojo.Proyecto;
 import proyectofinal.modelo.pojo.ResponsableDeProyecto;
 import proyectofinal.modelo.pojo.ResultadoOperacion;
-import proyectofinal.modelo.pojo.Usuario;
 import proyectofinal.utilidades.Utilidad;
 
 public class FXMLCU11_3_ActualizarProyectoController implements Initializable {
@@ -72,7 +68,6 @@ public class FXMLCU11_3_ActualizarProyectoController implements Initializable {
         } else {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Error", "Datos inválidos y/o campos vacíos");
         }
-        
     }
     
     public void inicializarInformacion (Proyecto proyecto) {
@@ -173,5 +168,4 @@ public class FXMLCU11_3_ActualizarProyectoController implements Initializable {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error de conexión", "Por el momento no hay conexión.");
         }
     }
-    
 }

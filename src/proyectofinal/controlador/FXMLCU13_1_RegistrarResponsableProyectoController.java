@@ -107,5 +107,4 @@ public class FXMLCU13_1_RegistrarResponsableProyectoController implements Initia
             ex.printStackTrace();
         }
     }
-    
 }

@@ -61,6 +61,4 @@ public class OrganizacionVinculada {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    
 }

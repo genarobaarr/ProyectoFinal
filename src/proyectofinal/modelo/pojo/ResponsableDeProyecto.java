@@ -81,6 +81,4 @@ public class ResponsableDeProyecto {
     public void setPuesto(String puesto) {
         this.puesto = puesto;
     }
-    
-    
 }

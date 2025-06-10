@@ -48,9 +48,7 @@ public class InicioDeSesionDAO {
             resultado.close();
             conexionBD.close();
         }
-        
         return usuarioSesion;
-        
     }
     
     private static Usuario convertirRegistroUsuario(ResultSet resultado) throws SQLException{
