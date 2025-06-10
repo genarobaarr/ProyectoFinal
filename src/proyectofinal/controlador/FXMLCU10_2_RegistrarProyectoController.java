@@ -41,11 +41,10 @@ public class FXMLCU10_2_RegistrarProyectoController implements Initializable {
     
     private OrganizacionVinculada organizacionVinculada;
     private ObservableList<ResponsableDeProyecto> responsables;
-    Usuario coordinador;
+    private Usuario coordinador;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //
     }
 
     @FXML
@@ -53,7 +52,8 @@ public class FXMLCU10_2_RegistrarProyectoController implements Initializable {
         ResponsableDeProyecto responsableDeProyecto = tvResponsablesDeProyecto.getSelectionModel().getSelectedItem();
         if (responsableDeProyecto != null) {
             try {
-                irPantallaSiguiente(organizacionVinculada, responsableDeProyecto, "/proyectofinal/vista/FXMLCU10_3_RegistrarProyecto.fxml", "Registro de proyecto");
+                irPantallaSiguiente(organizacionVinculada, responsableDeProyecto, 
+                        "/proyectofinal/vista/FXMLCU10_3_RegistrarProyecto.fxml", "Registro de proyecto");
             } catch (IOException ex) {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
                         "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla: " + ex.getMessage());
