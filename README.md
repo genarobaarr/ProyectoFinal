@@ -31,52 +31,46 @@ El sistema busca digitalizar procesos clave para:
 * **Base de Datos:** MySQL
 * **Control de Versiones:** Git & GitHub
 
-**Configuración de la Base de Datos (MySQL):**
-    * Asegúrate de tener un servidor MySQL instalado y funcionando.
-    * Crea una base de datos para el proyecto (ej., `proyecto_construccion`).
-    * **¡INFORMACIÓN IMPORTANTE PARA COLABORADORES!**
-        **Clase `ConexionBD.java` faltante:**
-        La clase `ConexionBD.java` (ubicada en `src/proyectofinal/modelo/`) **ha sido eliminada del repositorio público para evitar problemas con las credenciales de la base de datos de cada colaborador.**
+## Configuración de la Base de Datos (MySQL)
 
-        **Para que el proyecto funcione, cada colaborador debe crear manualmente esta clase con sus propias credenciales de conexión a MySQL.**
+1.  Asegúrate de tener un servidor MySQL instalado y funcionando.
+2.  Crea una base de datos para el proyecto (ej., `proyecto_construccion`).
+3.  **¡INFORMACIÓN IMPORTANTE PARA COLABORADORES!**
+    La clase `ConexionBD.java` (ubicada en `src/proyectofinal/modelo`) **ha sido eliminada del repositorio público para evitar problemas con las credenciales de la base de datos de cada colaborador.**
 
-        Aquí tienes un ejemplo de cómo debería ser la estructura de `ConexionBD.java`:
+    **Para que el proyecto funcione, cada colaborador debe crear manualmente esta clase con sus propias credenciales de conexión a MySQL.**
 
-        ```java
-	package proyectofinal.modelo;
+    Aquí tienes un ejemplo de cómo debería ser la estructura de `ConexionBD.java`:
 
-	import java.sql.Connection;
-	import java.sql.DriverManager;
-	import java.sql.SQLException;
+    ```java
+    package proyectofinal.modelo;
 
-	public class ConexionBD {
-	    // --- DEBES CAMBIAR ESTOS VALORES POR TUS PROPIAS CREDENCIALES ---
-	    private static final String IP = "localhost";
-    	    private static final String PUERTO = "3306";
-    	    private static final String NOMBRE_BD = "proyecto_construccion";
-    	    private static final String USUARIO = "root"; // Cambia por tu usuario de MySQL
-    	    private static final String PASSWORD = "tu_password"; // Cambia por tu contraseña de MySQL
-    	    private static final String DRIVER = "com.mysql.jdbc.Driver";
-	    // ----------------------------------------------------------------
-    
-    	    public static Connection abrirConexion() {
-        
-            	Connection conexionBD = null;
-            	String urlConexion = String.format("jdbc:mysql://%s:%s/%s?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC", IP, PUERTO, NOMBRE_BD);
-        
-            	try {
-            	    Class.forName(DRIVER);
-            	    conexionBD = DriverManager.getConnection(urlConexion, USUARIO, PASSWORD);
-            	} catch (ClassNotFoundException ex) {
-            	    ex.printStackTrace();
-            	    System.err.println("Error: Clase no encontrada.");
-            	} catch (SQLException ex) {
-            	    ex.printStackTrace();
-            	    System.err.println("Error en la conexión: " + ex.getMessage());
-            	}
-            	return conexionBD;
-    	    }
-	}
-	```
-    * Ejecuta los scripts SQL para crear las tablas necesarias de la base de datos. El script lo puedes encontrar en `db/database_dump.sql`
-    * Puedes ejecutarlo en tu base de datos MySQL usando una herramienta como MySQL Workbench, o la línea de comandos (ej. `mysql -u tu_usuario -p proyecto_construccion < db/database_dump.sql`).
+    import java.sql.Connection;
+    import java.sql.DriverManager;
+    import java.sql.SQLException;
+
+    public class ConexionBD {
+
+        // --- DEBES CAMBIAR ESTOS VALORES POR TUS PROPIAS CREDENCIALES ---
+        private static final String IP = "localhost"; // O la IP de tu servidor MySQL
+        private static final String PUERTO = "3306"; // Puerto de tu servidor MySQL
+        private static final String NOMBRE_BD = "practicas_software"; // Cambia por el nombre de tu BD
+        private static final String USUARIO = "root"; // Cambia por tu usuario de MySQL
+        private static final String PASSWORD = "tu_password"; // Cambia por tu contraseña de MySQL
+        private static final String DRIVER = "com.mysql.cj.jdbc.Driver"; // Driver JDBC para MySQL 8+
+
+        // ----------------------------------------------------------------
+
+        public static Connection obtenerConexion() throws SQLException, ClassNotFoundException {
+            Class.forName(DRIVER); // Carga el driver JDBC
+            String urlConexion = String.format("jdbc:mysql://%s:%s/%s?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC", IP, PUERTO, NOMBRE_BD);
+            return DriverManager.getConnection(urlConexion, USUARIO, PASSWORD);
+        }
+    }
+    ```
+    * **Notas adicionales para `ConexionBD.java`:**
+        * Asegúrate de tener el driver JDBC de MySQL (ej. `mysql-connector-java.jar`) correctamente añadido a las dependencias de tu proyecto.
+        * Para versiones recientes de MySQL Connector/J (8.0+), el `DRIVER` suele ser `com.mysql.cj.jdbc.Driver`.
+
+4.  **Ejecuta los scripts SQL para crear las tablas necesarias de la base de datos.** El script lo puedes encontrar en **`db/database_dump.sql`**.
+    * Puedes ejecutarlo en tu base de datos MySQL usando una herramienta como MySQL Workbench, o la línea de comandos (ej. `mysql -u tu_usuario -p tu_base_de_datos < db/database_dump.sql`).
