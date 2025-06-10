@@ -39,17 +39,7 @@ public class FXMLCU10_3_RegistrarProyectoController implements Initializable {
     @FXML
     private Label lbResponsableProyecto;
     @FXML
-    private Label lbErrorNombre;
-    @FXML
-    private Label lbErrorDescripcion;
-    @FXML
-    private Label lbErrorObjetivos;
-    @FXML
     private DatePicker dpFechaInicio;
-    @FXML
-    private Label lbErrorFechaInicio;
-    @FXML
-    private Label lbErrorFechaFin;
     @FXML
     private DatePicker dpFechaFin;
     
@@ -67,12 +57,14 @@ public class FXMLCU10_3_RegistrarProyectoController implements Initializable {
         if (validarCampos()) {
             Proyecto proyecto = obtenerProyectoNuevo();
             guardarProyecto(proyecto);
+        } else {
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Error", "Datos inválidos y/o campos vacíos");
         }
     }
 
     @FXML
     private void clicBotonCancelar(ActionEvent event) {
-        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Desea cancelar el registro del proyecto?")) {
+        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas cancelar el registro del proyecto?")) {
             cerrarVentana();
         }
     }
@@ -97,35 +89,25 @@ public class FXMLCU10_3_RegistrarProyectoController implements Initializable {
         LocalDate fechaInicio = dpFechaInicio.getValue();
         LocalDate fechaFin = dpFechaFin.getValue();
         
-        lbErrorDescripcion.setText("");
-        lbErrorNombre.setText("");
-        lbErrorObjetivos.setText("");
-        lbErrorFechaInicio.setText("");
-        lbErrorFechaFin.setText("");
-        
         if (nombreProyecto.isEmpty()) {
-            lbErrorNombre.setText("Nombre de proyecto requerido");
             camposValidos = false;
         }
         if (descripcion.isEmpty()) {
-            lbErrorDescripcion.setText("Descripción requerida");
             camposValidos = false;
         }
         if (objetivos.isEmpty()) {
-            lbErrorObjetivos.setText("Objetivos generales requeridos");
             camposValidos = false;
         }
         if (fechaInicio == null) {
-            lbErrorFechaInicio.setText("Fecha de inicio requerida");
+            camposValidos = false;
         }
         if (fechaFin == null) {
-            lbErrorFechaFin.setText("Fecha de fin requerida");
+            camposValidos = false;
         }
         if (fechaInicio != null || fechaFin != null) {
             if (fechaInicio.isAfter(fechaFin)) {
-                Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Error de fechas", "La fecha de inicio no puede ser posterior a la fecha de fin.");
-                lbErrorFechaInicio.setText("Fecha de inicio inválida");
-                lbErrorFechaFin.setText("Fecha de fin inválida");
+                dpFechaInicio.setValue(null);
+                dpFechaFin.setValue(null);
                 camposValidos = false;
             }
         }

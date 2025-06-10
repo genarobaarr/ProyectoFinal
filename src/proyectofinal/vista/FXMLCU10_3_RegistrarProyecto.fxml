@@ -77,33 +77,8 @@
             <Image url="@../recursos/lis_ONLYlogo.png" />
          </image>
       </ImageView>
-      <Label fx:id="lbErrorNombre" layoutX="25.0" layoutY="98.0" textFill="RED">
-         <font>
-            <Font name="Gill Sans MT" size="14.0" />
-         </font>
-      </Label>
-      <Label fx:id="lbErrorDescripcion" layoutX="25.0" layoutY="298.0" textFill="RED">
-         <font>
-            <Font name="Gill Sans MT" size="14.0" />
-         </font>
-      </Label>
-      <Label fx:id="lbErrorObjetivos" layoutX="325.0" layoutY="298.0" textFill="RED">
-         <font>
-            <Font name="Gill Sans MT" size="14.0" />
-         </font>
-      </Label>
       <DatePicker fx:id="dpFechaInicio" layoutX="25.0" layoutY="344.0" prefHeight="25.0" prefWidth="252.0" promptText="Fecha de inicio" style="-fx-border-color: #00AC4F;" />
       <Label layoutX="25.0" layoutY="328.0" text="Fecha de inicio">
-         <font>
-            <Font name="Gill Sans MT" size="14.0" />
-         </font>
-      </Label>
-      <Label fx:id="lbErrorFechaInicio" layoutX="24.0" layoutY="377.0" textFill="RED">
-         <font>
-            <Font name="Gill Sans MT" size="14.0" />
-         </font>
-      </Label>
-      <Label fx:id="lbErrorFechaFin" layoutX="325.0" layoutY="377.0" textFill="RED">
          <font>
             <Font name="Gill Sans MT" size="14.0" />
          </font>
