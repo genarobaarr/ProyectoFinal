@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,60 +8,111 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLCU10_3_RegistrarProyectoController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #FEFEFE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLCU10_3_RegistrarProyectoController">
    <children>
-      <Label layoutX="13.0" layoutY="30.0" text="Nombre del proyecto">
-         <font>
-            <Font name="Gill Sans MT" size="12.0" />
-         </font>
-      </Label>
-      <TextField fx:id="tfNombreProyecto" layoutX="13.0" layoutY="44.0" prefHeight="25.0" prefWidth="252.0" promptText="Nombre del proyecto" />
-      <Label layoutX="13.0" layoutY="100.0" text="Breve descripción">
-         <font>
-            <Font name="Gill Sans MT" size="12.0" />
-         </font>
-      </Label>
-      <TextArea fx:id="taBreveDescripcion" layoutX="14.0" layoutY="114.0" prefHeight="153.0" prefWidth="252.0" />
-      <Label layoutX="314.0" layoutY="30.0" text="Organización Vinculada:">
-         <font>
-            <Font name="Gill Sans MT" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="lblOrganizacionVinculada" layoutX="438.0" layoutY="30.0">
-         <font>
-            <Font name="Gill Sans MT" size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="314.0" layoutY="62.0" text="Responsable de proyecto:">
-         <font>
-            <Font name="Gill Sans MT" size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="314.0" layoutY="100.0" text="Objetivos generales">
-         <font>
-            <Font name="Gill Sans MT" size="12.0" />
-         </font>
-      </Label>
-      <TextArea fx:id="taObjetivosGenerales" layoutX="314.0" layoutY="114.0" prefHeight="153.0" prefWidth="252.0" />
-      <Button layoutX="190.0" layoutY="336.0" mnemonicParsing="false" onAction="#btnRegistrar" prefWidth="75.0" text="Registrar">
+      <Label layoutX="25.0" layoutY="51.0" text="Nombre del proyecto">
          <font>
             <Font name="Gill Sans MT" size="14.0" />
          </font>
-      </Button>
-      <Button layoutX="314.0" layoutY="336.0" mnemonicParsing="false" onAction="#btnCancelar" prefWidth="75.0" text="Cancelar">
+      </Label>
+      <TextField fx:id="tfNombreProyecto" layoutX="25.0" layoutY="68.0" prefHeight="25.0" prefWidth="252.0" promptText="Nombre del proyecto" style="-fx-border-color: #00AC4F;">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font></TextField>
+      <Label layoutX="25.0" layoutY="126.0" text="Breve descripción">
          <font>
             <Font name="Gill Sans MT" size="14.0" />
          </font>
-      </Button>
-      <Label fx:id="lblResponsableProyecto" layoutX="447.0" layoutY="62.0">
+      </Label>
+      <TextArea fx:id="taBreveDescripcion" layoutX="25.0" layoutY="145.0" prefHeight="153.0" prefWidth="252.0" style="-fx-border-color: #00AC4F;">
          <font>
-            <Font name="Gill Sans MT" size="12.0" />
+            <Font name="Gill Sans MT" size="15.0" />
+         </font></TextArea>
+      <Label layoutX="325.0" layoutY="40.0" text="Organización Vinculada:">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbOrganizacionVinculada" layoutX="462.0" layoutY="40.0">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="325.0" layoutY="72.0" text="Responsable de proyecto:">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="325.0" layoutY="126.0" text="Objetivos generales">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="taObjetivosGenerales" layoutX="325.0" layoutY="145.0" prefHeight="153.0" prefWidth="252.0" style="-fx-border-color: #00AC4F;">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font></TextArea>
+      <Button layoutX="199.0" layoutY="432.0" mnemonicParsing="false" onAction="#clicBotonRegistrar" prefWidth="77.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Registrar" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </Button>
+      <Button layoutX="325.0" layoutY="432.0" mnemonicParsing="false" onAction="#clicBotonCancelar" prefWidth="77.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: hand;" text="Cancelar" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </Button>
+      <Label fx:id="lbResponsableProyecto" layoutX="473.0" layoutY="72.0">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
          </font>
       </Label>
       <Label layoutX="14.0" layoutY="4.0" text="Proyecto">
          <font>
-            <Font name="Gill Sans MT" size="18.0" />
+            <Font name="Gill Sans MT" size="20.0" />
          </font>
       </Label>
+      <ImageView fitHeight="65.0" fitWidth="60.0" layoutX="14.0" layoutY="432.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../recursos/lis_ONLYlogo.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lbErrorNombre" layoutX="25.0" layoutY="98.0" textFill="RED">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbErrorDescripcion" layoutX="25.0" layoutY="298.0" textFill="RED">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbErrorObjetivos" layoutX="325.0" layoutY="298.0" textFill="RED">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="dpFechaInicio" layoutX="25.0" layoutY="344.0" prefHeight="25.0" prefWidth="252.0" promptText="Fecha de inicio" style="-fx-border-color: #00AC4F;" />
+      <Label layoutX="25.0" layoutY="328.0" text="Fecha de inicio">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbErrorFechaInicio" layoutX="24.0" layoutY="377.0" textFill="RED">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbErrorFechaFin" layoutX="325.0" layoutY="377.0" textFill="RED">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="325.0" layoutY="328.0" text="Fecha de fin">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="dpFechaFin" layoutX="325.0" layoutY="344.0" prefHeight="25.0" prefWidth="252.0" promptText="Fecha de fin" style="-fx-border-color: #00AC4F;" />
    </children>
 </AnchorPane>

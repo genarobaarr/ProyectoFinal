@@ -138,6 +138,10 @@ public class FXMLPrincipalController implements Initializable {
             Parent vista = cargador.load();
             
             switch (titulo) {
+                case "Proyectos":
+                    FXMLProyectosController controladorProyectos = cargador.getController();
+                    controladorProyectos.inicializarInformacion(usuarioSesion);
+                    break;
                 case "Reportes":
                     FXMLReportesController controladorReportes = cargador.getController();
                     controladorReportes.inicializarInformacion(usuarioSesion);

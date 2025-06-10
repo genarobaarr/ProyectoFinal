@@ -4,32 +4,121 @@
  */
 package proyectofinal.controlador;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+import proyectofinal.ProyectoFinal;
+import proyectofinal.modelo.dao.ResponsableDeProyectoDAO;
+import proyectofinal.modelo.pojo.OrganizacionVinculada;
+import proyectofinal.modelo.pojo.ResponsableDeProyecto;
+import proyectofinal.modelo.pojo.Usuario;
+import proyectofinal.utilidades.Utilidad;
 
 public class FXMLCU10_2_RegistrarProyectoController implements Initializable {
 
     @FXML
-    private TableView<?> tvOrganizacionesVinculadas;
+    private TableColumn colNombre;
     @FXML
-    private Label lblOrganizacionVinculada;
+    private Label lbOrganizacionVinculada;
+    @FXML
+    private TableView<ResponsableDeProyecto> tvResponsablesDeProyecto;
+    
+    private OrganizacionVinculada organizacionVinculada;
+    private ObservableList<ResponsableDeProyecto> responsables;
+    Usuario coordinador;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-
-    @FXML
-    private void btnCancelar(ActionEvent event) {
+        //
     }
 
     @FXML
-    private void btnAceptar(ActionEvent event) {
+    private void clicBotonAceptar(ActionEvent event) {
+        ResponsableDeProyecto responsableDeProyecto = tvResponsablesDeProyecto.getSelectionModel().getSelectedItem();
+        if (responsableDeProyecto != null) {
+            try {
+                irPantallaSiguiente(organizacionVinculada, responsableDeProyecto, "/proyectofinal/vista/FXMLCU10_3_RegistrarProyecto.fxml", "Registro de proyecto");
+            } catch (IOException ex) {
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
+                        "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla: " + ex.getMessage());
+            }
+        } else {
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, 
+                    "Selecciona un responsable de proyecto", 
+                    "Para continuar, por favor selecciona a algún responsable de proyecto de la tabla.");
+        }
+    }
+
+    @FXML
+    private void clicBotonCancelar(ActionEvent event) {
+        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas salir?")) {
+            cerrarVentana();
+        }
     }
     
+    public void inicializarInformacion (OrganizacionVinculada organizacionVinculada, Usuario usuario) {
+        this.coordinador = usuario;
+        this.organizacionVinculada = organizacionVinculada;
+        lbOrganizacionVinculada.setText(organizacionVinculada.getNombre());
+        configurarTabla();
+        cargarInformacionTabla();
+    }
+    
+    private void configurarTabla() {
+        colNombre.setCellValueFactory(new PropertyValueFactory("nombre"));
+    }
+    
+    private void cargarInformacionTabla() {
+        try {
+            responsables = FXCollections.observableArrayList();
+            ArrayList<ResponsableDeProyecto> responsablesDAO = ResponsableDeProyectoDAO.obtenerResponsablesDeProyectoPorOrganizacion(organizacionVinculada.getIdOrganizacionVinculada());
+            responsables.addAll(responsablesDAO);
+            tvResponsablesDeProyecto.setItems(responsables);
+            
+        } catch (SQLException ex) {
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error al cargar", 
+                    "Lo sentimos, por el momento no se puede mostrar la información "
+                            + "de los responsables de proyecto, por favor, "
+                            + "inténtelo de nuevo más tarde.");
+            cerrarVentana();
+        }
+    }
+    
+    private void cerrarVentana(){
+        ((Stage) tvResponsablesDeProyecto.getScene().getWindow()).close();
+    }
+    
+    private void irPantallaSiguiente(OrganizacionVinculada organizacionVinculada, ResponsableDeProyecto resposanDeProyecto, String fxmlPath, String titulo) throws IOException{
+        try {
+            Stage escenarioBase = (Stage) tvResponsablesDeProyecto.getScene().getWindow();
+            FXMLLoader cargador = new FXMLLoader(ProyectoFinal.class.getResource(fxmlPath));
+            Parent vista = cargador.load();
+
+            FXMLCU10_3_RegistrarProyectoController controlador = cargador.getController();
+            controlador.inicializarInformacion(organizacionVinculada, resposanDeProyecto, coordinador);
+
+            Scene escenaPrincipal = new Scene(vista);
+            escenarioBase.setScene(escenaPrincipal);
+            escenarioBase.setTitle(titulo);
+            escenarioBase.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 }

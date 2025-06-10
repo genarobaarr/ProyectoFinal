@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,27 +8,31 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLCU10_1_RegistrarProyectoController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FEFEFE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLCU10_1_RegistrarProyectoController">
    <children>
-      <TableView fx:id="tvOrganizacionesVinculadas" layoutX="137.0" layoutY="41.0" prefHeight="294.0" prefWidth="327.0">
+      <TableView fx:id="tvOrganizacionesVinculadas" layoutX="137.0" layoutY="41.0" prefHeight="294.0" prefWidth="327.0" style="-fx-background-color: #FEFEFE; -fx-border-color: #00AC4F;">
          <columns>
-            <TableColumn prefWidth="326.0" />
+            <TableColumn fx:id="colNombre" prefWidth="326.0" />
          </columns>
       </TableView>
-      <Label layoutX="137.0" layoutY="4.0" text="Organizaciones vinculadas">
+      <Label layoutX="112.0" layoutY="8.0" text="Organizaciones Vinculadas">
          <font>
-            <Font name="Gill Sans MT" size="18.0" />
+            <Font name="Gill Sans MT" size="20.0" />
          </font>
       </Label>
-      <Button layoutX="345.0" layoutY="345.0" mnemonicParsing="false" onAction="#btnCancelar" prefWidth="75.0" text="Cancelar">
+      <Button layoutX="337.0" layoutY="350.0" mnemonicParsing="false" onAction="#clicBotonCancelar" prefWidth="77.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Cancelar" textFill="WHITE">
          <font>
-            <Font name="Gill Sans MT" size="14.0" />
+            <Font name="Gill Sans MT" size="15.0" />
          </font>
       </Button>
-      <Button layoutX="195.0" layoutY="345.0" mnemonicParsing="false" onAction="#btnAceptar" prefWidth="75.0" text="Aceptar">
+      <Button layoutX="187.0" layoutY="350.0" mnemonicParsing="false" onAction="#clicBotonAceptar" prefWidth="77.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Aceptar" textFill="WHITE">
          <font>
-            <Font name="Gill Sans MT" size="14.0" />
+            <Font name="Gill Sans MT" size="15.0" />
          </font>
       </Button>
+      <ImageView fitHeight="65.0" fitWidth="60.0" layoutX="533.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../recursos/lis_ONLYlogo.png" />
+         </image></ImageView>
    </children>
 </AnchorPane>
