@@ -123,7 +123,6 @@ public class FXMLCU10_3_RegistrarProyectoController implements Initializable {
         proyecto.setFechaFin(dpFechaFin.getValue().toString());
         proyecto.setIdResponsableDeProyecto(responsableDeProyecto.getIdResponsableDeProyecto());
         proyecto.setIdCoordinador(coordinador.getIdUsuario());
-        System.out.println(coordinador.toString());
         return proyecto;
     }
     
