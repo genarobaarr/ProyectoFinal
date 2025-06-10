@@ -29,15 +29,14 @@ El sistema busca digitalizar procesos clave para:
 * **Lenguaje de Programación:** Java
 * **Framework de UI:** JavaFX
 * **Base de Datos:** MySQL
-* **Gestión de Proyectos:** Apache Maven (o Gradle, si lo usas)
 * **Control de Versiones:** Git & GitHub
 
 **Configuración de la Base de Datos (MySQL):**
     * Asegúrate de tener un servidor MySQL instalado y funcionando.
-    * Crea una base de datos para el proyecto (ej., `practicas_software`).
+    * Crea una base de datos para el proyecto (ej., `proyecto_construccion`).
     * **¡INFORMACIÓN IMPORTANTE PARA COLABORADORES!**
         **Clase `ConexionBD.java` faltante:**
-        La clase `ConexionBD.java` (ubicada en `src/proyectofinal/modelo/dao/`) **ha sido eliminada del repositorio público para evitar problemas con las credenciales de la base de datos de cada colaborador.**
+        La clase `ConexionBD.java` (ubicada en `src/proyectofinal/modelo/`) **ha sido eliminada del repositorio público para evitar problemas con las credenciales de la base de datos de cada colaborador.**
 
         **Para que el proyecto funcione, cada colaborador debe crear manualmente esta clase con sus propias credenciales de conexión a MySQL.**
 
@@ -79,5 +78,5 @@ El sistema busca digitalizar procesos clave para:
     	    }
 	}
 	```
-    * Ejecuta los scripts SQL para crear las tablas necesarias de la base de datos. El script lo puedes encontrar en **[`db/database_dump.sql`](https://github.com/genarobaarr/ProyectoFinal/blob/main/db/database_dump.sql)**
+    * Ejecuta los scripts SQL para crear las tablas necesarias de la base de datos. El script lo puedes encontrar en `db/database_dump.sql`
     * Puedes ejecutarlo en tu base de datos MySQL usando una herramienta como MySQL Workbench, o la línea de comandos (ej. `mysql -u tu_usuario -p proyecto_construccion < db/database_dump.sql`).
