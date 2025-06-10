@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import proyectofinal.modelo.dao.ProyectoDAO;
 import proyectofinal.modelo.pojo.Coordinador;
 import proyectofinal.modelo.pojo.OrganizacionVinculada;
 import proyectofinal.modelo.pojo.Proyecto;
@@ -135,6 +136,7 @@ public class FXMLCU10_3_RegistrarProyectoController implements Initializable {
     private Proyecto obtenerProyectoNuevo() {
         Proyecto proyecto = new Proyecto();
         proyecto.setDescripcion(taBreveDescripcion.getText());
+        proyecto.setObjetivos(taObjetivosGenerales.getText());
         proyecto.setNombre(tfNombreProyecto.getText());
         proyecto.setFechaInicio(dpFechaInicio.getValue().toString());
         proyecto.setFechaFin(dpFechaFin.getValue().toString());
@@ -145,10 +147,19 @@ public class FXMLCU10_3_RegistrarProyectoController implements Initializable {
     }
     
     private void guardarProyecto (Proyecto proyecto) {
-        /*try {
-            ResultadoOperacion resultadoInsertar = ProyectoDAO.registrarProyecto
+        try {
+            ResultadoOperacion resultadoInsertar = ProyectoDAO.registrarProyecto(proyecto);
+            if (!resultadoInsertar.isError()) {
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, 
+                        "Operación exitosa", 
+                        "El proyecto " + proyecto.getNombre() + " ha sido registrado exitosamente.");
+                cerrarVentana();
+            } else {
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
+                        "Error al regitrar proyecto", resultadoInsertar.getMensaje());
+            }
         } catch (SQLException ex) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error de conexión", "Por el momento no hay conexión.");
-        }*/
+        }
     }
 }

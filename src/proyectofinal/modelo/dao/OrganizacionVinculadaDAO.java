@@ -48,8 +48,8 @@ public class OrganizacionVinculadaDAO {
             PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
             sentencia.setString(1, organizacion.getNombre());
             sentencia.setString(2, organizacion.getTelefono());
-            sentencia.setString(2, organizacion.getDireccion());
-            sentencia.setString(3, organizacion.getEmail());
+            sentencia.setString(3, organizacion.getDireccion());
+            sentencia.setString(4, organizacion.getEmail());
             
             int filasAfectadas = sentencia.executeUpdate();
             
