@@ -6,7 +6,6 @@ package proyectofinal.controlador;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,12 +13,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import proyectofinal.modelo.dao.ProyectoDAO;
 import proyectofinal.modelo.dao.ResponsableDeProyectoDAO;
 import proyectofinal.modelo.pojo.OrganizacionVinculada;
-import proyectofinal.modelo.pojo.Proyecto;
 import proyectofinal.modelo.pojo.ResponsableDeProyecto;
 import proyectofinal.modelo.pojo.ResultadoOperacion;
 import proyectofinal.utilidades.Utilidad;
@@ -64,22 +62,42 @@ public class FXMLCU13_2_RegistrarResponsableProyectoController implements Initia
 
     @FXML
     private void tfNombreResponsablePresionaEnter(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            tfNombrePuesto.requestFocus();
+            event.consume();
+        }
     }
 
     @FXML
     private void tfNombrePuestoPresionaEnter(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            tfDepartamento.requestFocus();
+            event.consume();
+        }
     }
 
     @FXML
     private void tfDepartamentoPresionaEnter(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            tfCorreoElectronico.requestFocus();
+            event.consume();
+        }
     }
 
     @FXML
     private void tfCorreoElectronicoPresionaEnter(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            tfTelefono.requestFocus();
+            event.consume();
+        }
     }
 
     @FXML
     private void tfTelefonoPresionaEnter(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            clicBotonRegistrar(new ActionEvent());
+            event.consume();
+        }
     }
     
     public void inicializarInformacion (OrganizacionVinculada organizacionVinculada) {
