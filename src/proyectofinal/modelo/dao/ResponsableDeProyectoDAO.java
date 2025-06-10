@@ -63,6 +63,31 @@ public class ResponsableDeProyectoDAO {
         return responsables;
     }
     
+    public static ResponsableDeProyecto obtenerResponsableDeProyectoPorId(int idResponsableDeProyecto) throws SQLException{
+        ResponsableDeProyecto responsable = null;
+        Connection conexionBD = ConexionBD.abrirConexion();
+        
+        if (conexionBD != null) {
+            String consulta = "SELECT idResponsableDeProyecto, nombre, telefono, email, departamento, puesto, idOrganizacionVinculada FROM responsable_de_proyecto WHERE idResponsableDeProyecto = ?";
+            
+            PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+            sentencia.setInt(1, idResponsableDeProyecto);
+            
+            ResultSet resultado = sentencia.executeQuery();
+            
+            while (resultado.next()) {
+                responsable = convertirRegistroResponsableDeProyecto(resultado);
+            }
+            
+            sentencia.close();
+            resultado.close();
+            conexionBD.close();
+        } else {
+            throw  new SQLException("Error: Sin conexión a la base de datos.");
+        }
+        return responsable;
+    }
+    
     public static ResultadoOperacion registrarResponsableDeProyecto(ResponsableDeProyecto responsableDeProyecto) throws SQLException {
         ResultadoOperacion resultado = new ResultadoOperacion();
         Connection conexionBD = ConexionBD.abrirConexion();

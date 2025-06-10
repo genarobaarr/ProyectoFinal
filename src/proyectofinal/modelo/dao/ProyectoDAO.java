@@ -52,6 +52,31 @@ public class ProyectoDAO {
         return proyectos;
     }
     
+    public static ArrayList<Proyecto> obtenerProyectosPorNombre(String nombreProyecto) throws SQLException{
+        ArrayList<Proyecto> proyectos = new ArrayList<>();
+        Connection conexionBD = ConexionBD.abrirConexion();
+        
+        if (conexionBD != null) {
+            String consulta = "SELECT idProyecto, descripcion, fechaInicio, fechaFin, nombre, idResponsableDeProyecto, idCoordinador, objetivos FROM proyecto WHERE LOWER(nombre) LIKE LOWER(?)";
+            
+            PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+            sentencia.setString(1, "%" + nombreProyecto + "%");
+            
+            ResultSet resultado = sentencia.executeQuery();
+            
+            while (resultado.next()) {
+                proyectos.add(convertirRegistroProyecto(resultado));
+            }
+            
+            sentencia.close();
+            resultado.close();
+            conexionBD.close();
+        } else {
+            throw  new SQLException("Error de conexión con base de datos, intentalo más tarde");
+        }
+        return proyectos;
+    }
+    
     public static ResultadoOperacion registrarProyecto(Proyecto proyecto) throws SQLException {
         ResultadoOperacion resultado = new ResultadoOperacion();
         Connection conexionBD = ConexionBD.abrirConexion();
@@ -83,7 +108,7 @@ public class ProyectoDAO {
             sentencia.close();
             conexionBD.close();
         } else {
-            throw new SQLException("Error: Sin conexión a la base de datos.");
+            throw new SQLException("Error de conexión con base de datos, intentalo más tarde");
         }
         return resultado;
     }
@@ -120,8 +145,18 @@ public class ProyectoDAO {
             sentencia.close();
             conexionBD.close();
         } else {
-            throw new SQLException("Error: Sin conexión a la base de datos.");
+            throw new SQLException("Error de conexión con base de datos, intentalo más tarde");
         }
         return resultado;
+    }
+    
+    private  static Proyecto convertirRegistroProyecto(ResultSet resultado) throws SQLException {
+        Proyecto proyecto = new Proyecto(
+                resultado.getInt("idProyecto"), 
+                resultado.getString("descripcion"), resultado.getString("fechaInicio"), 
+                resultado.getString("fechaFin"), resultado.getString("nombre"),
+                resultado.getString("objetivos"), resultado.getInt("idResponsableDeProyecto"), 
+                resultado.getInt("idCoordinador"));
+        return proyecto;
     }
 }

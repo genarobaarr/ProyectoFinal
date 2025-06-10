@@ -38,6 +38,31 @@ public class OrganizacionVinculadaDAO {
         return organizaciones;
     }
     
+    public static OrganizacionVinculada obtenerOrganizacionVinculadaPorId(int idOrganizacionVinculada) throws SQLException{
+        OrganizacionVinculada organizacion = null;
+        Connection conexionBD = ConexionBD.abrirConexion();
+        
+        if (conexionBD != null) {
+            String consulta = "SELECT idOrganizacionVinculada, nombre, telefono, direccion, email FROM organizacion_vinculada WHERE idOrganizacionVinculada = ?";
+            
+            PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+            sentencia.setInt(1, idOrganizacionVinculada);
+            
+            ResultSet resultado = sentencia.executeQuery();
+            
+            while (resultado.next()) {
+                organizacion = convertirRegistroOrganizacionVinculada(resultado);
+            }
+            
+            sentencia.close();
+            resultado.close();
+            conexionBD.close();
+        } else {
+            throw  new SQLException("Error: Sin conexión a la base de datos.");
+        }
+        return organizacion;
+    }
+    
     public static ResultadoOperacion registrarOrganizacionVinculada(OrganizacionVinculada organizacion) throws SQLException {
         ResultadoOperacion resultado = new ResultadoOperacion();
         Connection conexionBD = ConexionBD.abrirConexion();
