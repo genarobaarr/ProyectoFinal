@@ -92,7 +92,7 @@ public class FXMLInicioSesionController implements Initializable {
 
             if (usuarioSesion != null) {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION,
-                        "Inicio de sesión exitoso", usuarioSesion.getNombre() +
+                        "Inicio de sesión exitoso", usuarioSesion.toString() +
                         ", bienvenido(a) al sistema.");
 
                 SessionManager.setLoggedInUser(usuarioSesion);

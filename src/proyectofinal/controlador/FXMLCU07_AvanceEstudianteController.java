@@ -5,6 +5,7 @@
 package proyectofinal.controlador;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -138,7 +139,7 @@ public class FXMLCU07_AvanceEstudianteController implements Initializable {
                     Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, "Sin Datos", "El estudiante seleccionado no tiene reportes ni evaluaciones registradas.");
                 }
 
-            } catch (RuntimeException e) {
+            } catch (SQLException e) {
                 System.err.println("Error al cargar la información de avance: " + e.getMessage());
                 e.printStackTrace();
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error de Base de Datos", "Hubo un problema al intentar recuperar los datos del estudiante");

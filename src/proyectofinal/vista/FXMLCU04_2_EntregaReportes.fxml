@@ -81,7 +81,7 @@
             <Font name="Gill Sans MT" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="tfPeriodoReporte" layoutX="14.0" layoutY="240.0" onKeyPressed="#tfPeriodoReportePresionaEnter" prefHeight="25.0" prefWidth="300.0" promptText="Mes-Mes (ej. Febrero-Abril) " style="-fx-border-color: #00AC4F;">
+      <TextField fx:id="tfPeriodoReporte" layoutX="14.0" layoutY="240.0" onKeyPressed="#tfPeriodoReportePresionaEnter" prefHeight="25.0" prefWidth="300.0" promptText="Mes-Mes (ej. Febrero-Marzo) " style="-fx-border-color: #00AC4F;">
          <font>
             <Font name="Gill Sans MT" size="15.0" />
          </font>

@@ -20,13 +20,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import proyectofinal.ProyectoFinal;
-import proyectofinal.modelo.dao.OrganizacionVinculadaDAO;
-import proyectofinal.modelo.dao.ProyectoDAO;
+import proyectofinal.modelo.dao.ReporteMensualDAO;
+import proyectofinal.modelo.dao.ResponsableDeProyectoDAO;
 import proyectofinal.modelo.pojo.Estudiante;
-import proyectofinal.modelo.pojo.OrganizacionVinculada;
-import proyectofinal.modelo.pojo.Proyecto;
 import proyectofinal.modelo.pojo.ReporteMensual;
 import proyectofinal.modelo.pojo.Usuario;
 import proyectofinal.utilidades.Utilidad;
@@ -35,17 +34,36 @@ import proyectofinal.utilidades.Utilidad;
 public class FXMLCU04_1_EntregaReportesController implements Initializable {
 
     @FXML
-    private TableView<?> tvReportesMensuales;
+    private TableView<ReporteMensual> tvReportesMensuales;
     @FXML
     private TableColumn colNombres;
     
-    private ObservableList ReporteMensual;
+    private ObservableList<ReporteMensual> reportes;
     private Estudiante estudiante;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+        //TODO
+    }
+    
+    private void cargarInformacionTabla() {
+          try {
+            reportes = FXCollections.observableArrayList();
+            ArrayList<ReporteMensual> reportesDAO = ReporteMensualDAO.obtenerReportesMensualesEstudiante(estudiante.getIdUsuario());
+            reportes.addAll(reportesDAO);
+            tvReportesMensuales.setItems(reportes);
+        } catch (SQLException ex) {
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error al cargar", 
+                    "Lo sentimos, por el momento no se puede mostrar la información "
+                            + "de los responsables de proyecto, por favor, "
+                            + "inténtelo de nuevo más tarde.");
+            Utilidad.getEscenario(tvReportesMensuales).close();
+        }
+    }
+    
+    private void configurarTabla() {
+        colNombres.setCellValueFactory(new PropertyValueFactory("nombreArchivo"));
+    }
     
     @FXML
     private void clicBotonNuevoReporte(ActionEvent event) {
@@ -68,12 +86,13 @@ public class FXMLCU04_1_EntregaReportesController implements Initializable {
 
     @FXML
     private void clicBotonCancelar(ActionEvent event) {
-        
+        Utilidad.getEscenario(tvReportesMensuales).close();
     }
     
     public void inicializarInformacion (Estudiante estudiante) {
         this.estudiante = estudiante;
-        
+        configurarTabla();
+        cargarInformacionTabla();
     }
 }
     

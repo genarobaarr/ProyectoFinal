@@ -91,4 +91,9 @@ public class ReporteMensual {
     public void setIdExpediente(int idExpediente) {
         this.idExpediente = idExpediente;
     }
+
+    @Override
+    public String toString() {
+        return "ReporteMensual{" + "nombreArchivo=" + nombreArchivo + ", extensionArchivo=" + extensionArchivo + '}';
+    }
 }

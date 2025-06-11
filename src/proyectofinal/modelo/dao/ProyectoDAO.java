@@ -253,7 +253,7 @@ public class ProyectoDAO {
              ResultSet resultado = sentencia.executeQuery();
             
             while (resultado.next()) {
-                proyecto = convertirRegistroProyecto(resultado);
+                proyecto = convertirRegistroProyectoSimple(resultado);
             }
             
             sentencia.close();
@@ -266,15 +266,18 @@ public class ProyectoDAO {
     }            
         
     
-   /* private static Proyecto convertirRegistroProyecto(ResultSet resultado) throws SQLException {
-        Proyecto proyecto = new Proyecto(
-                resultado.getInt("idProyecto"), 
-                resultado.getString("descripcion"), resultado.getString("fechaInicio"), 
-                resultado.getString("fechaFin"), resultado.getString("nombreEstudiante"),
-                resultado.getString("objetivos"), resultado.getInt("idResponsableDeProyecto"), 
-                resultado.getInt("idCoordinador"));
+   private static Proyecto convertirRegistroProyectoSimple(ResultSet resultado) throws SQLException {
+        Proyecto proyecto = new Proyecto();
+        proyecto.setIdProyecto(resultado.getInt("idProyecto"));
+        proyecto.setDescripcion(resultado.getString("descripcion"));
+        proyecto.setFechaFin(resultado.getString("fechaInicio")); 
+        proyecto.setFechaFin(resultado.getString("fechaFin"));
+        proyecto.setNombre(resultado.getString("nombreEstudiante"));
+        proyecto.setObjetivos(resultado.getString("objetivos")); 
+        proyecto.setIdResponsableDeProyecto(resultado.getInt("idResponsableDeProyecto"));
+        proyecto.setIdCoordinador(resultado.getInt("idCoordinador"));
         return proyecto;
-    }*/
+    }
     
     private static Proyecto convertirRegistroProyecto(ResultSet resultado) throws SQLException {
         Proyecto proyecto = new Proyecto();
