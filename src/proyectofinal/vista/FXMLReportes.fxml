@@ -25,7 +25,7 @@
             <Font name="Gill Sans MT" size="18.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="ivValidarReportes" fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../recursos/iconoReporteValidar.png" />
                </image>
@@ -37,7 +37,7 @@
             <Font name="Gill Sans MT" size="18.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="ivNuevoReporte" fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../recursos/iconoReporteAgregar.png" />
                </image>
@@ -49,7 +49,7 @@
             <Font name="Gill Sans MT" size="18.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="4555.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="ivHabilitarEntrega" fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../recursos/iconoReporteHabilitar.png" />
                </image>

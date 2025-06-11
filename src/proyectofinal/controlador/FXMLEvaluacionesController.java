@@ -19,6 +19,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -35,22 +37,16 @@ public class FXMLEvaluacionesController implements Initializable {
     private Button btnEvaluarOrganizacion;
     @FXML
     private Button btnRegistrarEvaluacion;
+    @FXML
+    private ImageView ivEvaluarOrganizacion;
+    @FXML
+    private ImageView ivRegistrarEvaluacion;
     
     private final DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         mostrarHora();
-    }
-    
-    public void inicializarInformacion(Usuario usuario) {
-        if (usuario instanceof AcademicoEvaluador) {
-            btnEvaluarOrganizacion.setDisable(true);
-            btnRegistrarEvaluacion.setDisable(false);
-        } else if (usuario instanceof Estudiante) {
-            btnEvaluarOrganizacion.setDisable(false);
-            btnRegistrarEvaluacion.setDisable(true);
-        }
     }
 
     @FXML
@@ -67,6 +63,22 @@ public class FXMLEvaluacionesController implements Initializable {
     private void clicBotonRegresar(ActionEvent event) {
         cerrarVentana();
         
+    }
+    
+    public void inicializarInformacion(Usuario usuario) {
+        if (usuario instanceof AcademicoEvaluador) {
+            btnEvaluarOrganizacion.setDisable(true);
+            btnEvaluarOrganizacion.setText("No disponible");
+            ivEvaluarOrganizacion.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
+            
+            btnRegistrarEvaluacion.setDisable(false);
+        } else if (usuario instanceof Estudiante) {
+            btnEvaluarOrganizacion.setDisable(false);
+            
+            btnRegistrarEvaluacion.setDisable(true);
+            btnRegistrarEvaluacion.setText("No disponible");
+            ivRegistrarEvaluacion.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
+        }
     }
     
     public void irPantalla(String fxmlPath, String titulo) {

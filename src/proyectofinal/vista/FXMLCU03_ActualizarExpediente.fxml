@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,16 +8,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLCU03_ActualizarExpedienteController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FEFEFE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLCU03_ActualizarExpedienteController">
    <children>
-      <Label layoutX="190.0" layoutY="6.0" text="Expediente del estudiante:">
+      <Label layoutX="112.0" layoutY="8.0" text="Expediente">
          <font>
-            <Font name="Gill Sans MT" size="18.0" />
+            <Font name="Gill Sans MT" size="20.0" />
          </font>
       </Label>
-      <TableView fx:id="tvExpediente" layoutX="190.0" layoutY="39.0" prefHeight="294.0" prefWidth="220.0">
+      <TableView fx:id="tvExpediente" layoutX="137.0" layoutY="38.0" prefHeight="294.0" prefWidth="327.0" style="-fx-background-color: #FEFEFE; -fx-border-color: #00AC4F;">
         <columns>
-          <TableColumn prefWidth="219.0" />
+          <TableColumn fx:id="colDocumentos" prefWidth="325.0" />
         </columns>
       </TableView>
       <Label fx:id="lblNombreEstudiante" layoutX="189.0" layoutY="22.0">
@@ -24,20 +25,25 @@
             <Font name="Gill Sans MT" size="14.0" />
          </font>
       </Label>
-      <Button layoutX="153.0" layoutY="346.0" mnemonicParsing="false" onAction="#btnCargar" prefWidth="75.0" text="Cargar">
+      <Button layoutX="152.0" layoutY="350.0" mnemonicParsing="false" onAction="#clicBotonCargar" prefWidth="77.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Cargar" textFill="WHITE">
          <font>
-            <Font name="Gill Sans MT" size="14.0" />
+            <Font name="Gill Sans MT" size="15.0" />
          </font>
       </Button>
-      <Button layoutX="263.0" layoutY="346.0" mnemonicParsing="false" onAction="#btnSubir" prefWidth="75.0" text="Subir">
+      <Button layoutX="262.0" layoutY="350.0" mnemonicParsing="false" onAction="#clicBotonSubir" prefWidth="77.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Subir" textFill="WHITE">
          <font>
-            <Font name="Gill Sans MT" size="14.0" />
+            <Font name="Gill Sans MT" size="15.0" />
          </font>
       </Button>
-      <Button layoutX="373.0" layoutY="346.0" mnemonicParsing="false" onAction="#btnCancelar" prefWidth="75.0" text="Cancelar">
+      <Button layoutX="372.0" layoutY="350.0" mnemonicParsing="false" onAction="#clicBotonCancelar" prefWidth="77.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Cancelar" textFill="WHITE">
          <font>
-            <Font name="Gill Sans MT" size="14.0" />
+            <Font name="Gill Sans MT" size="15.0" />
          </font>
       </Button>
+      <ImageView fitHeight="65.0" fitWidth="60.0" layoutX="533.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../recursos/lis_ONLYlogo.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

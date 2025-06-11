@@ -9,14 +9,15 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import proyectofinal.modelo.pojo.OrganizacionVinculada;
+import proyectofinal.modelo.pojo.Proyecto;
+import proyectofinal.modelo.pojo.ResponsableDeProyecto;
 
 public class FXMLCU06_2_ValidarReportesController implements Initializable {
 
-    @FXML
-    private Label lblNombreReporte;
     @FXML
     private TextField tfNumeroReporte;
     @FXML
@@ -26,15 +27,15 @@ public class FXMLCU06_2_ValidarReportesController implements Initializable {
     @FXML
     private TextField tfMatricula;
     @FXML
-    private TextField tfPeriodo;
-    @FXML
-    private TextField tfProyectoVinculado;
-    @FXML
-    private TextField tfOrganizacionVinculada;
-    @FXML
-    private TextField tfResponsabkeProyecto;
-    @FXML
     private TextArea taDescripcion;
+    @FXML
+    private ComboBox<OrganizacionVinculada> cbOrganizaciones;
+    @FXML
+    private ComboBox<ResponsableDeProyecto> cbResponsables;
+    @FXML
+    private ComboBox<Proyecto> cbProyectos;
+    @FXML
+    private TextField tfPeriodoReporte;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -42,11 +43,12 @@ public class FXMLCU06_2_ValidarReportesController implements Initializable {
     }    
 
     @FXML
-    private void btnCancelar(ActionEvent event) {     
+    private void clicBotonValidarReporte(ActionEvent event) {
+
     }
 
     @FXML
-    private void btnGuardar(ActionEvent event) {
+    private void clicBotonCancelar(ActionEvent event) {
     }
     
 }

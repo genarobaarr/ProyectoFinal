@@ -8,8 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="proyectofinal.controlador.FXMLAvanceController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLAvanceController">
    <children>
       <Pane layoutY="361.0" prefHeight="39.0" prefWidth="600.0" style="-fx-background-color: #00AF4D; -fx-border-color: #00AF4D;">
          <children>
@@ -43,7 +42,7 @@
             <Font name="Gill Sans MT" size="18.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="4555.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="ivConsultarAvance" fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../recursos/iconoAvanceConsultar.png" />
                </image>
@@ -55,7 +54,7 @@
             <Font name="Gill Sans MT" size="18.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="ivSubirDocumentos" fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../recursos/iconoAvanceSubir.png" />
                </image>

@@ -20,14 +20,16 @@ public class Utilidad {
         alerta.showAndWait();
     }
     
-    public static boolean mostrarAlertaConfirmacion(String titulo, String contenido) {
+    public static boolean mostrarAlertaConfirmacion(String titulo, String mensaje) {
         Alert alertaConfirmacion = new Alert(AlertType.CONFIRMATION);
         alertaConfirmacion.setTitle(titulo);
-        alertaConfirmacion.setHeaderText(null);
-        alertaConfirmacion.setContentText(contenido);
-        alertaConfirmacion.showAndWait();   
+        alertaConfirmacion.setHeaderText(mensaje);
         
-        return alertaConfirmacion.showAndWait().get() == ButtonType.OK;
+        ButtonType botonSi = new ButtonType("Sí");
+        ButtonType botonNo = new ButtonType("No");
+        alertaConfirmacion.getButtonTypes().setAll(botonSi, botonNo);
+        
+        return alertaConfirmacion.showAndWait().get() == botonSi;
     }
     
     public static Stage getEscenario(Control componente) {

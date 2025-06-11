@@ -21,12 +21,12 @@
       </Button>
       <TableView fx:id="tvEstudiantes" layoutX="32.0" layoutY="50.0" prefHeight="294.0" prefWidth="220.0">
         <columns>
-          <TableColumn prefWidth="199.0" resizable="false" />
+          <TableColumn fx:id="tcEstudianteNombre" prefWidth="219.0" resizable="false" text="Nombre del estudiante" />
         </columns>
       </TableView>
       <TableView fx:id="tvProyectos" layoutX="350.0" layoutY="50.0" prefHeight="294.0" prefWidth="220.0">
          <columns>
-            <TableColumn prefWidth="199.0" resizable="false" />
+            <TableColumn fx:id="tcProyectoNombre" prefWidth="219.0" resizable="false" text="Nombre del proyecto" />
          </columns>
       </TableView>
       <Label layoutX="32.0" layoutY="1.0" text="Estudiantes">

@@ -22,6 +22,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import proyectofinal.ProyectoFinal;
+import proyectofinal.modelo.pojo.Coordinador;
+import proyectofinal.modelo.pojo.Usuario;
 
 public class FXMLProyectosController implements Initializable {
 
@@ -29,6 +31,7 @@ public class FXMLProyectosController implements Initializable {
     private Label lbReloj;
     
     private final DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    Usuario coordinador;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -55,10 +58,22 @@ public class FXMLProyectosController implements Initializable {
         irPantalla("vista/FXMLCU01_AsignarProyecto.fxml", "Asignación de proyecto");
     }
     
+    public void inicializarInformacion (Usuario usuario) {
+        this.coordinador = (Coordinador)usuario;
+    }
+    
     public void irPantalla(String fxmlPath, String titulo) {
         try {
             Stage escenarioNuevo = new Stage();
-            Parent vista = FXMLLoader.load(ProyectoFinal.class.getResource(fxmlPath));
+            FXMLLoader cargador = new FXMLLoader(ProyectoFinal.class.getResource(fxmlPath));
+            Parent vista = cargador.load();
+            
+            switch (fxmlPath) {
+                case "vista/FXMLCU10_1_RegistrarProyecto.fxml":
+                    FXMLCU10_1_RegistrarProyectoController controlador = cargador.getController();
+                    controlador.inicializarInformacion(coordinador);
+            }
+            
             Scene escena = new Scene(vista);
             escenarioNuevo.setScene(escena);
             escenarioNuevo.setTitle(titulo);

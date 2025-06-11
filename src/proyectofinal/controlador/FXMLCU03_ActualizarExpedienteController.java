@@ -25,15 +25,15 @@ public class FXMLCU03_ActualizarExpedienteController implements Initializable {
     }    
 
     @FXML
-    private void btnCargar(ActionEvent event) {
+    private void clicBotonCargar(ActionEvent event) {
     }
 
     @FXML
-    private void btnSubir(ActionEvent event) {
+    private void clicBotonSubir(ActionEvent event) {
     }
 
     @FXML
-    private void btnCancelar(ActionEvent event) {
+    private void clicBotonCancelar(ActionEvent event) {
     }
     
 }

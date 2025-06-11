@@ -9,17 +9,21 @@ public class ResponsableDeProyecto {
     private String email;
     private String nombre;
     private String telefono;
+    private String departamento;
+    private String puesto;
     private int idOrganizacionVinculada;
 
     public ResponsableDeProyecto() {
     }
 
-    public ResponsableDeProyecto(int idResponsableDeProyecto, String email, String nombre, String telefono, int idOrganizacionVinculada) {
+    public ResponsableDeProyecto(int idResponsableDeProyecto, String email, String nombre, String telefono, int idOrganizacionVinculada, String departamento, String puesto) {
         this.idResponsableDeProyecto = idResponsableDeProyecto;
         this.email = email;
         this.nombre = nombre;
         this.telefono = telefono;
         this.idOrganizacionVinculada = idOrganizacionVinculada;
+        this.departamento = departamento;
+        this.puesto = puesto;
     }
 
     public int getIdResponsableDeProyecto() {
@@ -60,5 +64,21 @@ public class ResponsableDeProyecto {
 
     public void setIdOrganizacionVinculada(int idOrganizacionVinculada) {
         this.idOrganizacionVinculada = idOrganizacionVinculada;
+    }
+
+    public String getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
+    }
+
+    public String getPuesto() {
+        return puesto;
+    }
+
+    public void setPuesto(String puesto) {
+        this.puesto = puesto;
     }
 }

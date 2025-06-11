@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,47 +8,67 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="proyectofinal.controlador.FXMLCU12_RegistrarOrganizacionVinculadaController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FEFEFE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLCU12_RegistrarOrganizacionVinculadaController">
    <children>
-      <Label layoutX="28.0" layoutY="14.0" text="Organización Vinculada">
+      <Label layoutX="14.0" layoutY="6.0" text="Organización Vinculada">
          <font>
-            <Font name="Gill Sans MT" size="18.0" />
+            <Font name="Gill Sans MT" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="31.0" layoutY="59.0" text="Nombre">
-         <font>
-            <Font name="Gill Sans MT" size="12.0" />
-         </font>
-      </Label>
-      <TextField fx:id="tfNombreOrganizacionVinculada" layoutX="31.0" layoutY="73.0" prefHeight="25.0" prefWidth="250.0" promptText="Nombre" />
-      <Label layoutX="28.0" layoutY="110.0" text="Dirección">
-         <font>
-            <Font name="Gill Sans MT" size="12.0" />
-         </font>
-      </Label>
-      <TextField fx:id="tfDireccion" layoutX="31.0" layoutY="124.0" prefHeight="25.0" prefWidth="250.0" promptText="Dirección" />
-      <Label layoutX="313.0" layoutY="59.0" text="Correo electrónico">
-         <font>
-            <Font name="Gill Sans MT" size="12.0" />
-         </font>
-      </Label>
-      <TextField fx:id="tfCorreoElectronico" layoutX="313.0" layoutY="73.0" prefHeight="25.0" prefWidth="250.0" promptText="Nombre" />
-      <Label layoutX="313.0" layoutY="110.0" text="Teléfono">
-         <font>
-            <Font name="Gill Sans MT" size="12.0" />
-         </font>
-      </Label>
-      <TextField fx:id="tfTelefono" layoutX="313.0" layoutY="124.0" prefHeight="25.0" prefWidth="250.0" promptText="Teléfono" />
-      <Button layoutX="119.0" layoutY="300.0" mnemonicParsing="false" onAction="#btnRegistrar" prefWidth="75.0" text="Registrar">
+      <Label layoutX="14.0" layoutY="58.0" text="Nombre de la organización">
          <font>
             <Font name="Gill Sans MT" size="14.0" />
          </font>
-      </Button>
-      <Button layoutX="401.0" layoutY="300.0" mnemonicParsing="false" onAction="#btnCancelar" prefWidth="75.0" text="Cancelar">
+      </Label>
+      <TextField fx:id="tfNombreOrganizacion" layoutX="14.0" layoutY="75.0" onKeyPressed="#tfNombreOrganizacionPresionaEnter" prefHeight="25.0" prefWidth="252.0" promptText="Nombre de la organización" style="-fx-border-color: #00AC4F;">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="14.0" layoutY="153.0" text="Dirección">
          <font>
             <Font name="Gill Sans MT" size="14.0" />
          </font>
+      </Label>
+      <TextField fx:id="tfDireccion" layoutX="14.0" layoutY="170.0" onKeyPressed="#tfDireccionPresionaEnter" prefHeight="25.0" prefWidth="252.0" promptText="Dirección" style="-fx-border-color: #00AC4F;">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="334.0" layoutY="58.0" text="Correo electrónico">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfCorreoElectronico" layoutX="334.0" layoutY="75.0" onKeyPressed="#tfCorreoElectronicoPresionaEnter" prefHeight="25.0" prefWidth="252.0" promptText="Correo electrónico" style="-fx-border-color: #00AC4F;">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="334.0" layoutY="153.0" text="Teléfono">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfTelefono" layoutX="334.0" layoutY="170.0" onKeyPressed="#tfTelefonoPresionaEnter" prefHeight="25.0" prefWidth="252.0" promptText="Teléfono" style="-fx-border-color: #00AC4F;">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </TextField>
+      <Button layoutX="199.0" layoutY="334.0" mnemonicParsing="false" onAction="#clicBotonRegistrar" prefWidth="77.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Registrar" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
       </Button>
+      <Button layoutX="325.0" layoutY="334.0" mnemonicParsing="false" onAction="#clicBotonCancelar" prefWidth="77.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: hand;" text="Cancelar" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="65.0" fitWidth="60.0" layoutX="14.0" layoutY="334.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../recursos/lis_ONLYlogo.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

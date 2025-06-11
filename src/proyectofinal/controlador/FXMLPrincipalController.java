@@ -20,6 +20,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -47,6 +49,16 @@ public class FXMLPrincipalController implements Initializable {
     private Button btnEvaluaciones;
     @FXML
     private Label lbReloj;
+    @FXML
+    private ImageView ivProyectos;
+    @FXML
+    private ImageView ivOrganizaciones;
+    @FXML
+    private ImageView ivReportes;
+    @FXML
+    private ImageView ivAvance;
+    @FXML
+    private ImageView ivEvaluaciones;
     
     private Usuario usuarioSesion;
     private final DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -64,7 +76,7 @@ public class FXMLPrincipalController implements Initializable {
             Stage escenarioBase = (Stage) lbNombre.getScene().getWindow();
             escenarioBase.setScene(new Scene(FXMLLoader.load(ProyectoFinal.class.getResource("vista/FXMLInicioSesion.fxml"))));
             escenarioBase.setTitle("Inicio de sesión");
-            escenarioBase.showAndWait();
+            escenarioBase.show();
             usuarioSesion = null;
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -102,28 +114,64 @@ public class FXMLPrincipalController implements Initializable {
             lbNombre.setText("Bienvenido(a), " + usuarioSesion.toString());
             if (usuarioSesion instanceof Estudiante) {
                 btnProyectos.setDisable(true);
+                btnProyectos.setText("No disponible");
+                ivProyectos.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
+                
                 btnOrganizaciones.setDisable(true);
+                btnOrganizaciones.setText("No disponible");
+                ivOrganizaciones.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
+                
                 btnReportes.setDisable(false);
                 btnAvance.setDisable(false);
                 btnEvaluaciones.setDisable(false);
+                
             } else if (usuarioSesion instanceof AcademicoEvaluador) {
                 btnProyectos.setDisable(true);
+                btnProyectos.setText("No disponible");
+                ivProyectos.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
+                
                 btnOrganizaciones.setDisable(true);
+                btnOrganizaciones.setText("No disponible");
+                ivOrganizaciones.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
+                
                 btnReportes.setDisable(true);
+                btnReportes.setText("No disponible");
+                ivReportes.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
+                
                 btnAvance.setDisable(true);
+                btnAvance.setText("No disponible");
+                ivAvance.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
+                
                 btnEvaluaciones.setDisable(false);
+                
             } else if (usuarioSesion instanceof Academico) {
                 btnProyectos.setDisable(true);
+                btnProyectos.setText("No disponible");
+                ivProyectos.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
+                
                 btnOrganizaciones.setDisable(true);
+                btnOrganizaciones.setText("No disponible");
+                ivOrganizaciones.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
+                
                 btnReportes.setDisable(false);
                 btnAvance.setDisable(false);
+                
                 btnEvaluaciones.setDisable(true);
+                btnEvaluaciones.setText("No disponible");
+                ivEvaluaciones.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
+                
             } else if (usuarioSesion instanceof Coordinador) {
                 btnProyectos.setDisable(false);
                 btnOrganizaciones.setDisable(false);
                 btnReportes.setDisable(false);
+                
                 btnAvance.setDisable(true);
+                btnAvance.setText("No disponible");
+                ivAvance.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
+                
                 btnEvaluaciones.setDisable(true);
+                btnEvaluaciones.setText("No disponible");
+                ivEvaluaciones.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
             }
         } else {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
@@ -138,6 +186,10 @@ public class FXMLPrincipalController implements Initializable {
             Parent vista = cargador.load();
             
             switch (titulo) {
+                case "Proyectos":
+                    FXMLProyectosController controladorProyectos = cargador.getController();
+                    controladorProyectos.inicializarInformacion(usuarioSesion);
+                    break;
                 case "Reportes":
                     FXMLReportesController controladorReportes = cargador.getController();
                     controladorReportes.inicializarInformacion(usuarioSesion);

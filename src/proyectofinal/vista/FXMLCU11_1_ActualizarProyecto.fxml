@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,19 +8,26 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="proyectofinal.controlador.FXMLCU11_1_ActualizarProyectoController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FEFEFE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLCU11_1_ActualizarProyectoController">
    <children>
       <Label layoutX="61.0" layoutY="14.0" text="Proyecto">
          <font>
-            <Font name="Gill Sans MT" size="18.0" />
+            <Font name="Gill Sans MT" size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="tfNombreProyecto" layoutX="61.0" layoutY="77.0" prefHeight="25.0" prefWidth="252.0" promptText="Nombre del proyecto" />
-      <Button layoutX="325.0" layoutY="140.0" mnemonicParsing="false" onAction="#btnBuscar" prefWidth="75.0" text="Buscar">
+      <TextField fx:id="tfNombreProyecto" layoutX="62.0" layoutY="81.0" onKeyPressed="#tfNombreProyectoPresionaEnter" prefHeight="31.0" prefWidth="338.0" promptText="Nombre del proyecto" style="-fx-border-color: #00AC4F;">
          <font>
-            <Font name="Gill Sans MT" size="14.0" />
+            <Font name="Gill Sans MT" size="18.0" />
+         </font></TextField>
+      <Button layoutX="325.0" layoutY="140.0" mnemonicParsing="false" onAction="#clicBotonBuscar" prefWidth="75.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Buscar" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
          </font>
       </Button>
+      <ImageView fitHeight="65.0" fitWidth="60.0" layoutX="533.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../recursos/lis_ONLYlogo.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

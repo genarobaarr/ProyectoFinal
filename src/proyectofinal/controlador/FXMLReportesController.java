@@ -19,6 +19,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -38,28 +40,18 @@ public class FXMLReportesController implements Initializable {
     private Button btnNuevoReporte;
     @FXML
     private Button btnHabilitarEntrega;
+    @FXML
+    private ImageView ivValidarReportes;
+    @FXML
+    private ImageView ivNuevoReporte;
+    @FXML
+    private ImageView ivHabilitarEntrega;
     
     private final DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         mostrarHora();
-    }
-    
-    public void inicializarInformacion(Usuario usuario) {
-        if (usuario instanceof Academico) {
-            btnValidarReportes.setDisable(false);
-            btnNuevoReporte.setDisable(true);
-            btnHabilitarEntrega.setDisable(true);
-        } else if (usuario instanceof Estudiante) {
-            btnValidarReportes.setDisable(true);
-            btnNuevoReporte.setDisable(false);
-            btnHabilitarEntrega.setDisable(true);
-        } else if (usuario instanceof Coordinador) {
-            btnValidarReportes.setDisable(true);
-            btnNuevoReporte.setDisable(true);
-            btnHabilitarEntrega.setDisable(false);
-        }
     }
 
     @FXML
@@ -80,6 +72,41 @@ public class FXMLReportesController implements Initializable {
     @FXML
     private void clicBotonRegresar(ActionEvent event) {
         cerrarVentana();
+    }
+    
+    public void inicializarInformacion(Usuario usuario) {
+        if (usuario instanceof Academico) {
+            btnValidarReportes.setDisable(false);
+            
+            btnNuevoReporte.setDisable(true);
+            btnNuevoReporte.setText("No disponible");
+            ivNuevoReporte.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
+            
+            btnHabilitarEntrega.setDisable(true);
+            btnHabilitarEntrega.setText("No disponible");
+            ivHabilitarEntrega.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
+            
+        } else if (usuario instanceof Estudiante) {
+            btnValidarReportes.setDisable(true);
+            btnValidarReportes.setText("No disponible");
+            ivValidarReportes.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
+            
+            btnNuevoReporte.setDisable(false);
+            
+            btnHabilitarEntrega.setDisable(true);
+            btnHabilitarEntrega.setText("No disponible");
+            ivHabilitarEntrega.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
+        } else if (usuario instanceof Coordinador) {
+            btnValidarReportes.setDisable(true);
+            btnValidarReportes.setText("No disponible");
+            ivValidarReportes.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
+            
+            btnNuevoReporte.setDisable(true);
+            btnNuevoReporte.setText("No disponible");
+            ivNuevoReporte.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
+            
+            btnHabilitarEntrega.setDisable(false);
+        }
     }
     
     public void irPantalla(String fxmlPath, String titulo) {

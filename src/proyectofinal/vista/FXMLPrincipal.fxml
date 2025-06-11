@@ -36,7 +36,7 @@
             <Font name="Gill Sans MT" size="18.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="ivProyectos" fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../recursos/iconoProyecto.png" />
                </image>
@@ -48,7 +48,7 @@
             <Font name="Gill Sans MT" size="18.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="ivOrganizaciones" fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../recursos/iconoOrganizacion.png" />
                </image>
@@ -60,7 +60,7 @@
             <Font name="Gill Sans MT" size="18.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="ivReportes" fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../recursos/iconoReporte.png" />
                </image>
@@ -72,7 +72,7 @@
             <Font name="Gill Sans MT" size="18.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="ivAvance" fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../recursos/iconoAvance.png" />
                </image>
@@ -84,7 +84,7 @@
             <Font name="Gill Sans MT" size="18.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="ivEvaluaciones" fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../recursos/iconoEvaluacion.png" />
                </image>
