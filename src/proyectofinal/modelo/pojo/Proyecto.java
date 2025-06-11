@@ -6,26 +6,51 @@ package proyectofinal.modelo.pojo;
 
 public class Proyecto {
     private int idProyecto;
+    private String nombre;
     private String descripcion;
+    private String objetivos; 
+    private int cupo; 
+    private int horasTotales; 
     private String fechaInicio;
     private String fechaFin;
-    private String nombre;
-    private String objetivos;
-    private int idResponsableDeProyecto; //idUsuario
-    private int idCoordinador; //idUsuario
-
+    private int idOrganizacionVinculada;
+    private int idAcademico;
+    private int idCoordinador;
+    private int IdResponsableDeProyecto;
+    private String estatus; 
+    
     public Proyecto() {
     }
 
-    public Proyecto(int idProyecto, String descripcion, String fechaInicio, String fechaFin, String nombre, String objetivos, int idResponsableDeProyecto, int idCoordinador) {
+    public Proyecto(int idProyecto, String nombre, String descripcion, String objetivos, int cupo, int horasTotales,
+                    String fechaInicio, String fechaFin, int idOrganizacionVinculada, int idAcademico, String estatus) {
         this.idProyecto = idProyecto;
+        this.nombre = nombre;
         this.descripcion = descripcion;
+        this.objetivos = objetivos;
+        this.cupo = cupo;
+        this.horasTotales = horasTotales;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
+        this.idOrganizacionVinculada = idOrganizacionVinculada;
+        this.idAcademico = idAcademico;
+        this.estatus = estatus;
+    }
+
+    public Proyecto(int idProyecto, String nombre, String descripcion, String objetivo, int cupo, int horasTotales, String fechaInicio, String fechaFin, int idOrganizacionVinculada, int idAcademico, int idCoordinador, int IdResponsableDeProyecto, String estatus) {
+        this.idProyecto = idProyecto;
         this.nombre = nombre;
+        this.descripcion = descripcion;
         this.objetivos = objetivos;
-        this.idResponsableDeProyecto = idResponsableDeProyecto;
+        this.cupo = cupo;
+        this.horasTotales = horasTotales;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.idOrganizacionVinculada = idOrganizacionVinculada;
+        this.idAcademico = idAcademico;
         this.idCoordinador = idCoordinador;
+        this.IdResponsableDeProyecto = IdResponsableDeProyecto;
+        this.estatus = estatus;
     }
 
     public int getIdProyecto() {
@@ -36,12 +61,44 @@ public class Proyecto {
         this.idProyecto = idProyecto;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     public String getDescripcion() {
         return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getObjetivos() {
+        return objetivos;
+    }
+
+    public void setObjetivos(String objetivo) { 
+        this.objetivos = objetivo;
+    }
+
+    public int getCupo() {
+        return cupo;
+    }
+
+    public void setCupo(int cupo) {
+        this.cupo = cupo;
+    }
+
+    public int getHorasTotales() { 
+        return horasTotales;
+    }
+
+    public void setHorasTotales(int horasTotales) {
+        this.horasTotales = horasTotales;
     }
 
     public String getFechaInicio() {
@@ -60,28 +117,28 @@ public class Proyecto {
         this.fechaFin = fechaFin;
     }
 
-    public String getNombre() {
-        return nombre;
+    public int getIdOrganizacionVinculada() { 
+        return idOrganizacionVinculada;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setIdOrganizacionVinculada(int idOrganizacionVinculada) { 
+        this.idOrganizacionVinculada = idOrganizacionVinculada;
     }
 
-    public String getObjetivos() {
-        return objetivos;
+    public int getIdAcademico() { 
+        return idAcademico;
     }
 
-    public void setObjetivos(String objetivos) {
-        this.objetivos = objetivos;
+    public void setIdAcademico(int idAcademico) { 
+        this.idAcademico = idAcademico;
     }
 
-    public int getIdResponsableDeProyecto() {
-        return idResponsableDeProyecto;
+    public String getEstatus() { 
+        return estatus;
     }
 
-    public void setIdResponsableDeProyecto(int idResponsableDeProyecto) {
-        this.idResponsableDeProyecto = idResponsableDeProyecto;
+    public void setEstatus(String estatus) { 
+        this.estatus = estatus;
     }
 
     public int getIdCoordinador() {
@@ -91,4 +148,14 @@ public class Proyecto {
     public void setIdCoordinador(int idCoordinador) {
         this.idCoordinador = idCoordinador;
     }
+
+    public int getIdResponsableDeProyecto() {
+        return IdResponsableDeProyecto;
+    }
+
+    public void setIdResponsableDeProyecto(int IdResponsableDeProyecto) {
+        this.IdResponsableDeProyecto = IdResponsableDeProyecto;
+    }
+    
+    
 }
