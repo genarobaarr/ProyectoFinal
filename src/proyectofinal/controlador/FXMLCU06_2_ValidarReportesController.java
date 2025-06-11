@@ -44,7 +44,6 @@ public class FXMLCU06_2_ValidarReportesController implements Initializable {
 
     @FXML
     private void clicBotonValidarReporte(ActionEvent event) {
-
     }
 
     @FXML
