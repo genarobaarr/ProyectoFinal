@@ -23,6 +23,7 @@ import proyectofinal.modelo.pojo.Proyecto;
 import proyectofinal.modelo.dao.ProyectoDAO;
 import proyectofinal.modelo.dao.PeriodoDAO;
 import proyectofinal.modelo.dao.EstudianteDAO;
+import proyectofinal.utilidades.Utilidad;
 
 
 public class FXMLCU01_AsignarProyectoController implements Initializable {
@@ -64,57 +65,36 @@ public class FXMLCU01_AsignarProyectoController implements Initializable {
         Proyecto proyectoSeleccionado = tvProyectos.getSelectionModel().getSelectedItem();
 
         if (estudianteSeleccionado == null || proyectoSeleccionado == null) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Selección inválida", "Por favor, seleccione un estudiante y un proyecto.");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Selección inválida", "Por favor, seleccione un estudiante y un proyecto.");
             return;
         }
 
-        //Aquí podría ir la verificación de avance crediticio y promedio
-        
-        Alert confirmacionAsignacion = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmacionAsignacion.setTitle("Confirmación");
-        confirmacionAsignacion.setHeaderText("¿Está seguro que desea asignar el proyecto " + proyectoSeleccionado.getNombre() + 
-                                             " al estudiante " + estudianteSeleccionado.toString() + "?");
+        // Aqui podría ir la verificación de avance crediticio y promedio
 
-        ButtonType botonSi = new ButtonType("Sí");
-        ButtonType botonNo = new ButtonType("No");
-        confirmacionAsignacion.getButtonTypes().setAll(botonSi, botonNo);
+        String mensajeConfirmacion = "¿Está seguro que desea asignar el proyecto " + proyectoSeleccionado.getNombre() +
+                                     " al estudiante " + estudianteSeleccionado.getNombre() + " " +
+                                     estudianteSeleccionado.getApellidoPaterno() + " " +
+                                     estudianteSeleccionado.getApellidoMaterno() + "?";
 
-        Optional<ButtonType> resultadoConfirmacion = confirmacionAsignacion.showAndWait();
-
-        if (resultadoConfirmacion.isPresent() && resultadoConfirmacion.get() == botonSi) {
-            
+        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", mensajeConfirmacion)) {
             try {
                 int idPeriodoActual = periodoDAO.obtenerIdPeriodoActual();
                 if (idPeriodoActual == -1) {
-                    mostrarAlerta(Alert.AlertType.ERROR, "Error de Período", "No se pudo determinar el período actual. No se puede asignar el proyecto.");
+                    Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error de Período", "No se pudo determinar el período actual. No se puede asignar el proyecto.");
                     return;
                 }
-
                 estudianteDAO.crearExpedienteEstudianteProyecto(estudianteSeleccionado.getIdUsuario(), proyectoSeleccionado.getIdProyecto(), idPeriodoActual);
 
-                Alert operacionExitosa = new Alert(Alert.AlertType.INFORMATION);
-                operacionExitosa.setTitle("Operación exitosa");
-                operacionExitosa.setHeaderText("El proyecto ha sido asignado exitosamente");
-                operacionExitosa.getButtonTypes().setAll(ButtonType.OK);
-                operacionExitosa.showAndWait();
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, "Operación exitosa", "El proyecto ha sido asignado exitosamente");
 
                 cargardatos();
 
             } catch (RuntimeException e) {
-                mostrarAlerta(Alert.AlertType.ERROR, "Error en la operación",
-                        "Hubo un problema al asignar el proyecto: " + e.getMessage());
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la operación",
+                                             "Hubo un problema al asignar el proyecto: " + e.getMessage());
             }
         } else {
-            Alert confirmacionCancelarProceso = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmacionCancelarProceso.setTitle("Confirmación");
-            confirmacionCancelarProceso.setHeaderText("¿Deseas cancelar el proceso?");
-            ButtonType btnSiCancelar = new ButtonType("Sí");
-            ButtonType btnNoCancelar = new ButtonType("No");
-            confirmacionCancelarProceso.getButtonTypes().setAll(btnSiCancelar, btnNoCancelar);
-
-            Optional<ButtonType> resultadoCancelarProceso = confirmacionCancelarProceso.showAndWait();
-
-            if (resultadoCancelarProceso.isPresent() && resultadoCancelarProceso.get() == btnSiCancelar) {
+            if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas cancelar el proceso?")) {
                 cerrarVentana();
             }
         }
@@ -122,17 +102,7 @@ public class FXMLCU01_AsignarProyectoController implements Initializable {
 
     @FXML
     private void btnSalir(ActionEvent event) {
-        Alert confirmacionSalir = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmacionSalir.setTitle("Confirmación");
-        confirmacionSalir.setHeaderText("¿Deseas salir? No se guardarán los cambios");
-
-        ButtonType botonSi = new ButtonType("Sí");
-        ButtonType botonNo = new ButtonType("No");
-        confirmacionSalir.getButtonTypes().setAll(botonSi, botonNo);
-
-        Optional<ButtonType> resultado = confirmacionSalir.showAndWait();
-
-        if (resultado.isPresent() && resultado.get() == botonSi) {
+        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas salir? No se guardarán los cambios")) {
             cerrarVentana();
         }
     }
@@ -145,7 +115,7 @@ public class FXMLCU01_AsignarProyectoController implements Initializable {
             listaProyectosSinAsignar = FXCollections.observableArrayList(proyectoDAO.obtenerProyectosSinAsignar());
             tvProyectos.setItems(listaProyectosSinAsignar);
         } catch (RuntimeException e) {
-            mostrarAlerta(Alert.AlertType.ERROR, "Error al cargar datos",
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error al cargar datos",
                     "No se pudieron cargar los datos. Inténtalo más tarde. Detalles: " + e.getMessage());
         }
     }
@@ -153,14 +123,6 @@ public class FXMLCU01_AsignarProyectoController implements Initializable {
     private void cerrarVentana() {
         Stage stage = (Stage) tvEstudiantes.getScene().getWindow();
         stage.close();
-    }
-
-    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
-        Alert alerta = new Alert(tipo);
-        alerta.setTitle(titulo);
-        alerta.setHeaderText(null);
-        alerta.setContentText(mensaje);
-        alerta.showAndWait();
     }
 
 }

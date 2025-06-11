@@ -4,9 +4,12 @@
  */
 package proyectofinal.modelo.pojo;
 
+import java.sql.Date;
+
 public class EvaluacionExposicion {
     private int idEvaluacionExposicion;
     private String comentarios;
+    private Date fechaEvaluacion;
     private double puntajeFinal;
     private int idExpediente;
     private int idAcademicoEvaluador;
@@ -16,6 +19,15 @@ public class EvaluacionExposicion {
 
     public EvaluacionExposicion(int idEvaluacionExposicion, String comentarios, double puntajeFinal, int idExpediente, int idAcademicoEvaluador) {
         this.idEvaluacionExposicion = idEvaluacionExposicion;
+        this.comentarios = comentarios;
+        this.puntajeFinal = puntajeFinal;
+        this.idExpediente = idExpediente;
+        this.idAcademicoEvaluador = idAcademicoEvaluador;
+    }
+    
+    public EvaluacionExposicion(int idEvaluacionExposicion, Date fechaEvaluacion, String comentarios, double puntajeFinal, int idExpediente, int idAcademicoEvaluador) {
+        this.idEvaluacionExposicion = idEvaluacionExposicion;
+        this.fechaEvaluacion = fechaEvaluacion;
         this.comentarios = comentarios;
         this.puntajeFinal = puntajeFinal;
         this.idExpediente = idExpediente;
@@ -60,5 +72,13 @@ public class EvaluacionExposicion {
 
     public void setIdAcademicoEvaluador(int idAcademicoEvaluador) {
         this.idAcademicoEvaluador = idAcademicoEvaluador;
+    }
+
+    public Date getFechaEvaluacion() {
+        return fechaEvaluacion;
+    }
+
+    public void setFechaEvaluacion(Date fechaEvaluacion) {
+        this.fechaEvaluacion = fechaEvaluacion;
     }
 }
