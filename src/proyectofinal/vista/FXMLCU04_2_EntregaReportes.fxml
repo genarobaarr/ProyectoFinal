@@ -91,8 +91,6 @@
             <Font name="Gill Sans MT" size="14.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cbProyectos" layoutX="14.0" layoutY="298.0" prefHeight="31.0" prefWidth="300.0" promptText="Proyecto" style="-fx-background-color: #FEFEFE; -fx-border-color: #00AC4F; -fx-cursor: HAND;" />
-      <ComboBox fx:id="cbResponsables" layoutX="14.0" layoutY="361.0" prefHeight="33.0" prefWidth="241.0" promptText="Responsable de proyecto" style="-fx-background-color: #FEFEFE; -fx-border-color: #00AC4F; -fx-cursor: HAND;" />
       <Label layoutX="14.0" layoutY="344.0" text="Responsable de proyecto">
          <font>
             <Font name="Gill Sans MT" size="14.0" />
@@ -103,6 +101,20 @@
             <Font name="Gill Sans MT" size="14.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cbOrganizaciones" layoutX="314.0" layoutY="361.0" prefHeight="33.0" prefWidth="241.0" promptText="Organización vinculada" style="-fx-background-color: #FEFEFE; -fx-border-color: #00AC4F; -fx-cursor: HAND;" />
+      <TextField fx:id="tfProyectoVinculado" layoutX="14.0" layoutY="299.0" onKeyPressed="#tfPeriodoReportePresionaEnter" prefHeight="25.0" prefWidth="300.0" promptText="Proyecto vinculado" style="-fx-border-color: #00AC4F;">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="tfResponsableProyecto" layoutX="14.0" layoutY="363.0" onKeyPressed="#tfPeriodoReportePresionaEnter" prefHeight="30.0" prefWidth="241.0" promptText="Responsable de proyecto" style="-fx-border-color: #00AC4F;">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="tfOrganizacionVinculada" layoutX="314.0" layoutY="363.0" onKeyPressed="#tfPeriodoReportePresionaEnter" prefHeight="30.0" prefWidth="241.0" promptText="Organización Vinculada" style="-fx-border-color: #00AC4F;">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>

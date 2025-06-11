@@ -48,6 +48,7 @@ public class FXMLReportesController implements Initializable {
     private ImageView ivHabilitarEntrega;
     
     private final DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private Estudiante estudiante;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -87,6 +88,7 @@ public class FXMLReportesController implements Initializable {
             ivHabilitarEntrega.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
             
         } else if (usuario instanceof Estudiante) {
+            this.estudiante = (Estudiante)usuario;
             btnValidarReportes.setDisable(true);
             btnValidarReportes.setText("No disponible");
             ivValidarReportes.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
@@ -112,7 +114,15 @@ public class FXMLReportesController implements Initializable {
     public void irPantalla(String fxmlPath, String titulo) {
         try {
             Stage escenarioNuevo = new Stage();
-            Parent vista = FXMLLoader.load(ProyectoFinal.class.getResource(fxmlPath));
+            FXMLLoader cargador = new FXMLLoader(ProyectoFinal.class.getResource(fxmlPath));
+            Parent vista = cargador.load();
+            
+            switch (fxmlPath) {
+                case "vista/FXMLCU04_1_EntregaReportes.fxml":
+                    FXMLCU04_1_EntregaReportesController controlador = cargador.getController();
+                    controlador.inicializarInformacion(estudiante);
+            }
+            
             Scene escena = new Scene(vista);
             escenarioNuevo.setScene(escena);
             escenarioNuevo.setTitle(titulo);

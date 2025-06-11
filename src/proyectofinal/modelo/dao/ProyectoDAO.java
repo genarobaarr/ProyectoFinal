@@ -150,13 +150,44 @@ public class ProyectoDAO {
         return resultado;
     }
     
-    private  static Proyecto convertirRegistroProyecto(ResultSet resultado) throws SQLException {
+    public static Proyecto obtenerProyectoPorEstudiante(int idEstudiante) throws SQLException{
+        Proyecto proyecto = null;
+        Connection conexionBD = ConexionBD.abrirConexion();
+        
+        if (conexionBD != null){
+            String consulta = "SELECT p.idProyecto, p.nombre AS nombreProyecto, p.descripcion, "
+                    + "p.objetivos, p.fechaInicio, p.fechaFin, p.idResponsableDeProyecto, "
+                    + "p.idCoordinador, u.nombre AS nombreEstudiante, est.fechaNacimiento, "
+                    + "est.matricula, est.idExperiencia, exp.idExpediente, exp.estatus "
+                    + "AS estatusExpediente FROM proyecto p INNER JOIN expediente exp ON p.idProyecto = exp.idProyecto "
+                    + "INNER JOIN estudiante est ON exp.idEstudiante = est.idUsuario INNER JOIN usuario u "
+                    + "ON est.idUsuario = u.idUsuario WHERE exp.estatus = 'Activo' AND u.idUsuario = ?;";
+            PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+            sentencia.setInt(1, idEstudiante);
+             ResultSet resultado = sentencia.executeQuery();
+            
+            while (resultado.next()) {
+                proyecto = convertirRegistroProyecto(resultado);
+            }
+            
+            sentencia.close();
+            resultado.close();
+            conexionBD.close();
+        } else {
+            throw  new SQLException("Error de conexión con base de datos, intentalo más tarde");
+        }
+        return proyecto;
+    }            
+        
+    
+    private static Proyecto convertirRegistroProyecto(ResultSet resultado) throws SQLException {
         Proyecto proyecto = new Proyecto(
                 resultado.getInt("idProyecto"), 
                 resultado.getString("descripcion"), resultado.getString("fechaInicio"), 
-                resultado.getString("fechaFin"), resultado.getString("nombre"),
+                resultado.getString("fechaFin"), resultado.getString("nombreEstudiante"),
                 resultado.getString("objetivos"), resultado.getInt("idResponsableDeProyecto"), 
                 resultado.getInt("idCoordinador"));
         return proyecto;
     }
+    
 }

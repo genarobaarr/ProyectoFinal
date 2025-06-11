@@ -174,69 +174,6 @@ public class EstudianteDAO {
         return estudiantesConReporte;
     }
 
-    public List<ReporteMensual> obtenerReportesMensualesEstudiante(int idEstudiante) {
-        List<ReporteMensual> reportes = new ArrayList<>();
-        String query = "SELECT rm.idReporteMensual, rm.numeroReporteMensual, rm.numeroHoras, rm.observaciones, " +
-                       "rm.nombreArchivo, rm.extensionArchivo, rm.archivo " +
-                       "FROM reporte_mensual rm " +
-                       "INNER JOIN expediente exp ON rm.idExpediente = exp.idExpediente " +
-                       "WHERE exp.idEstudiante = ? ORDER BY rm.numeroReporteMensual ASC;";
-
-        System.out.println("DEBUG: Executing query for specific student reports: " + query);
-        System.out.println("DEBUG: With idEstudiante = " + idEstudiante);
-
-        try (Connection conn = ConexionBD.abrirConexion();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-
-            if (conn == null) {
-                System.err.println("ERROR: Connection is null in obtenerReportesMensualesEstudiante.");
-                throw new SQLException("No database connection available.");
-            }
-            if (pstmt == null) {
-                System.err.println("ERROR: PreparedStatement is null in obtenerReportesMensualesEstudiante.");
-                throw new SQLException("Failed to create PreparedStatement.");
-            }
-
-            pstmt.setInt(1, idEstudiante);
-            System.out.println("DEBUG: Parameter idEstudiante set: " + idEstudiante);
-
-            try (ResultSet rs = pstmt.executeQuery()) {
-                System.out.println("DEBUG: Query executed. Checking results for reports...");
-                while (rs.next()) {
-                    ReporteMensual reporte = new ReporteMensual();
-                    reporte.setIdReporteMensual(rs.getInt("idReporteMensual"));
-                    reporte.setNumeroReporte(rs.getInt("numeroReporteMensual"));
-                    reporte.setNumeroHoras((int) rs.getDouble("numeroHoras")); 
-                    reporte.setObservaciones(rs.getString("observaciones"));
-                    reporte.setNombreArchivo(rs.getString("nombreArchivo"));
-                    reporte.setExtensionArchivo(rs.getString("extensionArchivo"));
-
-                    byte[] archivoBytesPrimitivo = rs.getBytes("archivo");
-                    if (archivoBytesPrimitivo != null) {
-                        Byte[] archivoBytesObjeto = new Byte[archivoBytesPrimitivo.length];
-                        for (int i = 0; i < archivoBytesPrimitivo.length; i++) {
-                            archivoBytesObjeto[i] = archivoBytesPrimitivo[i];
-                        }
-                        reporte.setArchivo(archivoBytesObjeto);
-                    } else {
-                        reporte.setArchivo(null);
-                    }
-                    reportes.add(reporte);
-                }
-                System.out.println("DEBUG: Found " + reportes.size() + " reports for idEstudiante " + idEstudiante);
-            }
-        } catch (SQLException e) {
-            System.err.println("SQL Exception in obtenerReportesMensualesEstudiante: " + e.getErrorCode() + " - " + e.getMessage());
-            e.printStackTrace();
-            throw new RuntimeException("Error al cargar reportes desde la base de datos.", e);
-        } catch (Exception e) {
-            System.err.println("General Exception in obtenerReportesMensualesEstudiante: " + e.getMessage());
-            e.printStackTrace();
-            throw new RuntimeException("Error inesperado al cargar reportes.", e);
-        }
-        return reportes;
-    }
-
     public List<EvaluacionOV> obtenerEvaluacionesOVEstudiante(int idEstudiante) {
         List<EvaluacionOV> evaluaciones = new ArrayList<>();
         String query = "SELECT eo.idEvaluacionOV, eo.comentarios, eo.fecha, eo.puntaje_final " +

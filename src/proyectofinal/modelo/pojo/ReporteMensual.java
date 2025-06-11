@@ -11,13 +11,13 @@ public class ReporteMensual {
     private String observaciones;
     private String nombreArchivo;
     private String extensionArchivo;
-    private Byte[] archivo;
+    private byte[] archivo;
     private int idExpediente;
 
     public ReporteMensual() {
     }
 
-    public ReporteMensual(int idReporteMensual, int numeroReporte, int numeroHoras, String observaciones, String nombreArchivo, String extensionArchivo, Byte[] archivo, int idExpediente) {
+    public ReporteMensual(int idReporteMensual, int numeroReporte, int numeroHoras, String observaciones, String nombreArchivo, String extensionArchivo, byte[] archivo, int idExpediente) {
         this.idReporteMensual = idReporteMensual;
         this.numeroReporte = numeroReporte;
         this.numeroHoras = numeroHoras;
@@ -76,11 +76,11 @@ public class ReporteMensual {
         this.extensionArchivo = extensionArchivo;
     }
 
-    public Byte[] getArchivo() {
+    public byte[] getArchivo() {
         return archivo;
     }
 
-    public void setArchivo(Byte[] archivo) {
+    public void setArchivo(byte[] archivo) {
         this.archivo = archivo;
     }
 

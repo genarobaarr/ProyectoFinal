@@ -20,6 +20,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import proyectofinal.modelo.dao.EstudianteDAO;
+import proyectofinal.modelo.dao.ReporteMensualDAO;
 import proyectofinal.modelo.pojo.Estudiante;
 import proyectofinal.modelo.pojo.EvaluacionExposicion;
 import proyectofinal.modelo.pojo.EvaluacionOV;
@@ -68,7 +69,8 @@ public class FXMLCU07_AvanceEstudianteController implements Initializable {
     private Estudiante estudianteActual; 
     private EstudianteDAO estudianteDAO;
     @FXML
-    private Button botonAceptar; 
+    private Button botonAceptar;
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -118,7 +120,7 @@ public class FXMLCU07_AvanceEstudianteController implements Initializable {
 
             try {
                 // Cargar reportes mensuales
-                List<ReporteMensual> listaReportes = estudianteDAO.obtenerReportesMensualesEstudiante(estudianteActual.getIdUsuario());
+                List<ReporteMensual> listaReportes = ReporteMensualDAO.obtenerReportesMensualesEstudiante(estudianteActual.getIdUsuario());
                 reportesMensuales = FXCollections.observableArrayList(listaReportes);
                 tvReportes.setItems(reportesMensuales);
 
