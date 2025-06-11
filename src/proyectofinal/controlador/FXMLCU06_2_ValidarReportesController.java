@@ -42,7 +42,7 @@ public class FXMLCU06_2_ValidarReportesController implements Initializable {
     }    
 
     @FXML
-    private void btnCancelar(ActionEvent event) {
+    private void btnCancelar(ActionEvent event) {     
     }
 
     @FXML
