@@ -24,7 +24,7 @@ import javafx.stage.Stage;
 import proyectofinal.ProyectoFinal;
 import proyectofinal.modelo.dao.InicioDeSesionDAO;
 import proyectofinal.modelo.pojo.*;
-import proyectofinal.utilidades.SessionManager;
+import proyectofinal.utilidades.SessionManager; 
 import proyectofinal.utilidades.Utilidad;
 
 public class FXMLInicioSesionController implements Initializable {
@@ -95,10 +95,11 @@ public class FXMLInicioSesionController implements Initializable {
                         "Inicio de sesión exitoso", usuarioSesion.getNombre() +
                         ", bienvenido(a) al sistema.");
 
+                SessionManager.setLoggedInUser(usuarioSesion);
+
                 if (usuarioSesion instanceof Estudiante) {
                     irPantallaPrincipal(usuarioSesion, "/proyectofinal/vista/FXMLPrincipal.fxml", "Home Estudiante");
                 } else if (usuarioSesion instanceof AcademicoEvaluador) {
-                    SessionManager.setLoggedInUser((AcademicoEvaluador) usuarioSesion); // Guarda sesión
                     irPantallaPrincipal(usuarioSesion, "/proyectofinal/vista/FXMLPrincipal.fxml", "Home Académico Evaluador");
                 } else if (usuarioSesion instanceof Academico) {
                     irPantallaPrincipal(usuarioSesion, "/proyectofinal/vista/FXMLPrincipal.fxml", "Home Académico");

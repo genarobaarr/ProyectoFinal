@@ -1,7 +1,7 @@
 /*
  * Omar Morales García
+ * 10-06-2025
  */
-
 package proyectofinal.modelo.dao;
 
 import java.sql.Connection;
@@ -22,10 +22,10 @@ public class ProyectoDAO {
     public List<Proyecto> obtenerProyectosSinAsignar() {
         List<Proyecto> proyectos = new ArrayList<>();
         String query = "SELECT p.idProyecto, p.nombre, p.descripcion, p.objetivos, " +
-                       "p.fechaInicio, p.fechaFin, p.idResponsableDeProyecto, p.idCoordinador " + 
+                       "p.fechaInicio, p.fechaFin, p.idResponsableDeProyecto, p.idCoordinador " +
                        "FROM proyecto p " +
                        "LEFT JOIN expediente exp ON p.idProyecto = exp.idProyecto AND exp.estatus = 'Activo' " +
-                       "WHERE exp.idProyecto IS NULL"; 
+                       "WHERE exp.idProyecto IS NULL";
 
         try (Connection conn = ConexionBD.abrirConexion();
              PreparedStatement pstmt = conn.prepareStatement(query);
@@ -36,24 +36,73 @@ public class ProyectoDAO {
                 proyecto.setIdProyecto(rs.getInt("idProyecto"));
                 proyecto.setNombre(rs.getString("nombre"));
                 proyecto.setDescripcion(rs.getString("descripcion"));
-                proyecto.setObjetivos(rs.getString("objetivos")); 
-
-                Date fechaInicioSql = rs.getDate("fechaInicio");
-                proyecto.setFechaInicio((fechaInicioSql != null) ? fechaInicioSql.toString() : null);
-                Date fechaFinSql = rs.getDate("fechaFin");
-                proyecto.setFechaFin((fechaFinSql != null) ? fechaFinSql.toString() : null);
-                
+                proyecto.setObjetivos(rs.getString("objetivos"));
+                proyecto.setFechaInicio(rs.getString("fechaInicio"));
+                proyecto.setFechaFin(rs.getString("fechaFin"));
                 proyecto.setIdResponsableDeProyecto(rs.getInt("idResponsableDeProyecto"));
                 proyecto.setIdCoordinador(rs.getInt("idCoordinador"));
-                
                 proyectos.add(proyecto);
             }
         } catch (SQLException e) {
-            System.err.println("Error al obtener proyectos sin asignar: " + e.getErrorCode() + " - " + e.getMessage());
+            System.err.println("Error al obtener proyectos sin asignar: " + e.getMessage());
             e.printStackTrace();
-            throw new RuntimeException("Error al cargar proyectos desde la base de datos.", e);
         }
         return proyectos;
+    }
+
+    public static Proyecto obtenerProyectoPorId(int idProyecto) throws SQLException {
+        Proyecto proyecto = null;
+        Connection conexionBD = null;
+        PreparedStatement sentencia = null;
+        ResultSet resultado = null;
+
+        try {
+            conexionBD = ConexionBD.abrirConexion();
+            if (conexionBD != null) {
+                String consulta = "SELECT p.idProyecto, p.nombre, p.descripcion, p.objetivos, p.fechaInicio, p.fechaFin, " +
+        "p.idCoordinador, p.IdResponsableDeProyecto, e.horasAcumuladas, ov.nombre AS nombreOrganizacion, " +
+        "rp.nombre AS nombreResponsable, rp.departamento AS departamentoResponsable, " +
+        "rp.puesto AS cargoResponsable " +
+        "FROM proyecto p " +
+        "INNER JOIN expediente e ON p.idProyecto = e.idProyecto " +
+        "LEFT JOIN responsable_de_proyecto rp ON p.idResponsableDeProyecto = rp.idResponsableDeProyecto " +
+        "LEFT JOIN organizacion_vinculada ov ON rp.idOrganizacionVinculada = ov.idOrganizacionVinculada " +
+        "WHERE p.idProyecto = ?;";
+                        sentencia = conexionBD.prepareStatement(consulta);
+                sentencia.setInt(1, idProyecto);
+                resultado = sentencia.executeQuery();
+
+                if (resultado.next()) {
+                    proyecto = new Proyecto();
+                    proyecto.setIdProyecto(resultado.getInt("idProyecto"));
+                    proyecto.setNombre(resultado.getString("nombre"));
+                    proyecto.setDescripcion(resultado.getString("descripcion"));
+                    proyecto.setObjetivos(resultado.getString("objetivos"));
+                    proyecto.setHorasTotales(resultado.getInt("horasAcumuladas"));
+                    Date fechaInicioSql = resultado.getDate("fechaInicio");
+                    proyecto.setFechaInicio((fechaInicioSql != null) ? fechaInicioSql.toString() : null);
+                    Date fechaFinSql = resultado.getDate("fechaFin");
+                    proyecto.setFechaFin((fechaFinSql != null) ? fechaFinSql.toString() : null);
+                    proyecto.setIdCoordinador(resultado.getInt("idCoordinador"));
+                    proyecto.setIdResponsableDeProyecto(resultado.getInt("idResponsableDeProyecto"));
+
+                    proyecto.setNombreOrganizacion(resultado.getString("nombreOrganizacion"));
+                    proyecto.setNombreResponsable(resultado.getString("nombreResponsable"));
+                    proyecto.setDepartamentoResponsable(resultado.getString("departamentoResponsable"));
+                    proyecto.setCargoResponsable(resultado.getString("cargoResponsable"));
+                }
+            } else {
+                throw new SQLException("Error de conexión con base de datos, inténtalo más tarde");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener proyecto por ID: " + e.getMessage());
+            throw e;
+        } finally {
+            if (resultado != null) resultado.close();
+            if (sentencia != null) sentencia.close();
+            if (conexionBD != null) conexionBD.close();
+        }
+        return proyecto;
     }
     
     public static ArrayList<Proyecto> obtenerProyectosPorNombre(String nombreProyecto) throws SQLException {

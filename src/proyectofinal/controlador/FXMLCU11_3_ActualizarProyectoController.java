@@ -152,6 +152,7 @@ public class FXMLCU11_3_ActualizarProyectoController implements Initializable {
         return proyecto;
     }
     
+    
     private void guardarProyecto (Proyecto proyecto) {
         try {
             ResultadoOperacion resultadoModificar = ProyectoDAO.modificarProyecto(proyecto);

@@ -121,7 +121,7 @@ public class EstudianteDAO {
     public List<Estudiante> obtenerEstudiantesConReporteMensual() {
         List<Estudiante> estudiantesConReporte = new ArrayList<>();
         String query = "SELECT DISTINCT u.idUsuario, u.nombre, u.apellidoPaterno, u.apellidoMaterno, u.email, u.username, " +
-                       "e.fechaNacimiento, e.matricula, e.idExperiencia, exp.idExpediente, exp.horasAcumuladas " + // Añadidos
+                       "e.fechaNacimiento, e.matricula, e.idExperiencia, exp.idExpediente, exp.horasAcumuladas " + 
                        "FROM usuario u " +
                        "INNER JOIN estudiante e ON u.idUsuario = e.idUsuario " +
                        "INNER JOIN expediente exp ON e.idUsuario = exp.idEstudiante " +
@@ -274,4 +274,65 @@ public class EstudianteDAO {
         }
         return evaluaciones;
     }
+    
+    public static Estudiante obtenerEstudiantePorIdUsuario(int idUsuario) throws SQLException {
+        Estudiante estudiante = null;
+        String query = "SELECT u.idUsuario, u.nombre, u.apellidoPaterno, u.apellidoMaterno, u.email, u.username, " +
+                       "e.fechaNacimiento, e.matricula, e.idExperiencia, exp.idExpediente, exp.horasAcumuladas " +
+                       "FROM usuario u " +
+                       "INNER JOIN estudiante e ON u.idUsuario = e.idUsuario " +
+                       "LEFT JOIN expediente exp ON e.idUsuario = exp.idEstudiante " + 
+                       "WHERE u.idUsuario = ?;";
+
+        System.out.println("DEBUG: Executing query for student by idUsuario: " + query);
+        System.out.println("DEBUG: With idUsuario = " + idUsuario);
+
+        try (Connection conn = ConexionBD.abrirConexion();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            if (conn == null) {
+                System.err.println("ERROR: Connection is null in obtenerEstudiantePorIdUsuario.");
+                throw new SQLException("No database connection available.");
+            }
+            if (pstmt == null) {
+                System.err.println("ERROR: PreparedStatement is null in obtenerEstudiantePorIdUsuario.");
+                throw new SQLException("Failed to create PreparedStatement.");
+            }
+
+            pstmt.setInt(1, idUsuario);
+            System.out.println("DEBUG: Parameter idUsuario set: " + idUsuario);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                System.out.println("DEBUG: Query executed. Checking results for student...");
+                if (rs.next()) {
+                    int usuarioId = rs.getInt("idUsuario");
+                    String nombre = rs.getString("nombre");
+                    String apellidoPaterno = rs.getString("apellidoPaterno");
+                    String apellidoMaterno = rs.getString("apellidoMaterno");
+                    String email = rs.getString("email");
+                    String username = rs.getString("username");
+
+                    Date fechaNacimientoSql = rs.getDate("fechaNacimiento");
+                    String fechaNacimiento = (fechaNacimientoSql != null) ? fechaNacimientoSql.toString() : null;
+                    String matricula = rs.getString("matricula");
+                    int idExperiencia = rs.getInt("idExperiencia");
+                    int idExpediente = rs.getInt("idExpediente"); 
+                    int horasAcumuladas = rs.getInt("horasAcumuladas"); 
+
+                    estudiante = new Estudiante(fechaNacimiento, matricula, idExperiencia, usuarioId, nombre, apellidoPaterno, apellidoMaterno, email, username, idExpediente, horasAcumuladas);
+                }
+                System.out.println("DEBUG: Found student: " + (estudiante != null ? estudiante.getNombre() : "null"));
+            }
+        } catch (SQLException e) {
+            System.err.println("SQL Exception in obtenerEstudiantePorIdUsuario: " + e.getErrorCode() + " - " + e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("Error al cargar estudiante por ID de usuario desde la base de datos.", e);
+        } catch (Exception e) {
+            System.err.println("General Exception in obtenerEstudiantePorIdUsuario: " + e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("Error inesperado al cargar estudiante.", e);
+        }
+        return estudiante;
+    }
+
 }
