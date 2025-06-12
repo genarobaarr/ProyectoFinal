@@ -272,7 +272,7 @@ public class ProyectoDAO {
         proyecto.setDescripcion(resultado.getString("descripcion"));
         proyecto.setFechaFin(resultado.getString("fechaInicio")); 
         proyecto.setFechaFin(resultado.getString("fechaFin"));
-        proyecto.setNombre(resultado.getString("nombreEstudiante"));
+        proyecto.setNombre(resultado.getString("nombreProyecto"));
         proyecto.setObjetivos(resultado.getString("objetivos")); 
         proyecto.setIdResponsableDeProyecto(resultado.getInt("idResponsableDeProyecto"));
         proyecto.setIdCoordinador(resultado.getInt("idCoordinador"));
