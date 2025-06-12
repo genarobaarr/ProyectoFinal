@@ -52,12 +52,7 @@ public class FXMLCU05_HabilitarEntregasController implements Initializable {
             Utilidad.mostrarAlertaSimple(AlertType.ERROR, "Error", "No se pudo cargar la asignación actual");
         }
     }
-
-    @FXML
-    private void tfTituloAsignacionPresionaEnter(KeyEvent event) {
-        // Puedes implementar una acción al presionar enter si es necesario
-    }
-
+    
     @FXML
     private void clicBotonCancelar(ActionEvent event) {
         cargarAsignacion();
