@@ -9,6 +9,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,7 +25,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import proyectofinal.ProyectoFinal;
+import proyectofinal.modelo.dao.AsignacionReporteDAO;
 import proyectofinal.modelo.dao.ReporteMensualDAO;
+import proyectofinal.modelo.pojo.AsignacionReporte;
 import proyectofinal.modelo.pojo.Estudiante;
 import proyectofinal.modelo.pojo.ReporteMensual;
 import proyectofinal.utilidades.Utilidad;
@@ -38,14 +42,18 @@ public class FXMLCU04_1_EntregaReportesController implements Initializable {
     
     private ObservableList<ReporteMensual> reportes;
     private Estudiante estudiante;
+    private AsignacionReporte asignacionReporte;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
     
     @FXML
-    private void clicBotonNuevoReporte(ActionEvent event) {
-         try {
+private void clicBotonNuevoReporte(ActionEvent event) {
+    try {
+        AsignacionReporte asignacion = AsignacionReporteDAO.obtenerAsignacionActual();
+        
+        if (asignacion != null && asignacion.getEstatus().equalsIgnoreCase("Habilitado")) {
             Stage escenarioBase = (Stage) tvReportesMensuales.getScene().getWindow();
             FXMLLoader cargador = new FXMLLoader(ProyectoFinal.class.getResource("vista/FXMLCU04_2_EntregaReportes.fxml"));
             Parent vista = cargador.load();
@@ -57,11 +65,20 @@ public class FXMLCU04_1_EntregaReportesController implements Initializable {
             escenarioBase.setScene(escenaPrincipal);
             escenarioBase.setTitle("Entregar reporte");
             escenarioBase.show();
-        } catch (IOException ex) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                        "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla: " + ex.getMessage());
+        } else {
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, 
+                    "Acceso denegado", 
+                    "La entrega de reportes está actualmente inhabilitada.");
         }
+    } catch (SQLException ex) {
+        Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
+                "Error de base de datos", "No se pudo verificar el estatus de la asignación: " + ex.getMessage());
+    } catch (IOException ex) {
+        Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
+                "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla: " + ex.getMessage());
     }
+}
+
 
     @FXML
     private void clicBotonCancelar(ActionEvent event) {
@@ -69,6 +86,7 @@ public class FXMLCU04_1_EntregaReportesController implements Initializable {
     }
     
     public void inicializarInformacion (Estudiante estudiante) {
+        this.asignacionReporte = verificarAsignacionReporte();
         this.estudiante = estudiante;
         configurarTabla();
         cargarInformacionTabla();
@@ -92,4 +110,14 @@ public class FXMLCU04_1_EntregaReportesController implements Initializable {
     private void configurarTabla() {
         colNombres.setCellValueFactory(new PropertyValueFactory("nombreArchivo"));
     }
+    
+    private AsignacionReporte verificarAsignacionReporte() {
+        try {
+            AsignacionReporte asignacionReporte = AsignacionReporteDAO.obtenerAsignacionActual();
+        } catch (SQLException ex) {
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error de conexión", "Por el momento no hay conexión.");
+        }
+        return asignacionReporte;
+    }
+    
 }
