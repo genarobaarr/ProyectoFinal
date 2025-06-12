@@ -13,11 +13,12 @@ public class ReporteMensual {
     private String extensionArchivo;
     private byte[] archivo;
     private int idExpediente;
+    private String estatus;
 
     public ReporteMensual() {
     }
 
-    public ReporteMensual(int idReporteMensual, int numeroReporte, int numeroHoras, String observaciones, String nombreArchivo, String extensionArchivo, byte[] archivo, int idExpediente) {
+    public ReporteMensual(int idReporteMensual, int numeroReporte, int numeroHoras, String observaciones, String nombreArchivo, String extensionArchivo, byte[] archivo, int idExpediente, String estatus) {
         this.idReporteMensual = idReporteMensual;
         this.numeroReporte = numeroReporte;
         this.numeroHoras = numeroHoras;
@@ -26,6 +27,7 @@ public class ReporteMensual {
         this.extensionArchivo = extensionArchivo;
         this.archivo = archivo;
         this.idExpediente = idExpediente;
+        this.estatus = estatus;
     }
 
     public int getIdReporteMensual() {
@@ -91,6 +93,16 @@ public class ReporteMensual {
     public void setIdExpediente(int idExpediente) {
         this.idExpediente = idExpediente;
     }
+
+    public String getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
+    }
+    
+    
 
     @Override
     public String toString() {

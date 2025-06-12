@@ -119,8 +119,11 @@ public class FXMLReportesController implements Initializable {
             
             switch (fxmlPath) {
                 case "vista/FXMLCU04_1_EntregaReportes.fxml":
-                    FXMLCU04_1_EntregaReportesController controlador = cargador.getController();
-                    controlador.inicializarInformacion(estudiante);
+                    FXMLCU04_1_EntregaReportesController controladorEntregaReportes = cargador.getController();
+                    controladorEntregaReportes.inicializarInformacion(estudiante);
+                case "vista/FXMLCU06_1_ValidarReportes.fxml":
+                    FXMLCU06_1_ValidarReportesController controladorValidarReportes = cargador.getController();
+                    controladorValidarReportes.inicializarInformacion();
             }
             
             Scene escena = new Scene(vista);

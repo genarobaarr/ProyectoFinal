@@ -4,17 +4,13 @@
  */
 package proyectofinal.controlador;
 
-import com.mysql.cj.xdevapi.PreparableStatement;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -24,13 +20,11 @@ import proyectofinal.modelo.dao.ProyectoDAO;
 import proyectofinal.modelo.dao.ReporteMensualDAO;
 import proyectofinal.modelo.dao.ResponsableDeProyectoDAO;
 import proyectofinal.modelo.pojo.Estudiante;
-import proyectofinal.modelo.pojo.Expediente;
 import proyectofinal.modelo.pojo.OrganizacionVinculada;
 import proyectofinal.modelo.pojo.Proyecto;
 import proyectofinal.modelo.pojo.ReporteMensual;
 import proyectofinal.modelo.pojo.ResponsableDeProyecto;
 import proyectofinal.modelo.pojo.ResultadoOperacion;
-import proyectofinal.modelo.pojo.Usuario;
 import proyectofinal.utilidades.Utilidad;
 
 public class FXMLCU04_2_EntregaReportesController implements Initializable {
@@ -184,7 +178,7 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
         reporteMensual.setNumeroReporte(Integer.parseInt(tfNumeroReporte.getText()));
         reporteMensual.setNumeroHoras(Integer.parseInt(tfNumeroHoras.getText()));
         reporteMensual.setObservaciones(taDescripcion.getText());
-        reporteMensual.setExtensionArchivo(".pdf");
+        reporteMensual.setExtensionArchivo("pdf");
         reporteMensual.setIdExpediente(idExpediente);
         reporteMensual.setNombreArchivo(estudiante.getNombre() + estudiante.getApellidoPaterno() + estudiante.getApellidoMaterno() 
                 + "_Reporte_Mensual_" + Integer.parseInt(tfNumeroReporte.getText()) + "_" + tfPeriodoReporte.getText());
