@@ -2,7 +2,6 @@
  * Omar Morales García
  * 09-06-2025
  */
-
 package proyectofinal.modelo.dao;
 
 import java.sql.Connection;
@@ -14,14 +13,13 @@ import java.util.ArrayList;
 import proyectofinal.modelo.pojo.Estudiante;
 import java.util.List;
 import proyectofinal.modelo.ConexionBD;
-import proyectofinal.modelo.pojo.ReporteMensual;
 import proyectofinal.modelo.pojo.EvaluacionOV;
 import proyectofinal.modelo.pojo.EvaluacionExposicion;
 import java.math.BigDecimal;
 
 public class EstudianteDAO {
 
-    public List<Estudiante> obtenerEstudiantesSinProyectoAsignado() {
+    public static List<Estudiante> obtenerEstudiantesSinProyectoAsignado() {
         List<Estudiante> estudiantes = new ArrayList<>();
         String query = "SELECT u.idUsuario, u.nombre, u.apellidoPaterno, u.apellidoMaterno, u.email, u.username, " +
                        "e.fechaNacimiento, e.matricula, e.idExperiencia " +
@@ -74,7 +72,7 @@ public class EstudianteDAO {
         return estudiantes;
     }
 
-    public void crearExpedienteEstudianteProyecto(int idEstudiante, int idProyecto, int idPeriodo) {
+    public static void crearExpedienteEstudianteProyecto(int idEstudiante, int idProyecto, int idPeriodo) {
         String query = "INSERT INTO expediente (estatus, horasAcumuladas, idProyecto, idPeriodo, idEstudiante) VALUES (?, ?, ?, ?, ?)";
         
         System.out.println("DEBUG: Executing query for creating expediente: " + query);
@@ -118,7 +116,7 @@ public class EstudianteDAO {
         }
     }
 
-    public List<Estudiante> obtenerEstudiantesConReporteMensual() {
+    public static List<Estudiante> obtenerEstudiantesConReporteMensual() {
         List<Estudiante> estudiantesConReporte = new ArrayList<>();
         String query = "SELECT DISTINCT u.idUsuario, u.nombre, u.apellidoPaterno, u.apellidoMaterno, u.email, u.username, " +
                        "e.fechaNacimiento, e.matricula, e.idExperiencia, exp.idExpediente, exp.horasAcumuladas " + 
@@ -174,7 +172,7 @@ public class EstudianteDAO {
         return estudiantesConReporte;
     }
 
-    public List<EvaluacionOV> obtenerEvaluacionesOVEstudiante(int idEstudiante) {
+    public static List<EvaluacionOV> obtenerEvaluacionesOVEstudiante(int idEstudiante) {
         List<EvaluacionOV> evaluaciones = new ArrayList<>();
         String query = "SELECT eo.idEvaluacionOV, eo.comentarios, eo.fecha, eo.puntaje_final " +
                        "FROM evaluacion_ov eo " +
@@ -226,7 +224,7 @@ public class EstudianteDAO {
         return evaluaciones;
     }
 
-    public List<EvaluacionExposicion> obtenerEvaluacionesExposicionEstudiante(int idEstudiante) {
+    public static List<EvaluacionExposicion> obtenerEvaluacionesExposicionEstudiante(int idEstudiante) {
         List<EvaluacionExposicion> evaluaciones = new ArrayList<>();
         String query = "SELECT ee.idEvaluacionExposicion, ee.comentarios, ee.puntajeFinal " +
                        "FROM evaluacion_exposicion ee " +
@@ -334,5 +332,4 @@ public class EstudianteDAO {
         }
         return estudiante;
     }
-
 }

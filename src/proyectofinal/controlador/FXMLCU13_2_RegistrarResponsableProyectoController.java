@@ -15,7 +15,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
 import proyectofinal.modelo.dao.ResponsableDeProyectoDAO;
 import proyectofinal.modelo.pojo.OrganizacionVinculada;
 import proyectofinal.modelo.pojo.ResponsableDeProyecto;
@@ -56,7 +55,7 @@ public class FXMLCU13_2_RegistrarResponsableProyectoController implements Initia
     @FXML
     private void clicBotonCancelar(ActionEvent event) {
         if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas cancelar?")) {
-            cerrarVentana();
+            Utilidad.getEscenario(tfDepartamento).close();
         }
     }
 
@@ -105,10 +104,6 @@ public class FXMLCU13_2_RegistrarResponsableProyectoController implements Initia
         lbOrganizacionVinculada.setText(organizacionVinculada.getNombre());
     }
     
-    private void cerrarVentana(){
-        ((Stage) tfNombreResponsable.getScene().getWindow()).close();
-    }
-    
     private boolean validarCampos() {
         boolean camposValidos = true;
         String nombreResponsable = tfNombreResponsable.getText().trim();
@@ -146,7 +141,6 @@ public class FXMLCU13_2_RegistrarResponsableProyectoController implements Initia
         return camposValidos;
     }
     
-    
     private ResponsableDeProyecto obtenerResponsableDeProyectoNuevo() {
         ResponsableDeProyecto responsable = new ResponsableDeProyecto();
         responsable.setDepartamento(tfDepartamento.getText());
@@ -165,7 +159,7 @@ public class FXMLCU13_2_RegistrarResponsableProyectoController implements Initia
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, 
                         "Operación exitosa", 
                         "El responsable de proyecto ha sido registrado exitosamente.");
-                cerrarVentana();
+                Utilidad.getEscenario(tfDepartamento).close();
             } else {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
                         "Error al regitrar responsable", resultadoInsertar.getMensaje());

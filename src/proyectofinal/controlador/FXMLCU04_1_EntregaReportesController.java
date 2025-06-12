@@ -24,10 +24,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import proyectofinal.ProyectoFinal;
 import proyectofinal.modelo.dao.ReporteMensualDAO;
-import proyectofinal.modelo.dao.ResponsableDeProyectoDAO;
 import proyectofinal.modelo.pojo.Estudiante;
 import proyectofinal.modelo.pojo.ReporteMensual;
-import proyectofinal.modelo.pojo.Usuario;
 import proyectofinal.utilidades.Utilidad;
 
 
@@ -43,7 +41,37 @@ public class FXMLCU04_1_EntregaReportesController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //TODO
+    }
+    
+    @FXML
+    private void clicBotonNuevoReporte(ActionEvent event) {
+         try {
+            Stage escenarioBase = (Stage) tvReportesMensuales.getScene().getWindow();
+            FXMLLoader cargador = new FXMLLoader(ProyectoFinal.class.getResource("vista/FXMLCU04_2_EntregaReportes.fxml"));
+            Parent vista = cargador.load();
+
+            FXMLCU04_2_EntregaReportesController controlador = cargador.getController();
+            controlador.inicializarInformacion(estudiante);
+
+            Scene escenaPrincipal = new Scene(vista);
+            escenarioBase.setScene(escenaPrincipal);
+            escenarioBase.setTitle("Entregar reporte");
+            escenarioBase.show();
+        } catch (IOException ex) {
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
+                        "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla: " + ex.getMessage());
+        }
+    }
+
+    @FXML
+    private void clicBotonCancelar(ActionEvent event) {
+        Utilidad.getEscenario(tvReportesMensuales).close();
+    }
+    
+    public void inicializarInformacion (Estudiante estudiante) {
+        this.estudiante = estudiante;
+        configurarTabla();
+        cargarInformacionTabla();
     }
     
     private void cargarInformacionTabla() {
@@ -64,36 +92,4 @@ public class FXMLCU04_1_EntregaReportesController implements Initializable {
     private void configurarTabla() {
         colNombres.setCellValueFactory(new PropertyValueFactory("nombreArchivo"));
     }
-    
-    @FXML
-    private void clicBotonNuevoReporte(ActionEvent event) {
-         try {
-            Stage escenarioBase = (Stage) tvReportesMensuales.getScene().getWindow();
-            FXMLLoader cargador = new FXMLLoader(ProyectoFinal.class.getResource("vista/FXMLCU04_2_EntregaReportes.fxml"));
-            Parent vista = cargador.load();
-
-            FXMLCU04_2_EntregaReportesController controlador = cargador.getController();
-            controlador.inicializarInformacion(estudiante);
-
-            Scene escenaPrincipal = new Scene(vista);
-            escenarioBase.setScene(escenaPrincipal);
-            escenarioBase.setTitle("Entregar reporte");
-            escenarioBase.show();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void clicBotonCancelar(ActionEvent event) {
-        Utilidad.getEscenario(tvReportesMensuales).close();
-    }
-    
-    public void inicializarInformacion (Estudiante estudiante) {
-        this.estudiante = estudiante;
-        configurarTabla();
-        cargarInformacionTabla();
-    }
 }
-    
-  

@@ -17,11 +17,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import proyectofinal.ProyectoFinal;
+import proyectofinal.utilidades.Utilidad;
 
 public class FXMLOrganizacionesController implements Initializable {
 
@@ -47,7 +49,7 @@ public class FXMLOrganizacionesController implements Initializable {
 
     @FXML
     private void clicBotonRegresar(ActionEvent event) {
-        cerrarVentana();
+        Utilidad.getEscenario(lbReloj).close();
     }
     
     public void irPantalla(String fxmlPath, String titulo) {
@@ -60,12 +62,9 @@ public class FXMLOrganizacionesController implements Initializable {
             escenarioNuevo.initModality(Modality.APPLICATION_MODAL);
             escenarioNuevo.showAndWait();
         } catch (IOException ex) {
-            ex.printStackTrace();
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
+                    "Error al cargar la pantalla", "No se pudo cargar la pantalla principal");
         }
-    }
-    
-    private void cerrarVentana(){
-        ((Stage) lbReloj.getScene().getWindow()).close();
     }
     
     public void mostrarHora() {

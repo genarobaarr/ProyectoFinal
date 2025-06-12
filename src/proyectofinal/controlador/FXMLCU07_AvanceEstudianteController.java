@@ -19,7 +19,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 import proyectofinal.modelo.dao.EstudianteDAO;
 import proyectofinal.modelo.dao.ReporteMensualDAO;
 import proyectofinal.modelo.pojo.Estudiante;
@@ -61,28 +60,29 @@ public class FXMLCU07_AvanceEstudianteController implements Initializable {
     @FXML
     private TableColumn<EvaluacionExposicion, Double> tcPuntajeExposicion; 
     @FXML
-    private TableColumn<EvaluacionExposicion, String> tcComentariosExposicion; 
+    private TableColumn<EvaluacionExposicion, String> tcComentariosExposicion;
+    @FXML
+    private Button botonAceptar; 
     
     private ObservableList<ReporteMensual> reportesMensuales;
     private ObservableList<EvaluacionOV> evaluacionesOV;
     private ObservableList<EvaluacionExposicion> evaluacionesExposicion;
-
     private Estudiante estudianteActual; 
-    private EstudianteDAO estudianteDAO;
-    @FXML
-    private Button botonAceptar;
     
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         configurarTablaReportesMensuales();
         configurarTablaEvaluacionesOV();
         configurarTablaEvaluacionesExposicion();
-    }    
+    }
     
-    public void inicializarInformacion(Estudiante estudianteSeleccionado, EstudianteDAO estudianteDAO) {
-        this.estudianteActual = estudianteSeleccionado; 
-        this.estudianteDAO = estudianteDAO; 
+    @FXML
+    private void clicBotonAceptar(ActionEvent event) {
+        Utilidad.getEscenario(tvReportes).close();
+    }
+    
+    public void inicializarInformacion(Estudiante estudianteSeleccionado) {
+        this.estudianteActual = estudianteSeleccionado;
         cargarInformacionAvance();
     }
 
@@ -113,46 +113,30 @@ public class FXMLCU07_AvanceEstudianteController implements Initializable {
             lbMatricula.setText(estudianteActual.getMatricula());
             lbHorasAcumuladas.setText(String.valueOf(estudianteActual.getHorasAcumuladas()));
 
-            if (estudianteDAO == null) {
-                System.err.println("Error: EstudianteDAO no ha sido inyectado correctamente.");
-                Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error", "Error interno de la aplicación: DAO no disponible.");
-                return;
-            }
-
             try {
-                // Cargar reportes mensuales
                 List<ReporteMensual> listaReportes = ReporteMensualDAO.obtenerReportesMensualesEstudiante(estudianteActual.getIdUsuario());
                 reportesMensuales = FXCollections.observableArrayList(listaReportes);
                 tvReportes.setItems(reportesMensuales);
 
-                // Cargar evaluaciones de Organización Vinculada
-                List<EvaluacionOV> listaEvaluacionesOV = estudianteDAO.obtenerEvaluacionesOVEstudiante(estudianteActual.getIdUsuario());
+                List<EvaluacionOV> listaEvaluacionesOV = EstudianteDAO.obtenerEvaluacionesOVEstudiante(estudianteActual.getIdUsuario());
                 evaluacionesOV = FXCollections.observableArrayList(listaEvaluacionesOV);
                 tvEvaluacionesOV.setItems(evaluacionesOV);
 
-                // Cargar evaluaciones de Exposición
-                List<EvaluacionExposicion> listaEvaluacionesExposicion = estudianteDAO.obtenerEvaluacionesExposicionEstudiante(estudianteActual.getIdUsuario());
+                List<EvaluacionExposicion> listaEvaluacionesExposicion = EstudianteDAO.obtenerEvaluacionesExposicionEstudiante(estudianteActual.getIdUsuario());
                 evaluacionesExposicion = FXCollections.observableArrayList(listaEvaluacionesExposicion);
                 tvEvaluacionesExposicion.setItems(evaluacionesExposicion);
 
                 if (listaReportes.isEmpty() && listaEvaluacionesOV.isEmpty() && listaEvaluacionesExposicion.isEmpty()) {
-                    Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, "Sin Datos", "El estudiante seleccionado no tiene reportes ni evaluaciones registradas.");
+                    Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, 
+                            "Sin Datos", "El estudiante seleccionado no tiene reportes ni evaluaciones registradas.");
                 }
-
             } catch (SQLException e) {
-                System.err.println("Error al cargar la información de avance: " + e.getMessage());
-                e.printStackTrace();
-                Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error de Base de Datos", "Hubo un problema al intentar recuperar los datos del estudiante");
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
+                        "Error de Base de Datos", "Hubo un problema al intentar recuperar los datos del estudiante");
             }
         } else {
-            System.err.println("Estudiante seleccionado es nulo. No se puede cargar el avance.");
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Estudiante No Seleccionado", "No se ha seleccionado un estudiante para mostrar su avance.");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
+                    "Estudiante No Seleccionado", "No se ha seleccionado un estudiante para mostrar su avance.");
         }
-    }
-    
-    @FXML
-    private void clicBotonAceptar(ActionEvent event) {
-        Stage stage = (Stage) botonAceptar.getScene().getWindow();
-        stage.close();
     }
 }

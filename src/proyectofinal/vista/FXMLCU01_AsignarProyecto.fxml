@@ -9,12 +9,12 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLCU01_AsignarProyectoController">
    <children>
-      <Button layoutX="175.0" layoutY="353.0" mnemonicParsing="false" onAction="#btnAceptar" prefWidth="75.0" text="Aceptar">
+      <Button layoutX="175.0" layoutY="353.0" mnemonicParsing="false" onAction="#clicBotonAceptar" prefWidth="75.0" text="Aceptar">
          <font>
             <Font name="Gill Sans MT" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="350.0" layoutY="353.0" mnemonicParsing="false" onAction="#btnSalir" prefWidth="75.0" text="Salir">
+      <Button layoutX="350.0" layoutY="353.0" mnemonicParsing="false" onAction="#clicBotonSalir" prefWidth="75.0" text="Salir">
          <font>
             <Font name="Gill Sans MT" size="14.0" />
          </font>

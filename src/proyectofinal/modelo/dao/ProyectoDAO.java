@@ -19,7 +19,7 @@ import proyectofinal.modelo.pojo.ResultadoOperacion;
 
 public class ProyectoDAO {
 
-    public List<Proyecto> obtenerProyectosSinAsignar() {
+    public static List<Proyecto> obtenerProyectosSinAsignar() {
         List<Proyecto> proyectos = new ArrayList<>();
         String query = "SELECT p.idProyecto, p.nombre, p.descripcion, p.objetivos, " +
                        "p.fechaInicio, p.fechaFin, p.idResponsableDeProyecto, p.idCoordinador " +
@@ -289,7 +289,6 @@ public class ProyectoDAO {
         proyecto.setFechaInicio(resultado.getString("fechaInicio"));
         proyecto.setFechaFin(resultado.getString("fechaFin"));
         
-        // Mapeando a las nuevas columnas
         try {
             proyecto.setIdResponsableDeProyecto(resultado.getInt("idResponsableDeProyecto"));
         } catch (SQLException e) { 
@@ -300,12 +299,10 @@ public class ProyectoDAO {
         } catch (SQLException e) { 
             System.err.println("Advertencia: Columna idCoordinador no encontrada o inválida: " + e.getMessage());
         }
-        
-        
         return proyecto;
     }
     
-    public List<ProyectoConEstudiante> obtenerProyectosConEstudiantesActivos() {
+    public static List<ProyectoConEstudiante> obtenerProyectosConEstudiantesActivos() throws SQLException {
         List<ProyectoConEstudiante> lista = new ArrayList<>();
         
         String query = "SELECT " +
@@ -361,12 +358,11 @@ public class ProyectoDAO {
             }
         } catch (SQLException e) {
             System.err.println("SQL Exception en obtenerProyectosConEstudiantesActivos: " + e.getErrorCode() + " - " + e.getMessage());
-            e.printStackTrace();
-            throw new RuntimeException("Error al cargar proyectos con estudiantes activos.", e);
+            throw new SQLException("Error al cargar proyectos con estudiantes activos.", e);
+            
         } catch (Exception e) {
             System.err.println("General Exception en obtenerProyectosConEstudiantesActivos: " + e.getMessage());
-            e.printStackTrace();
-            throw new RuntimeException("Error inesperado al cargar proyectos con estudiantes activos.", e);
+            throw new SQLException("Error inesperado al cargar proyectos con estudiantes activos.", e);
         }
         return lista;
     }

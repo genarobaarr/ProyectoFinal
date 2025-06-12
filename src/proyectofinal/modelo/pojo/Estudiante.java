@@ -8,14 +8,15 @@ public class Estudiante extends Usuario {
     private String fechaNacimiento;
     private String matricula;
     private int idExperienciaEducativa;
-    //Nuevos campos
     private int idExpediente;
     private int horasAcumuladas;
     
     public Estudiante() {
     }
 
-    public Estudiante(String fechaNacimiento, String matricula, int idExperienciaEducativa, int idUsuario, String nombre, String apellidoPaterno, String apellidoMaterno, String email, String username) {
+    public Estudiante(String fechaNacimiento, String matricula, int idExperienciaEducativa, 
+            int idUsuario, String nombre, String apellidoPaterno, 
+            String apellidoMaterno, String email, String username) {
         super(idUsuario, nombre, apellidoPaterno, apellidoMaterno, email, username);
         this.fechaNacimiento = fechaNacimiento;
         this.matricula = matricula;
@@ -72,6 +73,4 @@ public class Estudiante extends Usuario {
     public void setHorasAcumuladas(int horasAcumuladas) {
         this.horasAcumuladas = horasAcumuladas;
     }
-    
-    
 }

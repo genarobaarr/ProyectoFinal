@@ -14,7 +14,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
 import proyectofinal.modelo.dao.OrganizacionVinculadaDAO;
 import proyectofinal.modelo.pojo.OrganizacionVinculada;
 import proyectofinal.modelo.pojo.ResultadoOperacion;
@@ -48,7 +47,7 @@ public class FXMLCU12_RegistrarOrganizacionVinculadaController implements Initia
     @FXML
     private void clicBotonCancelar(ActionEvent event) {
         if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas cancelar el registro de la organización vinculada?")) {
-            cerrarVentana();
+            Utilidad.getEscenario(tfTelefono).close();
         }
     }
 
@@ -82,10 +81,6 @@ public class FXMLCU12_RegistrarOrganizacionVinculadaController implements Initia
             clicBotonRegistrar(new ActionEvent());
             event.consume();
         }
-    }
-    
-    private void cerrarVentana() {
-        ((Stage) tfNombreOrganizacion.getScene().getWindow()).close();
     }
     
     private boolean validarCampos() {
@@ -142,7 +137,7 @@ public class FXMLCU12_RegistrarOrganizacionVinculadaController implements Initia
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, 
                         "Operación exitosa", 
                         "La organización " + organizacionVinculada.getNombre() + " ha sido registrada exitosamente");
-                cerrarVentana();
+                Utilidad.getEscenario(tfTelefono).close();
             } else {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
                         "Error al registrar organización vinculada", resultadoInsertar.getMensaje());

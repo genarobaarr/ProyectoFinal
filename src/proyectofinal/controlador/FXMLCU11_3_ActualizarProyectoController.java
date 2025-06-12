@@ -16,7 +16,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import proyectofinal.modelo.dao.OrganizacionVinculadaDAO;
 import proyectofinal.modelo.dao.ProyectoDAO;
 import proyectofinal.modelo.dao.ResponsableDeProyectoDAO;
@@ -54,7 +53,7 @@ public class FXMLCU11_3_ActualizarProyectoController implements Initializable {
     @FXML
     private void clicBotonCancelar(ActionEvent event) {
         if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas cancelar el registro del proyecto?")) {
-            cerrarVentana();
+            Utilidad.getEscenario(tfNombreProyecto).close();
         }
     }
 
@@ -89,10 +88,6 @@ public class FXMLCU11_3_ActualizarProyectoController implements Initializable {
         tfNombreProyecto.setText(proyectoAntiguo.getNombre());
         dpFechaInicio.setValue(LocalDate.parse(proyectoAntiguo.getFechaInicio().toString()));
         dpFechaFin.setValue(LocalDate.parse(proyectoAntiguo.getFechaFin().toString()));
-    }
-    
-    private void cerrarVentana(){
-        ((Stage) tfNombreProyecto.getScene().getWindow()).close();
     }
     
     private boolean validarCampos() {
@@ -160,7 +155,7 @@ public class FXMLCU11_3_ActualizarProyectoController implements Initializable {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, 
                         "Operación exitosa", 
                         "Los cambios han sido guardados exitosamente.");
-                cerrarVentana();
+                Utilidad.getEscenario(tfNombreProyecto).close();
             } else {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
                         "Error al modificar proyecto", resultadoModificar.getMensaje());

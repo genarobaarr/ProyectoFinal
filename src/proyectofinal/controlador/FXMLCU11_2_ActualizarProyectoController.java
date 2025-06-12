@@ -85,12 +85,8 @@ public class FXMLCU11_2_ActualizarProyectoController implements Initializable {
                     "Lo sentimos, por el momento no se puede mostrar la información "
                             + "de los proyectos, por favor, "
                             + "inténtelo de nuevo más tarde.");
-            cerrarVentana();
+            Utilidad.getEscenario(lbProyectoFiltro).close();
         }
-    }
-    
-    private void cerrarVentana(){
-        ((Stage) tvProyectosEncontrados.getScene().getWindow()).close();
     }
     
     private void irPantallaSiguiente(Proyecto proyecto, String fxmlPath, String titulo) throws IOException{

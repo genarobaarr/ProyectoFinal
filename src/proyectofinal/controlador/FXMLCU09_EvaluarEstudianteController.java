@@ -16,9 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
-import javafx.stage.Stage;
 import proyectofinal.modelo.dao.EvaluacionExposicionDAO;
 import proyectofinal.modelo.pojo.EvaluacionExposicion;
 import proyectofinal.modelo.pojo.EvaluacionExposicionCriterio;
@@ -61,26 +59,18 @@ public class FXMLCU09_EvaluarEstudianteController implements Initializable {
 
     private int idExpediente;
     private int idAcademico;
-    private EvaluacionExposicionDAO evaluacionDAO;
-
     private static final double EXCELENTE = 1.0;
     private static final double SATISFACTORIO = 0.85;
     private static final double PUEDE_MEJORAR = 0.7;
     private static final double NO_CUMPLE = 0.50;
 
-    public FXMLCU09_EvaluarEstudianteController() {
-        evaluacionDAO = new EvaluacionExposicionDAO();
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Initialization logic, if any, for the FXML elements
     }
 
     public void inicializarInformacion(int idExpediente, int idAcademico) {
         this.idExpediente = idExpediente;
         this.idAcademico = idAcademico; 
-        System.out.println("DEBUG: FXMLCU09_EvaluarEstudianteController - idAcademico recibido: " + this.idAcademico); 
     }
 
     @FXML
@@ -88,7 +78,8 @@ public class FXMLCU09_EvaluarEstudianteController implements Initializable {
         if (tgDominioTema.getSelectedToggle() == null ||
             tgFormalidadPresentacion.getSelectedToggle() == null ||
             tgOrganizacionEquipo.getSelectedToggle() == null) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Campos Incompletos", "Por favor, seleccione una calificación para todas las categorías de la rúbrica.");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Campos Incompletos", 
+                    "Por favor, seleccione una calificación para todas las categorías de la rúbrica.");
             return;
         }
 
@@ -97,7 +88,7 @@ public class FXMLCU09_EvaluarEstudianteController implements Initializable {
         double puntajeFormalidad = getPuntajeYCriterio(tgFormalidadPresentacion, "Formalidad de la presentación", criterios);
         double puntajeOrganizacion = getPuntajeYCriterio(tgOrganizacionEquipo, "Organización del equipo", criterios);
 
-        double puntajeTotal = (puntajeDominioTema + puntajeFormalidad + puntajeOrganizacion) / 3.0;
+        double puntajeTotal = (puntajeDominioTema + puntajeFormalidad + puntajeOrganizacion);
 
         String comentarios = taComentarios.getText().trim();
 
@@ -109,17 +100,24 @@ public class FXMLCU09_EvaluarEstudianteController implements Initializable {
         evaluacionPrincipal.setIdAcademicoEvaluador(this.idAcademico); 
 
         try {
-            int idGenerado = evaluacionDAO.guardarEvaluacionExposicion(evaluacionPrincipal, criterios);
+            int idGenerado = EvaluacionExposicionDAO.guardarEvaluacionExposicion(evaluacionPrincipal, criterios);
             if (idGenerado != -1) {
-                Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, "Operación exitosa", "Evaluación de exposición registrada con éxito.");
-                cerrarVentana();
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, 
+                        "Operación exitosa", "Evaluación de exposición registrada con éxito.");
+                Utilidad.getEscenario(taComentarios).close();
             } else {
-                Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error al registrar", "No se pudo registrar la evaluación de exposición. Inténtalo más tarde.");
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
+                        "Error al registrar", "No se pudo registrar la evaluación de exposición. Inténtalo más tarde.");
             }
         } catch (RuntimeException e) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", "Error al guardar la evaluación de exposición. Detalles: " + e.getMessage());
-            e.printStackTrace(); 
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
+                    "Error en la base de datos", "Error al guardar la evaluación de exposición. Detalles: " + e.getMessage());
         }
+    }
+
+    @FXML
+    private void btnCancelar(ActionEvent event) {
+        Utilidad.getEscenario(taComentarios).close();
     }
 
     private double getPuntajeYCriterio(ToggleGroup group, String nombreCriterio, List<EvaluacionExposicionCriterio> criteriosLista) {
@@ -152,17 +150,5 @@ public class FXMLCU09_EvaluarEstudianteController implements Initializable {
             return valor;
         }
         return 0.0; 
-    }
-
-    @FXML
-    private void btnCancelar(ActionEvent event) {
-        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas salir?")) {
-            cerrarVentana();
-        }
-    }
-
-    private void cerrarVentana() {
-        Stage stage = (Stage) taComentarios.getScene().getWindow();
-        stage.close();
     }
 }

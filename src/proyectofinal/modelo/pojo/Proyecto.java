@@ -17,7 +17,6 @@ public class Proyecto {
     private int idAcademico;
     private int idCoordinador;
     private int IdResponsableDeProyecto;
-    //Solo se ocupa para los set Calando para el JOIN  OV
     private String estatus; 
     private String nombreOrganizacion;
     private String nombreResponsable;
@@ -42,7 +41,7 @@ public class Proyecto {
         this.estatus = estatus;
     }
 
-    public Proyecto(int idProyecto, String nombre, String descripcion, String objetivo, int cupo, int horasTotales, String fechaInicio, String fechaFin, int idOrganizacionVinculada, int idAcademico, int idCoordinador, int IdResponsableDeProyecto, String estatus) {
+    public Proyecto(int idProyecto, String nombre, String descripcion, String objetivos, int cupo, int horasTotales, String fechaInicio, String fechaFin, int idOrganizacionVinculada, int idAcademico, int idCoordinador, int IdResponsableDeProyecto, String estatus) {
         this.idProyecto = idProyecto;
         this.nombre = nombre;
         this.descripcion = descripcion;

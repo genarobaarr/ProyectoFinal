@@ -15,7 +15,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
@@ -44,8 +43,7 @@ import proyectofinal.modelo.pojo.Expediente;
 import proyectofinal.modelo.dao.ExpedienteDAO;
 import proyectofinal.modelo.pojo.Proyecto;
 import proyectofinal.modelo.dao.ProyectoDAO;
-import java.sql.SQLException; 
-import javafx.stage.Stage;
+import java.sql.SQLException;
 
 public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initializable {
 
@@ -78,7 +76,6 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
 
     private EvaluacionOV evaluacionOVActual;
     private Estudiante estudianteLoggeado;
-
     private List<EvaluacionOVCategoria> categorias;
     private List<EvaluacionOVCriterio> criterios;
     private Map<Integer, ToggleGroup> afirmacionToggleGroups;
@@ -89,6 +86,18 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
         loadStudentDataFromSession();
         loadProjectAndOrganizationData();
         loadRubricDataAndBuildUI();
+    }
+
+    @FXML
+    private void clicBotonAceptar(ActionEvent event) {
+        handleAceptar();
+    }
+
+    @FXML
+    private void clicBotonCancelar(ActionEvent event) {
+        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas cancelar?")) {
+            Utilidad.getEscenario(btnAceptar).close();
+        }
     }
 
     private void loadStudentDataFromSession() {
@@ -104,21 +113,25 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
 
                         evaluacionOVActual.setIdExpediente(estudianteLoggeado.getIdExpediente());
                     } else {
-                        Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error al cargar estudiante", "No se encontraron los datos del estudiante loggeado para el ID de usuario: " + idUsuario);
+                        Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
+                                "Error al cargar estudiante", "No se encontraron los datos del estudiante loggeado para el ID de usuario: " + idUsuario);
                         btnAceptar.disableProperty().set(true);
                     }
                 } catch (Exception e) {
-                    Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error de conexión", "Error al cargar datos del estudiante desde la base de datos: " + e.getMessage());
+                    Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
+                            "Error de conexión", "Error al cargar datos del estudiante desde la base de datos: " + e.getMessage());
                     e.printStackTrace();
                     btnAceptar.disableProperty().set(true);
                 }
             } else {
-                Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Acceso no autorizado", "El usuario loggeado no es un estudiante y no tiene permiso para realizar esta evaluación.");
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, 
+                        "Acceso no autorizado", "El usuario loggeado no es un estudiante y no tiene permiso para realizar esta evaluación.");
                 btnAceptar.disableProperty().set(true);
                 btnCancelar.fire();
             }
         } else {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Sesión no iniciada", "No hay un usuario loggeado. Los datos del estudiante no se cargarán.");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, 
+                    "Sesión no iniciada", "No hay un usuario loggeado. Los datos del estudiante no se cargarán.");
             btnAceptar.disableProperty().set(true);
             btnCancelar.fire();
         }
@@ -140,7 +153,8 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
                             tfOrganizacionVinculada.setText(nombreOrganizacion);
                         } else {
                             tfOrganizacionVinculada.setText("N/A");
-                            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Organización no encontrada", "No se encontró la organización vinculada asociada al proyecto.");
+                            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, 
+                                    "Organización no encontrada", "No se encontró la organización vinculada asociada al proyecto.");
                         }
 
                         String nombreResponsable = proyecto.getNombreResponsable();
@@ -155,7 +169,8 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
                             tfResponsableNombre.setText("N/A");
                             tfResponsableDepartamento.setText("N/A");
                             tfResponsableCargo.setText("N/A");
-                            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Responsable no encontrado", "No se encontró el responsable de proyecto asociado al proyecto.");
+                            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, 
+                                    "Responsable no encontrado", "No se encontró el responsable de proyecto asociado al proyecto.");
                         }
 
                     } else {
@@ -165,28 +180,29 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
                         tfResponsableNombre.setText("N/A");     
                         tfResponsableDepartamento.setText("N/A"); 
                         tfResponsableCargo.setText("N/A");        
-                        Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Proyecto no encontrado", "No se encontró el proyecto asociado al expediente.");
+                        Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, 
+                                "Proyecto no encontrado", "No se encontró el proyecto asociado al expediente.");
                     }
                 } else {
-                    Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Expediente no encontrado", "No se encontró el expediente completo para el estudiante.");
+                    Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, 
+                            "Expediente no encontrado", "No se encontró el expediente completo para el estudiante.");
                     btnAceptar.disableProperty().set(true);
                 }
             } catch (SQLException e) {
-                Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error de conexión", "Error al cargar datos del proyecto/organización desde la base de datos: " + e.getMessage());
-                e.printStackTrace();
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
+                        "Error de conexión", "Error al cargar datos del proyecto/organización desde la base de datos: " + e.getMessage());
                 btnAceptar.disableProperty().set(true);
             }
         } else {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Expediente no disponible", "No se pudo cargar el ID del expediente para obtener los datos del proyecto/organización.");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, 
+                    "Expediente no disponible", "No se pudo cargar el ID del expediente para obtener los datos del proyecto/organización.");
             btnAceptar.disableProperty().set(true);
         }
     }
 
-
     private void loadRubricDataAndBuildUI() {
         afirmacionToggleGroups = new HashMap<>();
         vboxRubricaContenido.getChildren().clear();
-
         try {
             categorias = EvaluacionOVCategoriaDAO.obtenerCategorias();
             criterios = EvaluacionOVCriterioDAO.obtenerCriterios();
@@ -235,7 +251,6 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
 
         } catch (Exception e) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error al cargar rúbrica", "No se pudieron cargar los datos de la rúbrica: " + e.getMessage());
-            e.printStackTrace();
             btnAceptar.disableProperty().set(true);
         }
     }
@@ -252,17 +267,12 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
         return true;
     }
 
-    @FXML
-    private void clicBotonAceptar(ActionEvent event) {
-        handleAceptar();
-    }
-
     private void handleAceptar() {
         if (estudianteLoggeado == null || evaluacionOVActual.getIdExpediente() == 0) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error de datos", "No se pudo obtener el expediente del estudiante. Asegúrate de que los datos del estudiante se cargaron correctamente.");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
+                    "Error de datos", "No se pudo obtener el expediente del estudiante. Asegúrate de que los datos del estudiante se cargaron correctamente.");
             return;
         }
-
         if (!validarSeleccionesRubrica()) {
             return;
         }
@@ -293,7 +303,8 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
 
         evaluacionOVActual.setComentarios(taComentariosGenerales.getText().trim());
         if (evaluacionOVActual.getComentarios().isEmpty()) {
-             Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Campos vacíos", "Debes añadir comentarios generales de la evaluación.");
+             Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, 
+                     "Campos vacíos", "Debes añadir comentarios generales de la evaluación.");
              return;
         }
 
@@ -308,25 +319,16 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
                 }
                 EvaluacionOVResultadoDAO.guardarResultadosEvaluacionOV(resultadosRubrica);
 
-                Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, "Operación exitosa", "Evaluación a organización vinculada registrada y rúbrica guardada.");
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, 
+                        "Operación exitosa", "Evaluación a organización vinculada registrada y rúbrica guardada.");
                 btnAceptar.getScene().getWindow().hide();
             } else {
-                Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error", "No se pudo registrar la evaluación principal.");
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
+                        "Error", "No se pudo registrar la evaluación principal.");
             }
         } catch (Exception e) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", "Error de conexión con base de datos, intentalo más tarde: " + e.getMessage());
-            e.printStackTrace();
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
+                    "Error en la base de datos", "Error de conexión con base de datos, intentalo más tarde: " + e.getMessage());
         }
-    }
-
-    @FXML
-    private void clicBotonCancelar(ActionEvent event) {
-        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas cancelar?")) {
-            cerrarVentana();
-        }
-    }
-
-    private void cerrarVentana(){
-        ((Stage) taComentariosGenerales.getScene().getWindow()).close();
     }
 }

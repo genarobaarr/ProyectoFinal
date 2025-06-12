@@ -17,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -28,6 +29,7 @@ import proyectofinal.ProyectoFinal;
 import proyectofinal.modelo.pojo.AcademicoEvaluador;
 import proyectofinal.modelo.pojo.Estudiante;
 import proyectofinal.modelo.pojo.Usuario;
+import proyectofinal.utilidades.Utilidad;
 
 public class FXMLEvaluacionesController implements Initializable {
 
@@ -91,7 +93,8 @@ public class FXMLEvaluacionesController implements Initializable {
             escenarioNuevo.initModality(Modality.APPLICATION_MODAL);
             escenarioNuevo.showAndWait();
         } catch (IOException ex) {
-            ex.printStackTrace();
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
+                    "Error al cargar la pantalla", "No se pudo cargar la pantalla");
         }
     }
     
