@@ -6,11 +6,7 @@ package proyectofinal.controlador;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +20,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import proyectofinal.ProyectoFinal;
 import proyectofinal.modelo.pojo.Academico;
 import proyectofinal.modelo.pojo.AcademicoEvaluador;
@@ -61,11 +56,10 @@ public class FXMLPrincipalController implements Initializable {
     private ImageView ivEvaluaciones;
     
     private Usuario usuarioSesion;
-    private final DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        mostrarHora();
+        Utilidad.mostrarHora(lbReloj);
     }
     
     @FXML
@@ -79,7 +73,7 @@ public class FXMLPrincipalController implements Initializable {
             escenarioBase.show();
             usuarioSesion = null;
         } catch (IOException ex) {
-            ex.printStackTrace();
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error", "Error al cerrar sesión");
         }
     }
     
@@ -213,19 +207,7 @@ public class FXMLPrincipalController implements Initializable {
             escenarioNuevo.showAndWait();
         } catch (IOException ex) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                    "Error al cargar la pantalla", "No se pudo cargar la pantalla principal");
+                    "Error al cargar la pantalla", "No se pudo cargar la pantalla siguiente");
         }
-    }
-    
-    public void mostrarHora() {
-        Timeline reloj = new Timeline(
-            new KeyFrame(Duration.ZERO, e -> {
-                LocalDateTime ahora = LocalDateTime.now();
-                lbReloj.setText(ahora.format(formato));
-            }),
-            new KeyFrame(Duration.minutes(1))
-        );
-        reloj.setCycleCount(Timeline.INDEFINITE);
-        reloj.play();
     }
 }

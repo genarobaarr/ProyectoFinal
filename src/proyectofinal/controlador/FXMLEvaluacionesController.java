@@ -43,12 +43,10 @@ public class FXMLEvaluacionesController implements Initializable {
     private ImageView ivEvaluarOrganizacion;
     @FXML
     private ImageView ivRegistrarEvaluacion;
-    
-    private final DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        mostrarHora();
+        Utilidad.mostrarHora(lbReloj);
     }
 
     @FXML
@@ -63,7 +61,7 @@ public class FXMLEvaluacionesController implements Initializable {
 
     @FXML
     private void clicBotonRegresar(ActionEvent event) {
-        cerrarVentana();
+        Utilidad.getEscenario(lbReloj).close();
         
     }
     
@@ -94,24 +92,7 @@ public class FXMLEvaluacionesController implements Initializable {
             escenarioNuevo.showAndWait();
         } catch (IOException ex) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                    "Error al cargar la pantalla", "No se pudo cargar la pantalla");
+                    "Error al cargar la pantalla", "No se pudo cargar la pantalla siguiente");
         }
     }
-    
-    private void cerrarVentana(){
-        ((Stage) lbReloj.getScene().getWindow()).close();
-    }
-    
-    public void mostrarHora() {
-        Timeline reloj = new Timeline(
-            new KeyFrame(Duration.ZERO, e -> {
-                LocalDateTime ahora = LocalDateTime.now();
-                lbReloj.setText(ahora.format(formato));
-            }),
-            new KeyFrame(Duration.minutes(1))
-        );
-        reloj.setCycleCount(Timeline.INDEFINITE);
-        reloj.play();
-    }
-    
 }
