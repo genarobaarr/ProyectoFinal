@@ -15,7 +15,7 @@ import proyectofinal.modelo.pojo.EvaluacionExposicion;
 import proyectofinal.modelo.pojo.EvaluacionExposicionCriterio;
 
 public class EvaluacionExposicionDAO {
-    public static int guardarEvaluacionExposicion(EvaluacionExposicion evaluacion, List<EvaluacionExposicionCriterio> criterios) {
+    public static int guardarEvaluacionExposicion(EvaluacionExposicion evaluacion, List<EvaluacionExposicionCriterio> criterios) throws SQLException {
         int idGenerado = -1;
         Connection conexionBD = null;
         try {
@@ -70,7 +70,7 @@ public class EvaluacionExposicionDAO {
             try {
                 if (conexionBD != null) conexionBD.rollback();
             } catch (SQLException ex) {
-                ex.printStackTrace();
+                throw ex;
             }
             throw new RuntimeException("Error al guardar la evaluación y criterios.", e);
         } finally {
@@ -80,7 +80,7 @@ public class EvaluacionExposicionDAO {
                     conexionBD.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw e;
             }
         }
 

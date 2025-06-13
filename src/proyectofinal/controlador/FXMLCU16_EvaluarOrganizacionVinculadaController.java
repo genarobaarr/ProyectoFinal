@@ -83,14 +83,14 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         evaluacionOVActual = new EvaluacionOV();
-        loadStudentDataFromSession();
-        loadProjectAndOrganizationData();
-        loadRubricDataAndBuildUI();
+        cargarInformacionDelEstudiante();
+        cargarInformacionProyectoYOrganizacion();
+        cargarInformacionRubricaYConstruirIU();
     }
 
     @FXML
     private void clicBotonAceptar(ActionEvent event) {
-        handleAceptar();
+        manejarAceptar();
     }
 
     @FXML
@@ -100,7 +100,7 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
         }
     }
 
-    private void loadStudentDataFromSession() {
+    private void cargarInformacionDelEstudiante() {
         if (SessionManager.isUserLoggedIn()) {
             if (SessionManager.getLoggedInUser() instanceof Estudiante) {
                 int idUsuario = SessionManager.getLoggedInUser().getIdUsuario();
@@ -137,7 +137,7 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
         }
     }
 
-    private void loadProjectAndOrganizationData() {
+    private void cargarInformacionProyectoYOrganizacion() {
         if (evaluacionOVActual.getIdExpediente() > 0) {
             try {
                 Expediente expediente = ExpedienteDAO.obtenerExpedientePorId(evaluacionOVActual.getIdExpediente());
@@ -200,7 +200,7 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
         }
     }
 
-    private void loadRubricDataAndBuildUI() {
+    private void cargarInformacionRubricaYConstruirIU() {
         afirmacionToggleGroups = new HashMap<>();
         vboxRubricaContenido.getChildren().clear();
         try {
@@ -215,23 +215,23 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
 
             for (EvaluacionOVCategoria categoria : categorias) {
                 Label categoriaLabel = new Label(categoria.getNombre());
-                categoriaLabel.setFont(Font.font("System", FontWeight.BOLD, 14));
-                categoriaLabel.setTextFill(Color.DARKBLUE);
+                categoriaLabel.setFont(Font.font("Gill Sans MT", FontWeight.BOLD, 15));
+                categoriaLabel.setTextFill(Color.BLACK);
                 vboxRubricaContenido.getChildren().add(categoriaLabel);
 
                 List<EvaluacionOVAfirmacion> afirmaciones = EvaluacionOVAfirmacionDAO.obtenerAfirmacionesPorCategoria(categoria.getIdCategoriaEvaluacionOV());
 
                 if (afirmaciones.isEmpty()) {
                     Label noAfirmacionesLabel = new Label("No hay afirmaciones para esta categoría.");
-                    noAfirmacionesLabel.setFont(Font.font("System", FontWeight.NORMAL, 12));
-                    noAfirmacionesLabel.setTextFill(Color.GRAY);
+                    noAfirmacionesLabel.setFont(Font.font("Gill Sans MT", FontWeight.NORMAL, 14));
+                    noAfirmacionesLabel.setTextFill(Color.BLACK);
                     vboxRubricaContenido.getChildren().add(noAfirmacionesLabel);
                     continue;
                 }
 
                 for (EvaluacionOVAfirmacion afirmacion : afirmaciones) {
                     Label afirmacionLabel = new Label("  - " + afirmacion.getDescripcion());
-                    afirmacionLabel.setFont(Font.font("System", FontWeight.NORMAL, 12));
+                    afirmacionLabel.setFont(Font.font("Gill Sans MT", FontWeight.NORMAL, 14));
                     vboxRubricaContenido.getChildren().add(afirmacionLabel);
 
                     HBox criteriosHBox = new HBox(10);
@@ -267,7 +267,7 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
         return true;
     }
 
-    private void handleAceptar() {
+    private void manejarAceptar() {
         if (estudianteLoggeado == null || evaluacionOVActual.getIdExpediente() == 0) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
                     "Error de datos", "No se pudo obtener el expediente del estudiante. Asegúrate de que los datos del estudiante se cargaron correctamente.");
@@ -298,8 +298,7 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
             }
         }
 
-        double promedioPuntaje = afirmacionesContadas > 0 ? (puntajeTotal / afirmacionesContadas) : 0.0;
-        evaluacionOVActual.setPuntajeFinal(promedioPuntaje);
+        evaluacionOVActual.setPuntajeFinal(puntajeTotal);
 
         evaluacionOVActual.setComentarios(taComentariosGenerales.getText().trim());
         if (evaluacionOVActual.getComentarios().isEmpty()) {

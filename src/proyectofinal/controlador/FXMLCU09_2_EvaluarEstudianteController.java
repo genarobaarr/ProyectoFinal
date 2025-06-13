@@ -7,6 +7,7 @@ package proyectofinal.controlador;
 import java.net.URL;
 import java.time.LocalDate;
 import java.sql.Date; 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -25,35 +26,11 @@ import proyectofinal.utilidades.Utilidad;
 public class FXMLCU09_2_EvaluarEstudianteController implements Initializable {
 
     @FXML
-    private RadioButton rbDominioSatisfactorio;
-    @FXML
     private ToggleGroup tgDominioTema;
-    @FXML
-    private RadioButton rbDominioExcelente;
-    @FXML
-    private RadioButton rbDominioPuedeMejorar;
-    @FXML
-    private RadioButton rbDominioNoCumple;
-    @FXML
-    private RadioButton rbFormalidadExcelente;
     @FXML
     private ToggleGroup tgFormalidadPresentacion;
     @FXML
-    private RadioButton rbFormalidadSatisfactorio;
-    @FXML
-    private RadioButton rbFormalidadPuedeMejorar;
-    @FXML
-    private RadioButton rbFormalidadNoCumple;
-    @FXML
-    private RadioButton rbOrganizacionExcelente;
-    @FXML
     private ToggleGroup tgOrganizacionEquipo;
-    @FXML
-    private RadioButton rbOrganizacionSatisfactorio;
-    @FXML
-    private RadioButton rbOrganizacionPuedeMejorar;
-    @FXML
-    private RadioButton rbOrganizacionNoCumple;
     @FXML
     private TextArea taComentarios;
 
@@ -109,7 +86,7 @@ public class FXMLCU09_2_EvaluarEstudianteController implements Initializable {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
                         "Error al registrar", "No se pudo registrar la evaluación de exposición. Inténtalo más tarde.");
             }
-        } catch (RuntimeException e) {
+        } catch (SQLException e) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
                     "Error en la base de datos", "Error al guardar la evaluación de exposición. Detalles: " + e.getMessage());
         }

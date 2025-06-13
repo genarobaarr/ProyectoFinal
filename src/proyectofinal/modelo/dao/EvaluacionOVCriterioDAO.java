@@ -17,7 +17,6 @@ public class EvaluacionOVCriterioDAO {
 
     public static List<EvaluacionOVCriterio> obtenerCriterios() throws SQLException {
         List<EvaluacionOVCriterio> criterios = new ArrayList<>();
-        // It's good practice to order them by value for UI presentation (e.g., Nunca, Pocas veces, etc.)
         String query = "SELECT idCriterioEvaluacionOV, nombre, valor FROM criterio_evaluacion_ov ORDER BY valor ASC";
 
         try (Connection conn = ConexionBD.abrirConexion();
@@ -38,7 +37,6 @@ public class EvaluacionOVCriterioDAO {
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Error al obtener criterios de evaluación OV: " + e.getMessage());
             throw e;
         }
         return criterios;

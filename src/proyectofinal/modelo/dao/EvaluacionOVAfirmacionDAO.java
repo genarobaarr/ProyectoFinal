@@ -39,7 +39,6 @@ public class EvaluacionOVAfirmacionDAO {
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Error al obtener afirmaciones por categoría: " + e.getMessage());
             throw e;
         }
         return afirmaciones;
@@ -68,7 +67,6 @@ public class EvaluacionOVAfirmacionDAO {
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Error al obtener todas las afirmaciones: " + e.getMessage());
             throw e;
         }
         return afirmaciones;

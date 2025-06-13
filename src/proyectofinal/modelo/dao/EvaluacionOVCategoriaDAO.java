@@ -36,7 +36,6 @@ public class EvaluacionOVCategoriaDAO {
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Error al obtener categorías de evaluación OV: " + e.getMessage());
             throw e;
         }
         return categorias;
