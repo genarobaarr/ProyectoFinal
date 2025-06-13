@@ -26,7 +26,7 @@ import proyectofinal.modelo.dao.EstudianteDAO;
 import proyectofinal.modelo.pojo.Estudiante;
 import proyectofinal.utilidades.Utilidad;
 
-public class FXMLCU07_ConsultarAvanceController implements Initializable {
+public class FXMLCU07_1_ConsultarAvanceController implements Initializable {
 
     @FXML
     private TableView<Estudiante> tvEstudiantes;
@@ -46,14 +46,7 @@ public class FXMLCU07_ConsultarAvanceController implements Initializable {
     }
 
     @FXML
-    private void btnCancelar(ActionEvent event) {
-        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas salir?")) {
-            Utilidad.getEscenario(tvEstudiantes).close();
-        } 
-    }
-     
-    @FXML
-    private void btnConsultarAvance(ActionEvent event) {
+    private void clicBotonConsultarAvance(ActionEvent event) {
         Estudiante estudianteSeleccionado = tvEstudiantes.getSelectionModel().getSelectedItem();
         if (estudianteSeleccionado != null) {
             mostrarVentanaAvanceEstudiante(estudianteSeleccionado);
@@ -61,6 +54,13 @@ public class FXMLCU07_ConsultarAvanceController implements Initializable {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Selección de estudiante", 
                     "Por favor, selecciona un estudiante de la lista para consultar su avance.");
         }
+    }
+
+    @FXML
+    private void clicBotonCancelar(ActionEvent event) {
+        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas salir?")) {
+            Utilidad.getEscenario(tvEstudiantes).close();
+        } 
     }
 
     private void configurarTablaEstudiantes() {
@@ -82,10 +82,10 @@ public class FXMLCU07_ConsultarAvanceController implements Initializable {
     
     private void mostrarVentanaAvanceEstudiante(Estudiante estudiante) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/vista/FXMLCU07_AvanceEstudiante.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/vista/FXMLCU07_2_AvanceEstudiante.fxml"));
             Parent root = loader.load();
 
-            FXMLCU07_AvanceEstudianteController avanceController = loader.getController();
+            FXMLCU07_2_AvanceEstudianteController avanceController = loader.getController();
             avanceController.inicializarInformacion(estudiante);
 
             Stage stage = new Stage();

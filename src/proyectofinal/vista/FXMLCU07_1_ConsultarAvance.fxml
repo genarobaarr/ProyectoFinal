@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLCU07_1_ConsultarAvanceController">
+   <children>
+      <TableView fx:id="tvEstudiantes" layoutX="78.0" layoutY="53.0" prefHeight="294.0" prefWidth="445.0" style="-fx-background-color: #FEFEFE; -fx-border-color: #00AC4F;">
+        <columns>
+          <TableColumn fx:id="tcNombre" editable="false" prefWidth="166.0" text="Nombre" />
+            <TableColumn fx:id="tcApellidoPaterno" prefWidth="134.0" text="Apellido Paterno" />
+            <TableColumn fx:id="tcMatricula" prefWidth="144.0" text="Matrícula" />
+        </columns>
+      </TableView>
+      <Label layoutX="53.0" layoutY="8.0" text="Estudiantes">
+         <font>
+            <Font name="Gill Sans MT" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="53.0" layoutY="29.0" text="con al menos un reporte mensual en su expediente">
+         <font>
+            <Font name="Gill Sans MT" size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="122.0" layoutY="356.0" mnemonicParsing="false" onAction="#clicBotonConsultarAvance" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Consultar avance" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </Button>
+      <Button layoutX="368.0" layoutY="356.0" mnemonicParsing="false" onAction="#clicBotonCancelar" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Cancelar" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="65.0" fitWidth="60.0" layoutX="533.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../recursos/lis_ONLYlogo.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

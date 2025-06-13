@@ -30,7 +30,7 @@ import proyectofinal.modelo.pojo.Usuario;
 import proyectofinal.utilidades.SessionManager;
 import proyectofinal.utilidades.Utilidad;
 
-public class FXMLCU09_ProyectosRegistradosActivosController implements Initializable {
+public class FXMLCU09_1_ProyectosRegistradosActivosController implements Initializable {
 
     @FXML
     private TableView<ProyectoConEstudiante> tvProyectoYEstudiante; 
@@ -95,7 +95,7 @@ public class FXMLCU09_ProyectosRegistradosActivosController implements Initializ
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/vista/FXMLCU09_EvaluarEstudiante.fxml"));
                     Parent vista = loader.load();
 
-                    FXMLCU09_EvaluarEstudianteController controller = loader.getController();
+                    FXMLCU09_2_EvaluarEstudianteController controller = loader.getController();
                     controller.inicializarInformacion(seleccion.getIdExpediente(), idAcademicoLoggeado);
 
                     Stage stage = new Stage();

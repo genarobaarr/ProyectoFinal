@@ -45,7 +45,7 @@ public class FXMLCU11_1_ActualizarProyectoController implements Initializable {
                     irPantallaSiguiente(tfNombreProyecto.getText(), "/proyectofinal/vista/FXMLCU11_2_ActualizarProyecto.fxml", "Seleccionar proyecto");
             } catch (IOException ex) {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                        "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla: " + ex.getMessage());
+                        "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
             }
         }
     }
@@ -74,7 +74,8 @@ public class FXMLCU11_1_ActualizarProyectoController implements Initializable {
             escenarioBase.setTitle(titulo);
             escenarioBase.show();
         } catch (IOException ex) {
-            ex.printStackTrace();
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
+                "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
         }
     }
 }

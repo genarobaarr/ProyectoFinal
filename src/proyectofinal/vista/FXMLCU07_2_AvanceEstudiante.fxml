@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -15,13 +16,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLCU07_AvanceEstudianteController">
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: #FEFEFE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLCU07_2_AvanceEstudianteController">
    <children>
       <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="14.0" prefHeight="672.0" prefWidth="872.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
          <children>
             <Label text="Avance de Estudiante">
                <font>
-                  <Font name="System Bold" size="24.0" />
+                  <Font name="Gill Sans MT" size="24.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="20.0" />
@@ -31,7 +32,7 @@
                <children>
                   <Label fx:id="lbNombreEstudiante" text="Nombre del Estudiante Completo">
                      <font>
-                        <Font size="16.0" />
+                        <Font name="Gill Sans MT" size="16.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="20.0" />
@@ -39,7 +40,7 @@
                   </Label>
                   <Label fx:id="lbMatricula" text="Matrícula: ">
                      <font>
-                        <Font size="16.0" />
+                        <Font name="Gill Sans MT" size="16.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="20.0" />
@@ -47,7 +48,7 @@
                   </Label>
                   <Label fx:id="lbHorasAcumuladas" text="Horas Acumuladas: 0">
                      <font>
-                        <Font size="16.0" />
+                        <Font name="Gill Sans MT" size="16.0" />
                      </font>
                   </Label>
                </children>
@@ -57,13 +58,13 @@
             </HBox>
             <Label text="Reportes Mensuales">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="Gill Sans MT Bold" size="18.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="10.0" top="10.0" />
                </VBox.margin>
             </Label>
-            <TableView fx:id="tvReportes" prefHeight="150.0" prefWidth="200.0">
+            <TableView fx:id="tvReportes" prefHeight="150.0" prefWidth="200.0" style="-fx-border-color: #00AC4F; -fx-background-color: #FEFEFE;">
               <columns>
                 <TableColumn fx:id="tcNoReporte" prefWidth="118.0" text="No. Reporte" />
                 <TableColumn fx:id="tcNumeroHorasReporte" prefWidth="100.0" text="Horas" />
@@ -77,13 +78,13 @@
             </TableView>
             <Label text="Evaluaciones de Organización Vinculada">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="Gill Sans MT Bold" size="18.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="10.0" top="10.0" />
                </VBox.margin>
             </Label>
-            <TableView fx:id="tvEvaluacionesOV" prefHeight="150.0" prefWidth="200.0">
+            <TableView fx:id="tvEvaluacionesOV" prefHeight="150.0" prefWidth="200.0" style="-fx-border-color: #00AC4F; -fx-background-color: #FEFEFE;">
               <columns>
                 <TableColumn fx:id="tcFechaEvaluacionOV" prefWidth="158.0" text="Fecha" />
                 <TableColumn fx:id="tcPuntajeOV" prefWidth="138.0" text="Puntaje" />
@@ -95,13 +96,13 @@
             </TableView>
             <Label text="Evaluaciones de Exposición">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="Gill Sans MT Bold" size="18.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="10.0" top="10.0" />
                </VBox.margin>
             </Label>
-            <TableView fx:id="tvEvaluacionesExposicion" prefHeight="150.0" prefWidth="200.0">
+            <TableView fx:id="tvEvaluacionesExposicion" prefHeight="150.0" prefWidth="200.0" style="-fx-border-color: #00AC4F; -fx-background-color: #FEFEFE;">
               <columns>
                 <TableColumn fx:id="tcPuntajeExposicion" prefWidth="154.0" text="Puntaje" />
                   <TableColumn fx:id="tcComentariosExposicion" prefWidth="697.0" text="Comentarios" />
@@ -110,12 +111,20 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" />
                </VBox.margin>
             </TableView>
-            <Button fx:id="botonAceptar" mnemonicParsing="false" onAction="#clicBotonAceptar" text="Aceptar">
+            <Button mnemonicParsing="false" onAction="#clicBotonAceptar" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Aceptar" textFill="WHITE">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
+               <font>
+                  <Font name="Gill Sans MT" size="15.0" />
+               </font>
             </Button>
          </children>
       </VBox>
+      <ImageView fitHeight="65.0" fitWidth="60.0" layoutX="833.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../recursos/lis_ONLYlogo.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

@@ -14,7 +14,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -27,7 +26,7 @@ import proyectofinal.modelo.pojo.EvaluacionOV;
 import proyectofinal.modelo.pojo.ReporteMensual;
 import proyectofinal.utilidades.Utilidad; 
 
-public class FXMLCU07_AvanceEstudianteController implements Initializable {
+public class FXMLCU07_2_AvanceEstudianteController implements Initializable {
 
     @FXML
     private Label lbNombreEstudiante;
@@ -61,8 +60,6 @@ public class FXMLCU07_AvanceEstudianteController implements Initializable {
     private TableColumn<EvaluacionExposicion, Double> tcPuntajeExposicion; 
     @FXML
     private TableColumn<EvaluacionExposicion, String> tcComentariosExposicion;
-    @FXML
-    private Button botonAceptar; 
     
     private ObservableList<ReporteMensual> reportesMensuales;
     private ObservableList<EvaluacionOV> evaluacionesOV;
@@ -107,11 +104,11 @@ public class FXMLCU07_AvanceEstudianteController implements Initializable {
 
     private void cargarInformacionAvance() {
         if (estudianteActual != null) {
-            lbNombreEstudiante.setText(estudianteActual.getNombre() + " " +
+            lbNombreEstudiante.setText("Nombre del estudiante: " + estudianteActual.getNombre() + " " +
                                        estudianteActual.getApellidoPaterno() + " " +
                                        estudianteActual.getApellidoMaterno());
-            lbMatricula.setText(estudianteActual.getMatricula());
-            lbHorasAcumuladas.setText(String.valueOf(estudianteActual.getHorasAcumuladas()));
+            lbMatricula.setText("Matrícula: " + estudianteActual.getMatricula());
+            lbHorasAcumuladas.setText(String.valueOf("Horas acumuladas: " + estudianteActual.getHorasAcumuladas()));
 
             try {
                 List<ReporteMensual> listaReportes = ReporteMensualDAO.obtenerReportesMensualesEstudiante(estudianteActual.getIdUsuario());

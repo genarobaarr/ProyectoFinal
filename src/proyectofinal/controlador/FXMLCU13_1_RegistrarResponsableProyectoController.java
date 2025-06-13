@@ -101,7 +101,7 @@ public class FXMLCU13_1_RegistrarResponsableProyectoController implements Initia
             escenarioBase.show();
         } catch (IOException ex) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                    "Error al cargar la pantalla", "No se pudo cargar la pantalla principal");
+                    "Error al cargar la pantalla", "No se pudo cargar la pantalla siguiente");
         }
     }
 }

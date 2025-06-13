@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -9,29 +10,29 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLCU01_AsignarProyectoController">
    <children>
-      <Button layoutX="175.0" layoutY="353.0" mnemonicParsing="false" onAction="#clicBotonAceptar" prefWidth="75.0" text="Aceptar">
+      <Button layoutX="175.0" layoutY="353.0" mnemonicParsing="false" onAction="#clicBotonAceptar" prefWidth="75.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Aceptar" textFill="WHITE">
          <font>
-            <Font name="Gill Sans MT" size="14.0" />
+            <Font name="Gill Sans MT" size="15.0" />
          </font>
       </Button>
-      <Button layoutX="350.0" layoutY="353.0" mnemonicParsing="false" onAction="#clicBotonSalir" prefWidth="75.0" text="Salir">
+      <Button layoutX="350.0" layoutY="353.0" mnemonicParsing="false" onAction="#clicBotonSalir" prefWidth="75.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Salir" textFill="WHITE">
          <font>
-            <Font name="Gill Sans MT" size="14.0" />
+            <Font name="Gill Sans MT" size="15.0" />
          </font>
       </Button>
-      <TableView fx:id="tvEstudiantes" layoutX="32.0" layoutY="50.0" prefHeight="294.0" prefWidth="220.0">
+      <TableView fx:id="tvEstudiantes" layoutX="32.0" layoutY="50.0" prefHeight="294.0" prefWidth="220.0" style="-fx-background-color: #FEFEFE; -fx-border-color: #00AC4F;">
         <columns>
           <TableColumn fx:id="tcEstudianteNombre" prefWidth="219.0" resizable="false" text="Nombre del estudiante" />
         </columns>
       </TableView>
-      <TableView fx:id="tvProyectos" layoutX="350.0" layoutY="50.0" prefHeight="294.0" prefWidth="220.0">
+      <TableView fx:id="tvProyectos" layoutX="350.0" layoutY="50.0" prefHeight="294.0" prefWidth="220.0" style="-fx-background-color: #FEFEFE; -fx-border-color: #00AC4F;">
          <columns>
             <TableColumn fx:id="tcProyectoNombre" prefWidth="219.0" resizable="false" text="Nombre del proyecto" />
          </columns>
       </TableView>
       <Label layoutX="32.0" layoutY="1.0" text="Estudiantes">
          <font>
-            <Font name="Gill Sans MT" size="18.0" />
+            <Font name="Gill Sans MT" size="20.0" />
          </font>
       </Label>
       <Label layoutX="32.0" layoutY="25.0" text="sin proyecto">
@@ -41,7 +42,7 @@
       </Label>
       <Label layoutX="350.0" layoutY="1.0" text="Proyectos">
          <font>
-            <Font name="Gill Sans MT" size="18.0" />
+            <Font name="Gill Sans MT" size="20.0" />
          </font>
       </Label>
       <Label layoutX="350.0" layoutY="25.0" text="sin estudiante">
@@ -49,5 +50,10 @@
             <Font name="Gill Sans MT" size="18.0" />
          </font>
       </Label>
+      <ImageView fitHeight="65.0" fitWidth="60.0" layoutX="272.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../recursos/lis_ONLYlogo.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

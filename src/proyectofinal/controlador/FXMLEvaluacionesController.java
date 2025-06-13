@@ -58,7 +58,7 @@ public class FXMLEvaluacionesController implements Initializable {
 
     @FXML
     private void clicBotonRegistrarEvaluacion(ActionEvent event) {
-        irPantalla("vista/FXMLCU09_ProyectosRegistradosActivos.fxml", "Proyectos registrados activos");
+        irPantalla("vista/FXMLCU09_1_ProyectosRegistradosActivos.fxml", "Proyectos registrados activos");
     }
 
     @FXML

@@ -47,7 +47,7 @@ public class FXMLCU10_1_RegistrarProyectoController implements Initializable {
     @FXML
     private void clicBotonCancelar(ActionEvent event) {
         if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas salir?")) {
-            cerrarVentana();
+            Utilidad.getEscenario(tvOrganizacionesVinculadas).close();
         }
     }
 
@@ -88,12 +88,8 @@ public class FXMLCU10_1_RegistrarProyectoController implements Initializable {
                     "Lo sentimos, por el momento no se puede mostrar la información "
                             + "de las organizaciones vinculadas, por favor, "
                             + "inténtelo de nuevo más tarde.");
-            cerrarVentana();
+            Utilidad.getEscenario(tvOrganizacionesVinculadas).close();
         }
-    }
-    
-    private void cerrarVentana(){
-        ((Stage) tvOrganizacionesVinculadas.getScene().getWindow()).close();
     }
     
     private void irPantallaSiguiente(OrganizacionVinculada organizacionVinculada, String fxmlPath, String titulo) throws IOException{
@@ -110,7 +106,8 @@ public class FXMLCU10_1_RegistrarProyectoController implements Initializable {
             escenarioBase.setTitle(titulo);
             escenarioBase.show();
         } catch (IOException ex) {
-            ex.printStackTrace();
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
+                "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
         }
     }
 }

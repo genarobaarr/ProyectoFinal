@@ -22,7 +22,7 @@ import proyectofinal.modelo.pojo.EvaluacionExposicion;
 import proyectofinal.modelo.pojo.EvaluacionExposicionCriterio;
 import proyectofinal.utilidades.Utilidad; 
 
-public class FXMLCU09_EvaluarEstudianteController implements Initializable {
+public class FXMLCU09_2_EvaluarEstudianteController implements Initializable {
 
     @FXML
     private RadioButton rbDominioSatisfactorio;

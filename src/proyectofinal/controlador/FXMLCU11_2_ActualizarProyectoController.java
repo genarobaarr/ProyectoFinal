@@ -103,7 +103,8 @@ public class FXMLCU11_2_ActualizarProyectoController implements Initializable {
             escenarioBase.setTitle(titulo);
             escenarioBase.show();
         } catch (IOException ex) {
-            ex.printStackTrace();
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
+                "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
         }
     }
 }

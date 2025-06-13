@@ -9,8 +9,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -72,10 +70,10 @@ private void clicBotonNuevoReporte(ActionEvent event) {
         }
     } catch (SQLException ex) {
         Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                "Error de base de datos", "No se pudo verificar el estatus de la asignación: " + ex.getMessage());
+                "Error de base de datos", "No se pudo verificar el estatus de la asignación");
     } catch (IOException ex) {
         Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla: " + ex.getMessage());
+                "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
     }
 }
 

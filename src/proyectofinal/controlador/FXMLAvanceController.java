@@ -56,7 +56,7 @@ public class FXMLAvanceController implements Initializable {
 
     @FXML
     private void clicBotonConsultarAvance(ActionEvent event) {
-        irPantalla("vista/FXMLCU07_ConsultarAvance.fxml", "Avances de estudiantes");
+        irPantalla("vista/FXMLCU07_1_ConsultarAvance.fxml", "Avances de estudiantes");
     }
 
     @FXML

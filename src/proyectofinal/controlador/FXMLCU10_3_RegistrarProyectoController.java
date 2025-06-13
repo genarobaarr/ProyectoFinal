@@ -64,7 +64,7 @@ public class FXMLCU10_3_RegistrarProyectoController implements Initializable {
     @FXML
     private void clicBotonCancelar(ActionEvent event) {
         if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas cancelar el registro del proyecto?")) {
-            cerrarVentana();
+            Utilidad.getEscenario(tfNombreProyecto).close();
         }
     }
     
@@ -74,10 +74,6 @@ public class FXMLCU10_3_RegistrarProyectoController implements Initializable {
         lbOrganizacionVinculada.setText(organizacionVinculada.getNombre());
         this.responsableDeProyecto = responsableDeProyecto;
         lbResponsableProyecto.setText(responsableDeProyecto.getNombre());
-    }
-    
-    private void cerrarVentana(){
-        ((Stage) tfNombreProyecto.getScene().getWindow()).close();
     }
     
     private boolean validarCampos() {
@@ -133,7 +129,7 @@ public class FXMLCU10_3_RegistrarProyectoController implements Initializable {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, 
                         "Operación exitosa", 
                         "El proyecto " + proyecto.getNombre() + " ha sido registrado exitosamente.");
-                cerrarVentana();
+                Utilidad.getEscenario(tfNombreProyecto).close();
             } else {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
                         "Error al regitrar proyecto", resultadoInsertar.getMensaje());
