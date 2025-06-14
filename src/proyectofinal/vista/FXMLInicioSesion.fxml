@@ -8,10 +8,25 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLInicioSesionController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FEFEFE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLInicioSesionController">
    <children>
-      <AnchorPane layoutX="300.0" prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;">
+      <AnchorPane layoutX="300.0" prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: #FEFEFE;">
          <children>
+            <ImageView fitHeight="249.0" fitWidth="170.0" layoutX="203.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recursos/mainlogo_left.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="249.0" fitWidth="170.0" layoutX="-85.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recursos/lis_ONLYlogo_down.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="249.0" fitWidth="170.0" layoutX="-85.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recursos/lis_ONLYlogo.png" />
+               </image>
+            </ImageView>
             <Label layoutX="33.0" layoutY="23.0" text="Bienvenido(a)">
                <font>
                   <Font name="Gill Sans MT Bold" size="36.0" />
@@ -59,13 +74,15 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: #0F084B;">
-         <children>
-            <ImageView fitHeight="249.0" fitWidth="163.0" layoutX="4.0" layoutY="180.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../recursos/mainlogo.png" />
-               </image></ImageView>
-         </children>
-      </AnchorPane>
+      <ImageView fitHeight="249.0" fitWidth="170.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../recursos/mainlogo_right.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="249.0" fitWidth="170.0" layoutX="215.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../recursos/lis_ONLYlogo_up.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
