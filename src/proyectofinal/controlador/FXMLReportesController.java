@@ -124,6 +124,11 @@ public class FXMLReportesController implements Initializable {
                     controladorValidarReportes.inicializarInformacion();
                     break;
                 }
+                case "vista/FXMLCU05_HabilitarEntregas.fxml": {
+                    FXMLCU05_HabilitarEntregasController controladorHabilitarEntregas = cargador.getController();
+                    controladorHabilitarEntregas.incializarInformacion();
+                    break;
+                }
             }            
             Scene escena = new Scene(vista);
             escenarioNuevo.setScene(escena);

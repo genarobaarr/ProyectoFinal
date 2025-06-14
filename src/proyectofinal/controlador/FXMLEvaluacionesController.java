@@ -65,13 +65,13 @@ public class FXMLEvaluacionesController implements Initializable {
     public void inicializarInformacion(Usuario usuario) {
         if (usuario instanceof AcademicoEvaluador) {
             this.usuario = usuario;
-            
             btnEvaluarOrganizacion.setDisable(true);
             btnEvaluarOrganizacion.setText("No disponible");
             ivEvaluarOrganizacion.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
             
             btnRegistrarEvaluacion.setDisable(false);
         } else if (usuario instanceof Estudiante) {
+            this.usuario = usuario;
             btnEvaluarOrganizacion.setDisable(false);
             
             btnRegistrarEvaluacion.setDisable(true);
@@ -86,9 +86,17 @@ public class FXMLEvaluacionesController implements Initializable {
             FXMLLoader cargador = new FXMLLoader(ProyectoFinal.class.getResource(fxmlPath));
             Parent vista = cargador.load();
             
-            if  (fxmlPath.equals("vista/FXMLCU09_1_ProyectosRegistradosActivos.fxml")) {
-                    FXMLCU09_1_ProyectosRegistradosActivosController controlador = cargador.getController();
-                    controlador.inicializarInformacion(usuario);
+            switch (fxmlPath) {
+                case "vista/FXMLCU09_1_ProyectosRegistradosActivos.fxml": {
+                    FXMLCU09_1_ProyectosRegistradosActivosController controladorProyectosRegistrados = cargador.getController();
+                    controladorProyectosRegistrados.inicializarInformacion(usuario);
+                    break;
+                }
+                case "vista/FXMLCU16_EvaluarOrganizacionVinculada.fxml": {
+                    FXMLCU16_EvaluarOrganizacionVinculadaController controladorEvaluarOrganizacion = cargador.getController();
+                    controladorEvaluarOrganizacion.inicializarInformacion(usuario);
+                    break;
+                }
             }
             
             Scene escena = new Scene(vista);

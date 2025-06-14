@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLCU01_AsignarProyectoController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FEFEFE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLCU01_AsignarProyectoController">
    <children>
       <Button layoutX="175.0" layoutY="353.0" mnemonicParsing="false" onAction="#clicBotonAceptar" prefWidth="75.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Aceptar" textFill="WHITE">
          <font>

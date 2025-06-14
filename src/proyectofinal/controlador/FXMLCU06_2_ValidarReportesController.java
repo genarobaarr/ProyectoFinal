@@ -80,10 +80,6 @@ public class FXMLCU06_2_ValidarReportesController implements Initializable {
         }
     }
 
-    @FXML
-    private void tfPeriodoReportePresionaEnter(KeyEvent event) {
-    }
-    
     public void inicializarInformacion (ReporteMensual reporte) {
         try {
             this.reporte = reporte;
@@ -99,6 +95,7 @@ public class FXMLCU06_2_ValidarReportesController implements Initializable {
             tfPeriodoReporte.setText(obtenerPeriodoDeArchivo(reporte.getNombreArchivo()));
             tfNumeroHoras.setText(String.valueOf(reporte.getNumeroHoras()));
             tfNumeroReporte.setText(String.valueOf(reporte.getNumeroReporte()));
+            lbNombreReporte.setText(reporte.getNombreArchivo());
         } catch (SQLException ex) {
              ex.printStackTrace();
         }

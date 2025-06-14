@@ -24,7 +24,6 @@ import javafx.stage.Stage;
 import proyectofinal.ProyectoFinal;
 import proyectofinal.modelo.dao.InicioDeSesionDAO;
 import proyectofinal.modelo.pojo.*;
-import proyectofinal.utilidades.SessionManager; 
 import proyectofinal.utilidades.Utilidad;
 
 public class FXMLInicioSesionController implements Initializable {
@@ -94,8 +93,6 @@ public class FXMLInicioSesionController implements Initializable {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION,
                         "Inicio de sesión exitoso", usuarioSesion.toString() +
                         ", bienvenido(a) al sistema.");
-
-                SessionManager.setLoggedInUser(usuarioSesion);
 
                 if (usuarioSesion instanceof Estudiante) {
                     irPantallaPrincipal(usuarioSesion, "/proyectofinal/vista/FXMLPrincipal.fxml", "Home Estudiante");

@@ -16,7 +16,7 @@ public class AsignacionReporteDAO {
 
     public static AsignacionReporte obtenerAsignacionActual() throws SQLException {
         AsignacionReporte asignacion = null;
-        String consulta = "SELECT idAsignacion, titulo, descripcion, fechaInicio, fechaFin, estatus FROM asignacion_reporte LIMIT 1";
+        String consulta = "SELECT idAsignacion, titulo, descripcion, fechaInicio, fechaFin, estatus FROM asignacion_reporte";
 
         try (Connection conexionBD = ConexionBD.abrirConexion();
              PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
@@ -67,8 +67,6 @@ public class AsignacionReporteDAO {
             }
 
         } catch (SQLException e) {
-            resultado.setError(true);
-            resultado.setMensaje("Error al actualizar la asignación: " + e.getMessage());
             throw e;
         }
 
@@ -103,8 +101,6 @@ public class AsignacionReporteDAO {
             }
 
         } catch (SQLException e) {
-            resultado.setError(true);
-            resultado.setMensaje("Error al registrar la asignación: " + e.getMessage());
             throw e;
         }
 

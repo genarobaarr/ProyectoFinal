@@ -15,6 +15,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import proyectofinal.modelo.dao.AsignacionReporteDAO;
 import proyectofinal.modelo.pojo.AsignacionReporte;
@@ -33,63 +34,127 @@ public class FXMLCU05_HabilitarEntregasController implements Initializable {
     private TextField tfTituloAsignacion;
 
     private AsignacionReporte asignacionActual;
+    private boolean esEdicion;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    }
+    
+    @FXML
+    private void clicBotonCancelar(ActionEvent event) {
+        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas salir? El avance no se guardará")) {
+            Utilidad.getEscenario(dpFechaFin).close();
+        }
+    }
+
+    @FXML
+    private void clicBotonHabilitar(ActionEvent event) {
+        if (validarCampos()) {
+            AsignacionReporte asignacion = obtenerAsignacion();
+            guardarAsignacionReporte(asignacion);
+        } else {
+            Utilidad.mostrarAlertaSimple(AlertType.WARNING, "Error", "Datos inválidos y/o campos vacíos");
+        }
+        
+    }
+
+    @FXML
+    private void tfTituloAsignacionPresionaEnter(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            taDescripcion.requestFocus();
+            event.consume();
+        }
+    }
+    
+    public void incializarInformacion () {
         cargarAsignacion();
     }
 
     private void cargarAsignacion() {
         try {
-            asignacionActual = AsignacionReporteDAO.obtenerAsignacionActual();
+            this.asignacionActual = AsignacionReporteDAO.obtenerAsignacionActual();
             if (asignacionActual != null) {
+                this.esEdicion = true;
                 tfTituloAsignacion.setText(asignacionActual.getTitulo());
                 taDescripcion.setText(asignacionActual.getDescripcion());
                 dpFechaInicio.setValue(LocalDate.parse(asignacionActual.getFechaInicio()));
                 dpFechaFin.setValue(LocalDate.parse(asignacionActual.getFechaFin()));
+            } else {
+                this.esEdicion = false;
             }
         } catch (SQLException e) {
             Utilidad.mostrarAlertaSimple(AlertType.ERROR, "Error", "No se pudo cargar la asignación actual");
+            Utilidad.getEscenario(dpFechaFin).close();
         }
     }
     
-    @FXML
-    private void clicBotonCancelar(ActionEvent event) {
-        cargarAsignacion();
-    }
-
-    @FXML
-    private void clicBotonHabilitar(ActionEvent event) {
-        if (asignacionActual == null) {
-            Utilidad.mostrarAlertaSimple(AlertType.ERROR, "Error", "No se encontró una asignación para actualizar.");
-            return;
-        }
-
+    private boolean validarCampos () {
+        boolean camposValidos = true;
         String titulo = tfTituloAsignacion.getText().trim();
         String descripcion = taDescripcion.getText().trim();
         LocalDate fechaInicio = dpFechaInicio.getValue();
         LocalDate fechaFin = dpFechaFin.getValue();
-
-        if (titulo.isEmpty() || descripcion.isEmpty() || fechaInicio == null || fechaFin == null) {
-            Utilidad.mostrarAlertaSimple(AlertType.WARNING, "Campos incompletos", "Por favor, llena todos los campos.");
-            return;
+        
+        if (titulo.isEmpty()) {
+            camposValidos = false;
         }
-
-        asignacionActual.setTitulo(titulo);
-        asignacionActual.setDescripcion(descripcion);
-        asignacionActual.setFechaInicio(fechaInicio.toString());
-        asignacionActual.setFechaFin(fechaFin.toString());
-        asignacionActual.setEstatus("Habilitado");
-
+        if (descripcion.isEmpty()) {
+            camposValidos = false;
+        } else {
+            if (descripcion.length() < 20) {
+                camposValidos = false;
+                taDescripcion.setText("");
+            }
+        }
+        if (fechaInicio == null) {
+            camposValidos = false;
+        }
+        if (fechaFin == null) {
+            camposValidos = false;
+        }
+        if (fechaInicio != null || fechaFin != null) {
+            if (fechaInicio.isAfter(fechaFin)) {
+                dpFechaInicio.setValue(null);
+                dpFechaFin.setValue(null);
+                camposValidos = false;
+            }
+        }
+        return camposValidos;
+    }
+    
+    private AsignacionReporte obtenerAsignacion() {
+        AsignacionReporte asignacion = new AsignacionReporte();
+        
+        if (esEdicion) {
+            asignacion.setIdAsignacion(asignacionActual.getIdAsignacion());
+        }
+        asignacion.setTitulo(tfTituloAsignacion.getText());
+        asignacion.setDescripcion(taDescripcion.getText());
+        asignacion.setFechaInicio(dpFechaInicio.getValue().toString());
+            asignacion.setFechaFin(dpFechaFin.getValue().toString());
+        asignacion.setEstatus("Habilitado");
+        
+        return asignacion;
+    }
+    
+    private void guardarAsignacionReporte (AsignacionReporte asignacionNueva) {
         try {
-            ResultadoOperacion resultado = AsignacionReporteDAO.actualizarAsignacion(asignacionActual);
-            Utilidad.mostrarAlertaSimple(
-                resultado.isError() ? AlertType.ERROR : AlertType.INFORMATION,
-                "Resultado",
-                resultado.getMensaje()
-            );
+            ResultadoOperacion resultado;
+            if (esEdicion) {
+                resultado = AsignacionReporteDAO.actualizarAsignacion(asignacionNueva);
+            } else {
+                resultado = AsignacionReporteDAO.registrarAsignacion(asignacionNueva);
+            }
+            if (!resultado.isError()) {
+                Utilidad.mostrarAlertaSimple(AlertType.INFORMATION, "Operación exitosa", resultado.getMensaje());
+                Utilidad.getEscenario(dpFechaFin).close();
+            } else {
+                Utilidad.mostrarAlertaSimple(AlertType.ERROR, "Error", resultado.getMensaje());
+                Utilidad.getEscenario(dpFechaFin).close();
+            }
         } catch (SQLException e) {
-            Utilidad.mostrarAlertaSimple(AlertType.ERROR, "Error", "Error al actualizar la asignación: " + e.getMessage());
+            Utilidad.mostrarAlertaSimple(AlertType.ERROR, "Error", "Error al actualizar la asignación");
+            Utilidad.getEscenario(dpFechaFin).close();
         }
     }
 }

@@ -28,9 +28,7 @@ import javafx.scene.text.FontWeight;
 import proyectofinal.modelo.dao.EvaluacionOVDAO;
 import proyectofinal.modelo.pojo.EvaluacionOV;
 import proyectofinal.modelo.pojo.Estudiante;
-import proyectofinal.modelo.dao.EstudianteDAO;
 import proyectofinal.utilidades.Utilidad;
-import proyectofinal.utilidades.SessionManager;
 import proyectofinal.modelo.pojo.EvaluacionOVCategoria;
 import proyectofinal.modelo.pojo.EvaluacionOVAfirmacion;
 import proyectofinal.modelo.pojo.EvaluacionOVCriterio;
@@ -44,6 +42,7 @@ import proyectofinal.modelo.dao.ExpedienteDAO;
 import proyectofinal.modelo.pojo.Proyecto;
 import proyectofinal.modelo.dao.ProyectoDAO;
 import java.sql.SQLException;
+import proyectofinal.modelo.pojo.Usuario;
 
 public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initializable {
 
@@ -75,17 +74,14 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
     private Button btnCancelar;
 
     private EvaluacionOV evaluacionOVActual;
-    private Estudiante estudianteLoggeado;
+    private Estudiante estudiante;
+    private Expediente expediente;
     private List<EvaluacionOVCategoria> categorias;
     private List<EvaluacionOVCriterio> criterios;
     private Map<Integer, ToggleGroup> afirmacionToggleGroups;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        evaluacionOVActual = new EvaluacionOV();
-        cargarInformacionDelEstudiante();
-        cargarInformacionProyectoYOrganizacion();
-        cargarInformacionRubricaYConstruirIU();
     }
 
     @FXML
@@ -99,104 +95,89 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
             Utilidad.getEscenario(btnAceptar).close();
         }
     }
+    
+    public void inicializarInformacion (Usuario estudiante) {
+        evaluacionOVActual = new EvaluacionOV();
+        this.estudiante = (Estudiante)estudiante;
+        cargarInformacionDelEstudiante();
+        cargarInformacionProyectoYOrganizacion();
+        cargarInformacionRubricaYConstruirIU();
+    }
 
     private void cargarInformacionDelEstudiante() {
-        if (SessionManager.isUserLoggedIn()) {
-            if (SessionManager.getLoggedInUser() instanceof Estudiante) {
-                int idUsuario = SessionManager.getLoggedInUser().getIdUsuario();
-                try {
-                    estudianteLoggeado = EstudianteDAO.obtenerEstudiantePorIdUsuario(idUsuario);
-                    if (estudianteLoggeado != null) {
-                        tfEstudianteNombre.setText(estudianteLoggeado.getNombre() + " " + estudianteLoggeado.getApellidoPaterno() + " " + estudianteLoggeado.getApellidoMaterno());
-                        tfEstudianteMatricula.setText(estudianteLoggeado.getMatricula());
-                        tfEstudianteCorreo.setText(estudianteLoggeado.getEmail());
-
-                        evaluacionOVActual.setIdExpediente(estudianteLoggeado.getIdExpediente());
-                    } else {
-                        Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
-                                "Error al cargar estudiante", "No se encontraron los datos del estudiante loggeado para el ID de usuario: " + idUsuario);
-                        btnAceptar.disableProperty().set(true);
-                    }
-                } catch (Exception e) {
-                    Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
-                            "Error de conexión", "Error al cargar datos del estudiante desde la base de datos: " + e.getMessage());
-                    e.printStackTrace();
-                    btnAceptar.disableProperty().set(true);
-                }
-            } else {
-                Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, 
-                        "Acceso no autorizado", "El usuario loggeado no es un estudiante y no tiene permiso para realizar esta evaluación.");
-                btnAceptar.disableProperty().set(true);
-                btnCancelar.fire();
-            }
+        int idUsuario = estudiante.getIdUsuario();
+        if (estudiante != null) {
+            tfEstudianteNombre.setText(estudiante.getNombre() + " " + estudiante.getApellidoPaterno() + " " + estudiante.getApellidoMaterno());
+            tfEstudianteMatricula.setText(estudiante.getMatricula());
+            tfEstudianteCorreo.setText(estudiante.getEmail());
         } else {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, 
-                    "Sesión no iniciada", "No hay un usuario loggeado. Los datos del estudiante no se cargarán.");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
+                    "Error al cargar estudiante", "No se pudieron cargar los datos del estudiante");
             btnAceptar.disableProperty().set(true);
-            btnCancelar.fire();
         }
     }
 
     private void cargarInformacionProyectoYOrganizacion() {
-        if (evaluacionOVActual.getIdExpediente() > 0) {
-            try {
-                Expediente expediente = ExpedienteDAO.obtenerExpedientePorId(evaluacionOVActual.getIdExpediente());
+        try {
+            expediente = ExpedienteDAO.obtenerExpedientePorIdEstudiante(estudiante.getIdUsuario());
+            evaluacionOVActual.setIdExpediente(expediente.getIdExpediente());
+            
+            if (evaluacionOVActual.getIdExpediente() > 0) {
+                    if (expediente != null) {
+                       Proyecto proyecto = ProyectoDAO.obtenerProyectoPorId(expediente.getIdProyecto());
+                        if (proyecto != null) {
+                            tfProyectoNombre.setText(proyecto.getNombre());
+                            tfHorasCubiertas.setText(String.valueOf(expediente.getHorasAcumuladas()));
 
-                if (expediente != null) {
-                   Proyecto proyecto = ProyectoDAO.obtenerProyectoPorId(expediente.getIdProyecto());
-                    if (proyecto != null) {
-                        tfProyectoNombre.setText(proyecto.getNombre());
-                        tfHorasCubiertas.setText(String.valueOf(expediente.getHorasAcumuladas()));
+                           String nombreOrganizacion = proyecto.getNombreOrganizacion();
+                            if (nombreOrganizacion != null && !nombreOrganizacion.isEmpty()) {
+                                tfOrganizacionVinculada.setText(nombreOrganizacion);
+                            } else {
+                                tfOrganizacionVinculada.setText("N/A");
+                                Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, 
+                                        "Organización no encontrada", "No se encontró la organización vinculada asociada al proyecto.");
+                            }
 
-                       String nombreOrganizacion = proyecto.getNombreOrganizacion();
-                        if (nombreOrganizacion != null && !nombreOrganizacion.isEmpty()) {
-                            tfOrganizacionVinculada.setText(nombreOrganizacion);
+                            String nombreResponsable = proyecto.getNombreResponsable();
+                            String departamentoResponsable = proyecto.getDepartamentoResponsable();
+                            String cargoResponsable = proyecto.getCargoResponsable();
+
+                            if (nombreResponsable != null && !nombreResponsable.isEmpty()) {
+                                tfResponsableNombre.setText(nombreResponsable);
+                                tfResponsableDepartamento.setText(departamentoResponsable != null ? departamentoResponsable : "N/A");
+                                tfResponsableCargo.setText(cargoResponsable != null ? cargoResponsable : "N/A");
+                            } else {
+                                tfResponsableNombre.setText("N/A");
+                                tfResponsableDepartamento.setText("N/A");
+                                tfResponsableCargo.setText("N/A");
+                                Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, 
+                                        "Responsable no encontrado", "No se encontró el responsable de proyecto asociado al proyecto.");
+                            }
+
                         } else {
-                            tfOrganizacionVinculada.setText("N/A");
+                            tfProyectoNombre.setText("N/A");
+                            tfHorasCubiertas.setText("N/A");
+                            tfOrganizacionVinculada.setText("N/A"); 
+                            tfResponsableNombre.setText("N/A");     
+                            tfResponsableDepartamento.setText("N/A"); 
+                            tfResponsableCargo.setText("N/A");        
                             Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, 
-                                    "Organización no encontrada", "No se encontró la organización vinculada asociada al proyecto.");
+                                    "Proyecto no encontrado", "No se encontró el proyecto asociado al expediente.");
                         }
-
-                        String nombreResponsable = proyecto.getNombreResponsable();
-                        String departamentoResponsable = proyecto.getDepartamentoResponsable();
-                        String cargoResponsable = proyecto.getCargoResponsable();
-
-                        if (nombreResponsable != null && !nombreResponsable.isEmpty()) {
-                            tfResponsableNombre.setText(nombreResponsable);
-                            tfResponsableDepartamento.setText(departamentoResponsable != null ? departamentoResponsable : "N/A");
-                            tfResponsableCargo.setText(cargoResponsable != null ? cargoResponsable : "N/A");
-                        } else {
-                            tfResponsableNombre.setText("N/A");
-                            tfResponsableDepartamento.setText("N/A");
-                            tfResponsableCargo.setText("N/A");
-                            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, 
-                                    "Responsable no encontrado", "No se encontró el responsable de proyecto asociado al proyecto.");
-                        }
-
                     } else {
-                        tfProyectoNombre.setText("N/A");
-                        tfHorasCubiertas.setText("N/A");
-                        tfOrganizacionVinculada.setText("N/A"); 
-                        tfResponsableNombre.setText("N/A");     
-                        tfResponsableDepartamento.setText("N/A"); 
-                        tfResponsableCargo.setText("N/A");        
                         Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, 
-                                "Proyecto no encontrado", "No se encontró el proyecto asociado al expediente.");
+                                "Expediente no encontrado", "No se encontró el expediente completo para el estudiante.");
+                        btnAceptar.disableProperty().set(true);
                     }
-                } else {
-                    Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, 
-                            "Expediente no encontrado", "No se encontró el expediente completo para el estudiante.");
-                    btnAceptar.disableProperty().set(true);
-                }
-            } catch (SQLException e) {
+            } else {
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, 
+                        "Expediente no disponible", "No se pudo cargar el ID del expediente para obtener los datos del proyecto/organización.");
+                btnAceptar.disableProperty().set(true);
+            }
+        } catch (SQLException e) {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
                         "Error de conexión", "Error al cargar datos del proyecto/organización desde la base de datos: " + e.getMessage());
                 btnAceptar.disableProperty().set(true);
-            }
-        } else {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, 
-                    "Expediente no disponible", "No se pudo cargar el ID del expediente para obtener los datos del proyecto/organización.");
-            btnAceptar.disableProperty().set(true);
         }
     }
 
@@ -268,7 +249,7 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
     }
 
     private void manejarAceptar() {
-        if (estudianteLoggeado == null || evaluacionOVActual.getIdExpediente() == 0) {
+        if (estudiante == null || evaluacionOVActual.getIdExpediente() == 0) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
                     "Error de datos", "No se pudo obtener el expediente del estudiante. Asegúrate de que los datos del estudiante se cargaron correctamente.");
             return;

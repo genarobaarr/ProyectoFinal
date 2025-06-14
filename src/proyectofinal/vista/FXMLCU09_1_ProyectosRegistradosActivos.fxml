@@ -10,7 +10,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FEFEFE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLCU09_1_ProyectosRegistradosActivosController">
    <children>
-      <Button layoutX="187.0" layoutY="350.0" mnemonicParsing="false" onAction="#clicBotonEvaluar" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-border-color: HAND;" text="Evaluar" textFill="WHITE">
+      <Button layoutX="187.0" layoutY="350.0" mnemonicParsing="false" onAction="#clicBotonEvaluar" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Evaluar" textFill="WHITE">
          <font>
             <Font name="Gill Sans MT" size="15.0" />
          </font></Button>
