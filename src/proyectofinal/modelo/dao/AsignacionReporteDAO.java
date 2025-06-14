@@ -75,7 +75,7 @@ public class AsignacionReporteDAO {
 
     public static ResultadoOperacion registrarAsignacion(AsignacionReporte asignacion) throws SQLException {
         ResultadoOperacion resultado = new ResultadoOperacion();
-        String consulta = "INSERT INTO asignacion_reporte (titulo, descripcion, fechaInicio, fechaFin, estatus) VALUES (?, ?, ?, ?, ?)";
+        String consulta = "INSERT INTO asignacion_reporte (titulo, descripcion, fechaInicio, fechaFin) VALUES (?, ?, ?, ?)";
 
         try (Connection conexionBD = ConexionBD.abrirConexion();
              PreparedStatement sentencia = conexionBD.prepareStatement(consulta)) {
@@ -88,7 +88,6 @@ public class AsignacionReporteDAO {
             sentencia.setString(2, asignacion.getDescripcion());
             sentencia.setString(3, asignacion.getFechaInicio());
             sentencia.setString(4, asignacion.getFechaFin());
-            sentencia.setString(5, asignacion.getEstatus());
 
             int filasAfectadas = sentencia.executeUpdate();
 

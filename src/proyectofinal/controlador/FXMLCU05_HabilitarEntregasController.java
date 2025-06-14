@@ -131,7 +131,7 @@ public class FXMLCU05_HabilitarEntregasController implements Initializable {
         asignacion.setTitulo(tfTituloAsignacion.getText());
         asignacion.setDescripcion(taDescripcion.getText());
         asignacion.setFechaInicio(dpFechaInicio.getValue().toString());
-            asignacion.setFechaFin(dpFechaFin.getValue().toString());
+        asignacion.setFechaFin(dpFechaFin.getValue().toString());
         asignacion.setEstatus("Habilitado");
         
         return asignacion;
