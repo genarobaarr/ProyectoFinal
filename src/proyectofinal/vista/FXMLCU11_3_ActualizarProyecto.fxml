@@ -10,6 +10,11 @@
 
 <AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #FEFEFE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLCU11_3_ActualizarProyectoController">
    <children>
+      <TextField fx:id="tfNombreProyecto" layoutX="25.0" layoutY="70.0" prefHeight="25.0" prefWidth="252.0" promptText="Nombre del proyecto" style="-fx-border-color: #00AC4F;">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </TextField>
       <DatePicker fx:id="dpFechaFin" layoutX="325.0" layoutY="346.0" prefHeight="25.0" prefWidth="252.0" promptText="Fecha de fin" style="-fx-border-color: #00AC4F;" />
       <Label layoutX="325.0" layoutY="330.0" text="Fecha de fin">
          <font>
@@ -82,11 +87,6 @@
             <Font name="Gill Sans MT" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="tfNombreProyecto" layoutX="25.0" layoutY="70.0" prefHeight="25.0" prefWidth="252.0" promptText="Nombre del proyecto" style="-fx-border-color: #00AC4F;">
-         <font>
-            <Font name="Gill Sans MT" size="15.0" />
-         </font>
-      </TextField>
       <Label layoutX="25.0" layoutY="53.0" text="Nombre del proyecto">
          <font>
             <Font name="Gill Sans MT" size="14.0" />

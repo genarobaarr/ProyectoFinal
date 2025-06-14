@@ -10,6 +10,11 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FEFEFE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLCU05_HabilitarEntregasController">
    <children>
+      <TextField fx:id="tfTituloAsignacion" layoutX="25.0" layoutY="68.0" onKeyPressed="#tfTituloAsignacionPresionaEnter" prefHeight="25.0" prefWidth="252.0" promptText="Título" style="-fx-border-color: #00AC4F;">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </TextField>
       <Label layoutX="14.0" layoutY="10.0" text="Datos de la asignación">
          <font>
             <Font name="Gill Sans MT" size="20.0" />
@@ -31,11 +36,6 @@
             <Font name="Gill Sans MT" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="tfTituloAsignacion" layoutX="25.0" layoutY="68.0" onKeyPressed="#tfTituloAsignacionPresionaEnter" prefHeight="25.0" prefWidth="252.0" promptText="Título" style="-fx-border-color: #00AC4F;">
-         <font>
-            <Font name="Gill Sans MT" size="15.0" />
-         </font>
-      </TextField>
       <Label layoutX="25.0" layoutY="51.0" text="Título">
          <font>
             <Font name="Gill Sans MT" size="14.0" />

@@ -10,6 +10,10 @@
 
 <AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #FEFEFE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLCU09_2_EvaluarEstudianteController">
    <children>
+      <TextArea fx:id="taComentarios" layoutX="295.0" layoutY="101.0" prefHeight="59.0" prefWidth="275.0" style="-fx-border-color: #00AC4F;">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font></TextArea>
       <GridPane alignment="TOP_CENTER" gridLinesVisible="true" layoutX="31.0" layoutY="172.0" prefHeight="268.0" prefWidth="539.0" style="-fx-background-color: #FEFEFE; -fx-border-color: #00AC4F;">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="182.0" minWidth="10.0" prefWidth="115.0" />
@@ -144,10 +148,6 @@
             <Font name="Gill Sans MT" size="14.0" />
          </font>
       </Label>
-      <TextArea fx:id="taComentarios" layoutX="295.0" layoutY="101.0" prefHeight="59.0" prefWidth="275.0" style="-fx-border-color: #00AC4F;">
-         <font>
-            <Font name="Gill Sans MT" size="15.0" />
-         </font></TextArea>
       <Button layoutX="155.0" layoutY="461.0" mnemonicParsing="false" onAction="#clicBotonRegistrar" prefWidth="75.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Registrar" textFill="WHITE">
          <font>
             <Font name="Gill Sans MT" size="14.0" />

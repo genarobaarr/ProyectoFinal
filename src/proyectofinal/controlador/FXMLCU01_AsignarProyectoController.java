@@ -42,7 +42,7 @@ public class FXMLCU01_AsignarProyectoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         tcEstudianteNombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().toString()));
         tcProyectoNombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
-        cargardatos();
+        cargarDatos();
     }
 
     @FXML
@@ -69,7 +69,7 @@ public class FXMLCU01_AsignarProyectoController implements Initializable {
 
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, "Operación exitosa", "El proyecto ha sido asignado exitosamente");
 
-                cargardatos();
+                cargarDatos();
 
             } catch (SQLException e) {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la operación",
@@ -89,7 +89,7 @@ public class FXMLCU01_AsignarProyectoController implements Initializable {
         }
     }
 
-    private void cargardatos() {
+    private void cargarDatos() {
         try {
             listaEstudiantesSinProyecto = FXCollections.observableArrayList(EstudianteDAO.obtenerEstudiantesSinProyectoAsignado());
             tvEstudiantes.setItems(listaEstudiantesSinProyecto);
