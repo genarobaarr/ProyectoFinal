@@ -27,6 +27,11 @@
                   <Image url="@../recursos/lis_ONLYlogo.png" />
                </image>
             </ImageView>
+            <ImageView fitHeight="249.0" fitWidth="170.0" layoutX="-85.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recursos/lis_ONLYlogo_up.png" />
+               </image>
+            </ImageView>
             <Label layoutX="33.0" layoutY="23.0" text="Bienvenido(a)">
                <font>
                   <Font name="Gill Sans MT Bold" size="36.0" />
@@ -77,11 +82,6 @@
       <ImageView fitHeight="249.0" fitWidth="170.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../recursos/mainlogo_right.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="249.0" fitWidth="170.0" layoutX="215.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../recursos/lis_ONLYlogo_up.png" />
          </image>
       </ImageView>
    </children>
