@@ -7,13 +7,10 @@ package proyectofinal.controlador;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -64,7 +61,6 @@ public class FXMLCU06_2_ValidarReportesController implements Initializable {
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }    
 
     @FXML
@@ -85,7 +81,7 @@ public class FXMLCU06_2_ValidarReportesController implements Initializable {
     private void tfPeriodoReportePresionaEnter(KeyEvent event) {
     }
     
-        public void inicializarInformacion (ReporteMensual reporte) {
+    public void inicializarInformacion (ReporteMensual reporte) {
         try {
             this.reporte = reporte;
             this.expediente = obtenerExpediente(reporte.getIdExpediente());

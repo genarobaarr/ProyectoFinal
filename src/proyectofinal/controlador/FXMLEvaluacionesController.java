@@ -6,11 +6,7 @@ package proyectofinal.controlador;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +20,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import proyectofinal.ProyectoFinal;
 import proyectofinal.modelo.pojo.AcademicoEvaluador;
 import proyectofinal.modelo.pojo.Estudiante;
@@ -43,6 +38,8 @@ public class FXMLEvaluacionesController implements Initializable {
     private ImageView ivEvaluarOrganizacion;
     @FXML
     private ImageView ivRegistrarEvaluacion;
+    
+    private Usuario usuario;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -67,6 +64,8 @@ public class FXMLEvaluacionesController implements Initializable {
     
     public void inicializarInformacion(Usuario usuario) {
         if (usuario instanceof AcademicoEvaluador) {
+            this.usuario = usuario;
+            
             btnEvaluarOrganizacion.setDisable(true);
             btnEvaluarOrganizacion.setText("No disponible");
             ivEvaluarOrganizacion.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
@@ -84,7 +83,14 @@ public class FXMLEvaluacionesController implements Initializable {
     public void irPantalla(String fxmlPath, String titulo) {
         try {
             Stage escenarioNuevo = new Stage();
-            Parent vista = FXMLLoader.load(ProyectoFinal.class.getResource(fxmlPath));
+            FXMLLoader cargador = new FXMLLoader(ProyectoFinal.class.getResource(fxmlPath));
+            Parent vista = cargador.load();
+            
+            if  (fxmlPath.equals("vista/FXMLCU09_1_ProyectosRegistradosActivos.fxml")) {
+                    FXMLCU09_1_ProyectosRegistradosActivosController controlador = cargador.getController();
+                    controlador.inicializarInformacion(usuario);
+            }
+            
             Scene escena = new Scene(vista);
             escenarioNuevo.setScene(escena);
             escenarioNuevo.setTitle(titulo);

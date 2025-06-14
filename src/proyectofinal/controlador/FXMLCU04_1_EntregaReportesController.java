@@ -47,35 +47,30 @@ public class FXMLCU04_1_EntregaReportesController implements Initializable {
     }
     
     @FXML
-private void clicBotonNuevoReporte(ActionEvent event) {
-    try {
-        AsignacionReporte asignacion = AsignacionReporteDAO.obtenerAsignacionActual();
-        
-        if (asignacion != null && asignacion.getEstatus().equalsIgnoreCase("Habilitado")) {
-            Stage escenarioBase = (Stage) tvReportesMensuales.getScene().getWindow();
-            FXMLLoader cargador = new FXMLLoader(ProyectoFinal.class.getResource("vista/FXMLCU04_2_EntregaReportes.fxml"));
-            Parent vista = cargador.load();
+    private void clicBotonNuevoReporte(ActionEvent event) {
+        try {
+            if (asignacionReporte != null && asignacionReporte.getEstatus().equalsIgnoreCase("Habilitado")) {
+                Stage escenarioBase = (Stage) tvReportesMensuales.getScene().getWindow();
+                FXMLLoader cargador = new FXMLLoader(ProyectoFinal.class.getResource("vista/FXMLCU04_2_EntregaReportes.fxml"));
+                Parent vista = cargador.load();
 
-            FXMLCU04_2_EntregaReportesController controlador = cargador.getController();
-            controlador.inicializarInformacion(estudiante);
+                FXMLCU04_2_EntregaReportesController controlador = cargador.getController();
+                controlador.inicializarInformacion(estudiante);
 
-            Scene escenaPrincipal = new Scene(vista);
-            escenarioBase.setScene(escenaPrincipal);
-            escenarioBase.setTitle("Entregar reporte");
-            escenarioBase.show();
-        } else {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, 
-                    "Acceso denegado", 
-                    "La entrega de reportes está actualmente inhabilitada.");
+                Scene escenaPrincipal = new Scene(vista);
+                escenarioBase.setScene(escenaPrincipal);
+                escenarioBase.setTitle("Entregar reporte");
+                escenarioBase.show();
+            } else {
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, 
+                        "Acceso denegado", 
+                        "La entrega de reportes está actualmente inhabilitada.");
+            }
+        } catch (IOException ex) {
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
+                    "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
         }
-    } catch (SQLException ex) {
-        Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                "Error de base de datos", "No se pudo verificar el estatus de la asignación");
-    } catch (IOException ex) {
-        Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
     }
-}
 
 
     @FXML

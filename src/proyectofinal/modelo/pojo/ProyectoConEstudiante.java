@@ -7,7 +7,7 @@ package proyectofinal.modelo.pojo;
 public class ProyectoConEstudiante {
     private Proyecto proyecto;
     private Estudiante estudiante;
-    private int idExpediente; // idExpediente para la evaluación
+    private int idExpediente;
 
     public ProyectoConEstudiante() {
     }

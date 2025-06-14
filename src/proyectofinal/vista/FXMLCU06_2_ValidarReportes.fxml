@@ -101,17 +101,17 @@
             <Font name="Gill Sans MT" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="tfProyectoVinculado" layoutX="15.0" layoutY="298.0" onKeyPressed="#tfPeriodoReportePresionaEnter" prefHeight="25.0" prefWidth="300.0" promptText="Proyecto vinculado" style="-fx-border-color: #00AC4F;">
+      <TextField fx:id="tfProyectoVinculado" editable="false" layoutX="15.0" layoutY="298.0" onKeyPressed="#tfPeriodoReportePresionaEnter" prefHeight="25.0" prefWidth="300.0" promptText="Proyecto vinculado" style="-fx-border-color: #00AC4F;">
          <font>
             <Font name="Gill Sans MT" size="15.0" />
          </font>
       </TextField>
-      <TextField fx:id="tfResponsableProyecto" layoutX="15.0" layoutY="363.0" onKeyPressed="#tfPeriodoReportePresionaEnter" prefHeight="30.0" prefWidth="241.0" promptText="Responsable de proyecto" style="-fx-border-color: #00AC4F;">
+      <TextField fx:id="tfResponsableProyecto" editable="false" layoutX="15.0" layoutY="363.0" onKeyPressed="#tfPeriodoReportePresionaEnter" prefHeight="30.0" prefWidth="241.0" promptText="Responsable de proyecto" style="-fx-border-color: #00AC4F;">
          <font>
             <Font name="Gill Sans MT" size="15.0" />
          </font>
       </TextField>
-      <TextField fx:id="tfOrganizacionVinculada" layoutX="317.0" layoutY="363.0" onKeyPressed="#tfPeriodoReportePresionaEnter" prefHeight="30.0" prefWidth="241.0" promptText="Organización Vinculada" style="-fx-border-color: #00AC4F;">
+      <TextField fx:id="tfOrganizacionVinculada" editable="false" layoutX="317.0" layoutY="363.0" onKeyPressed="#tfPeriodoReportePresionaEnter" prefHeight="30.0" prefWidth="241.0" promptText="Organización Vinculada" style="-fx-border-color: #00AC4F;">
          <font>
             <Font name="Gill Sans MT" size="15.0" />
          </font>

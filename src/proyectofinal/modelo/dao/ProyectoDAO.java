@@ -45,7 +45,6 @@ public class ProyectoDAO {
             }
         } catch (SQLException e) {
             System.err.println("Error al obtener proyectos sin asignar: " + e.getMessage());
-            e.printStackTrace();
         }
         return proyectos;
     }
@@ -357,11 +356,9 @@ public class ProyectoDAO {
                 lista.add(pce);
             }
         } catch (SQLException e) {
-            System.err.println("SQL Exception en obtenerProyectosConEstudiantesActivos: " + e.getErrorCode() + " - " + e.getMessage());
             throw new SQLException("Error al cargar proyectos con estudiantes activos.", e);
             
         } catch (Exception e) {
-            System.err.println("General Exception en obtenerProyectosConEstudiantesActivos: " + e.getMessage());
             throw new SQLException("Error inesperado al cargar proyectos con estudiantes activos.", e);
         }
         return lista;

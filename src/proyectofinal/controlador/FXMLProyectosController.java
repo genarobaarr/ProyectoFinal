@@ -27,7 +27,7 @@ public class FXMLProyectosController implements Initializable {
     @FXML
     private Label lbReloj;
     
-    Usuario coordinador;
+    private Usuario coordinador;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -64,8 +64,7 @@ public class FXMLProyectosController implements Initializable {
             FXMLLoader cargador = new FXMLLoader(ProyectoFinal.class.getResource(fxmlPath));
             Parent vista = cargador.load();
             
-            switch (fxmlPath) {
-                case "vista/FXMLCU10_1_RegistrarProyecto.fxml":
+            if  (fxmlPath.equals("vista/FXMLCU10_1_RegistrarProyecto.fxml")) {
                     FXMLCU10_1_RegistrarProyectoController controlador = cargador.getController();
                     controlador.inicializarInformacion(coordinador);
             }

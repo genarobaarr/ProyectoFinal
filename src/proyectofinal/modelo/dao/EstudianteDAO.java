@@ -28,19 +28,15 @@ public class EstudianteDAO {
                        "LEFT JOIN expediente exp ON e.idUsuario = exp.idEstudiante AND exp.estatus = 'Activo' " +
                        "WHERE exp.idEstudiante is NULL; ";
         
-        System.out.println("DEBUG: Executing query for students without assigned project.");
-        
         try (Connection conn = ConexionBD.abrirConexion();
              PreparedStatement pstmt = conn.prepareStatement(query);
              ResultSet rs = pstmt.executeQuery()) {
 
             if (conn == null) {
-                System.err.println("ERROR: Connection is null in obtenerEstudiantesSinProyectoAsignado.");
-                throw new SQLException("No database connection available.");
+                throw new SQLException("No hay conexión a la base de datos.");
             }
             if (pstmt == null) {
-                System.err.println("ERROR: PreparedStatement is null in obtenerEstudiantesSinProyectoAsignado.");
-                throw new SQLException("Failed to create PreparedStatement.");
+                throw new SQLException("No hay conexión a la base de datos.");
             }
 
             while (rs.next()) {
@@ -59,14 +55,9 @@ public class EstudianteDAO {
                 Estudiante estudiante = new Estudiante(fechaNacimiento, matricula, idExperiencia, idUsuario, nombre, apellidoPaterno, apellidoMaterno, email, username);
                 estudiantes.add(estudiante);
             }
-            System.out.println("DEBUG: Found " + estudiantes.size() + " students without assigned project.");
         } catch (SQLException e) {
-            System.err.println("SQL Exception in obtenerEstudiantesSinProyectoAsignado: " + e.getErrorCode() + " - " + e.getMessage());
-            e.printStackTrace();
             throw new RuntimeException("Error al cargar estudiantes sin proyecto desde la base de datos.", e);
         } catch (Exception e) {
-            System.err.println("General Exception in obtenerEstudiantesSinProyectoAsignado: " + e.getMessage());
-            e.printStackTrace();
             throw new RuntimeException("Error inesperado al cargar estudiantes sin proyecto.", e);
         }
         return estudiantes;
@@ -75,19 +66,14 @@ public class EstudianteDAO {
     public static void crearExpedienteEstudianteProyecto(int idEstudiante, int idProyecto, int idPeriodo) {
         String query = "INSERT INTO expediente (estatus, horasAcumuladas, idProyecto, idPeriodo, idEstudiante) VALUES (?, ?, ?, ?, ?)";
         
-        System.out.println("DEBUG: Executing query for creating expediente: " + query);
-        System.out.println("DEBUG: With idEstudiante = " + idEstudiante + ", idProyecto = " + idProyecto + ", idPeriodo = " + idPeriodo);
-        
         try (Connection conn = ConexionBD.abrirConexion();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             if (conn == null) {
-                System.err.println("ERROR: Connection is null in crearExpedienteEstudianteProyecto.");
-                throw new SQLException("No database connection available.");
+                throw new SQLException("No hay conexión a la base de datos.");
             }
             if (pstmt == null) {
-                System.err.println("ERROR: PreparedStatement is null in crearExpedienteEstudianteProyecto.");
-                throw new SQLException("Failed to create PreparedStatement.");
+                throw new SQLException("No hay conexión a la base de datos.");
             }
 
             pstmt.setString(1, "Activo");
@@ -95,23 +81,15 @@ public class EstudianteDAO {
             pstmt.setInt(3, idProyecto);
             pstmt.setInt(4, idPeriodo);
             pstmt.setInt(5, idEstudiante);
-            
-            System.out.println("DEBUG: Parameters for expediente set.");
 
             int filasAfectadas = pstmt.executeUpdate();
             if (filasAfectadas == 0) {
-                System.err.println("WARN: No rows affected when creating expediente for Estudiante " + idEstudiante);
                 throw new SQLException("No se pudo crear el expediente, ninguna fila afectada.");
             }
-            System.out.println("DEBUG: Expediente creado para Estudiante " + idEstudiante + " y Proyecto " + idProyecto + " en Periodo " + idPeriodo + ". Filas afectadas: " + filasAfectadas);
 
         } catch (SQLException e) {
-            System.err.println("SQL Exception in crearExpedienteEstudianteProyecto: " + e.getErrorCode() + " - " + e.getMessage());
-            e.printStackTrace();
             throw new RuntimeException("Error al registrar la asignación del proyecto en la base de datos.", e);
         } catch (Exception e) {
-            System.err.println("General Exception in crearExpedienteEstudianteProyecto: " + e.getMessage());
-            e.printStackTrace();
             throw new RuntimeException("Error inesperado al crear expediente.", e);
         }
     }
@@ -125,19 +103,15 @@ public class EstudianteDAO {
                        "INNER JOIN expediente exp ON e.idUsuario = exp.idEstudiante " +
                        "INNER JOIN reporte_mensual rm ON exp.idExpediente = rm.idExpediente " +
                        "WHERE exp.estatus = 'Activo';";
-
-        System.out.println("DEBUG: Executing query for students with monthly reports (including expediente info).");
         
         try (Connection conn = ConexionBD.abrirConexion();
              PreparedStatement pstmt = conn.prepareStatement(query);
              ResultSet rs = pstmt.executeQuery()) {
 
             if (conn == null) {
-                System.err.println("ERROR: Connection is null in obtenerEstudiantesConReporteMensual.");
                 throw new SQLException("No database connection available.");
             }
             if (pstmt == null) {
-                System.err.println("ERROR: PreparedStatement is null in obtenerEstudiantesConReporteMensual.");
                 throw new SQLException("Failed to create PreparedStatement.");
             }
 
@@ -159,14 +133,9 @@ public class EstudianteDAO {
                 Estudiante estudiante = new Estudiante(fechaNacimiento, matricula, idExperiencia, idUsuario, nombre, apellidoPaterno, apellidoMaterno, email, username, idExpediente, horasAcumuladas);
                 estudiantesConReporte.add(estudiante);
             }
-            System.out.println("DEBUG: Found " + estudiantesConReporte.size() + " students with monthly reports.");
         } catch (SQLException e) {
-            System.err.println("SQL Exception in obtenerEstudiantesConReporteMensual: " + e.getErrorCode() + " - " + e.getMessage());
-            e.printStackTrace();
             throw new RuntimeException("Error al cargar estudiantes con reporte desde la base de datos.", e);
         } catch (Exception e) {
-            System.err.println("General Exception in obtenerEstudiantesConReporteMensual: " + e.getMessage());
-            e.printStackTrace();
             throw new RuntimeException("Error inesperado al cargar estudiantes con reporte.", e);
         }
         return estudiantesConReporte;
@@ -179,26 +148,19 @@ public class EstudianteDAO {
                        "INNER JOIN expediente exp ON eo.idExpediente = exp.idExpediente " +
                        "WHERE exp.idEstudiante = ? ORDER BY eo.fecha ASC;";
 
-        System.out.println("DEBUG: Executing query for specific student OV evaluations: " + query);
-        System.out.println("DEBUG: With idEstudiante = " + idEstudiante);
-
         try (Connection conn = ConexionBD.abrirConexion();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             if (conn == null) {
-                System.err.println("ERROR: Connection is null in obtenerEvaluacionesOVEstudiante.");
                 throw new SQLException("No database connection available.");
             }
             if (pstmt == null) {
-                System.err.println("ERROR: PreparedStatement is null in obtenerEvaluacionesOVEstudiante.");
                 throw new SQLException("Failed to create PreparedStatement.");
             }
 
             pstmt.setInt(1, idEstudiante);
-            System.out.println("DEBUG: Parameter idEstudiante set: " + idEstudiante);
 
             try (ResultSet rs = pstmt.executeQuery()) {
-                System.out.println("DEBUG: Query executed. Checking results for OV evaluations...");
                 while (rs.next()) {
                     EvaluacionOV evaluacion = new EvaluacionOV();
                     evaluacion.setIdEvaluacionOV(rs.getInt("idEvaluacionOV"));
@@ -210,15 +172,10 @@ public class EstudianteDAO {
                     evaluacion.setPuntajeFinal(puntajeBigDecimal != null ? puntajeBigDecimal.doubleValue() : 0.0);
                     evaluaciones.add(evaluacion);
                 }
-                System.out.println("DEBUG: Found " + evaluaciones.size() + " OV evaluations for idEstudiante " + idEstudiante);
             }
         } catch (SQLException e) {
-            System.err.println("SQL Exception in obtenerEvaluacionesOVEstudiante: " + e.getErrorCode() + " - " + e.getMessage());
-            e.printStackTrace();
             throw new RuntimeException("Error al cargar evaluaciones de la Organización Vinculada desde la base de datos.", e);
         } catch (Exception e) {
-            System.err.println("General Exception in obtenerEvaluacionesOVEstudiante: " + e.getMessage());
-            e.printStackTrace();
             throw new RuntimeException("Error inesperado al cargar evaluaciones OV.", e);
         }
         return evaluaciones;
@@ -231,26 +188,19 @@ public class EstudianteDAO {
                        "INNER JOIN expediente exp ON ee.idExpediente = exp.idExpediente " +
                        "WHERE exp.idEstudiante = ?;";
 
-        System.out.println("DEBUG: Executing query for specific student Exposicion evaluations: " + query);
-        System.out.println("DEBUG: With idEstudiante = " + idEstudiante);
-
         try (Connection conn = ConexionBD.abrirConexion();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             if (conn == null) {
-                System.err.println("ERROR: Connection is null in obtenerEvaluacionesExposicionEstudiante.");
                 throw new SQLException("No database connection available.");
             }
             if (pstmt == null) {
-                System.err.println("ERROR: PreparedStatement is null in obtenerEvaluacionesExposicionEstudiante.");
                 throw new SQLException("Failed to create PreparedStatement.");
             }
 
             pstmt.setInt(1, idEstudiante);
-            System.out.println("DEBUG: Parameter idEstudiante set: " + idEstudiante);
 
             try (ResultSet rs = pstmt.executeQuery()) {
-                System.out.println("DEBUG: Query executed. Checking results for Exposicion evaluations...");
                 while (rs.next()) {
                     EvaluacionExposicion evaluacion = new EvaluacionExposicion();
                     evaluacion.setIdEvaluacionExposicion(rs.getInt("idEvaluacionExposicion"));
@@ -259,15 +209,10 @@ public class EstudianteDAO {
                     evaluacion.setPuntajeFinal(puntajeBigDecimal != null ? puntajeBigDecimal.doubleValue() : 0.0);
                     evaluaciones.add(evaluacion);
                 }
-                System.out.println("DEBUG: Found " + evaluaciones.size() + " Exposicion evaluations for idEstudiante " + idEstudiante);
             }
         } catch (SQLException e) {
-            System.err.println("SQL Exception in obtenerEvaluacionesExposicionEstudiante: " + e.getErrorCode() + " - " + e.getMessage());
-            e.printStackTrace();
             throw new RuntimeException("Error al cargar evaluaciones de exposición desde la base de datos.", e);
         } catch (Exception e) {
-            System.err.println("General Exception in obtenerEvaluacionesExposicionEstudiante: " + e.getMessage());
-            e.printStackTrace();
             throw new RuntimeException("Error inesperado al cargar evaluaciones de exposición.", e);
         }
         return evaluaciones;
@@ -282,26 +227,19 @@ public class EstudianteDAO {
                        "LEFT JOIN expediente exp ON e.idUsuario = exp.idEstudiante " + 
                        "WHERE u.idUsuario = ?;";
 
-        System.out.println("DEBUG: Executing query for student by idUsuario: " + query);
-        System.out.println("DEBUG: With idUsuario = " + idUsuario);
-
         try (Connection conn = ConexionBD.abrirConexion();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             if (conn == null) {
-                System.err.println("ERROR: Connection is null in obtenerEstudiantePorIdUsuario.");
                 throw new SQLException("No database connection available.");
             }
             if (pstmt == null) {
-                System.err.println("ERROR: PreparedStatement is null in obtenerEstudiantePorIdUsuario.");
                 throw new SQLException("Failed to create PreparedStatement.");
             }
 
             pstmt.setInt(1, idUsuario);
-            System.out.println("DEBUG: Parameter idUsuario set: " + idUsuario);
 
             try (ResultSet rs = pstmt.executeQuery()) {
-                System.out.println("DEBUG: Query executed. Checking results for student...");
                 if (rs.next()) {
                     int usuarioId = rs.getInt("idUsuario");
                     String nombre = rs.getString("nombre");
@@ -322,12 +260,8 @@ public class EstudianteDAO {
                 System.out.println("DEBUG: Found student: " + (estudiante != null ? estudiante.getNombre() : "null"));
             }
         } catch (SQLException e) {
-            System.err.println("SQL Exception in obtenerEstudiantePorIdUsuario: " + e.getErrorCode() + " - " + e.getMessage());
-            e.printStackTrace();
             throw new RuntimeException("Error al cargar estudiante por ID de usuario desde la base de datos.", e);
         } catch (Exception e) {
-            System.err.println("General Exception in obtenerEstudiantePorIdUsuario: " + e.getMessage());
-            e.printStackTrace();
             throw new RuntimeException("Error inesperado al cargar estudiante.", e);
         }
         return estudiante;

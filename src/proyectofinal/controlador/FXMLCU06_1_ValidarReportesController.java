@@ -24,7 +24,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import proyectofinal.ProyectoFinal;
 import proyectofinal.modelo.dao.ReporteMensualDAO;
-import proyectofinal.modelo.pojo.Estudiante;
 import proyectofinal.modelo.pojo.ReporteMensual;
 import proyectofinal.utilidades.Utilidad;
 
@@ -36,12 +35,9 @@ public class FXMLCU06_1_ValidarReportesController implements Initializable {
     private TableColumn colNombres;
     
     private ObservableList<ReporteMensual> reportes;
-    private Estudiante estudiante;
-    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }    
 
     @FXML
@@ -69,6 +65,11 @@ public class FXMLCU06_1_ValidarReportesController implements Initializable {
         Utilidad.getEscenario(tvReportesMensuales).close();
     }
     
+    public void inicializarInformacion() {
+        configurarTabla();
+        cargarInformacionTabla();
+    }
+    
     private void cargarInformacionTabla() {
           try {
             reportes = FXCollections.observableArrayList();
@@ -86,10 +87,4 @@ public class FXMLCU06_1_ValidarReportesController implements Initializable {
     private void configurarTabla() {
         colNombres.setCellValueFactory(new PropertyValueFactory("nombreArchivo"));
     }
-    
-    public void inicializarInformacion() {
-        configurarTabla();
-        cargarInformacionTabla();
-    }
-    
 }

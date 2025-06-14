@@ -36,7 +36,7 @@ public class FXMLCU10_1_RegistrarProyectoController implements Initializable {
     private TableColumn colNombre;
     
     private ObservableList<OrganizacionVinculada> organizaciones;
-    Usuario coordinador;
+    private Usuario coordinador;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {

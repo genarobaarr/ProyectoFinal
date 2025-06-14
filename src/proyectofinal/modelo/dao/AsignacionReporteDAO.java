@@ -32,7 +32,6 @@ public class AsignacionReporteDAO {
                 asignacion.setEstatus(resultado.getString("estatus"));
             }
         } catch (SQLException e) {
-            System.err.println("Error al obtener la asignación actual: " + e.getMessage());
             throw e;
         }
 

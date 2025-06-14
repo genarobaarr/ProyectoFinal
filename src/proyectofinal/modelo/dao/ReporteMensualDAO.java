@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import proyectofinal.modelo.ConexionBD;
 import proyectofinal.modelo.pojo.ReporteMensual;
 import proyectofinal.modelo.pojo.ResultadoOperacion;
@@ -39,7 +38,6 @@ public static ArrayList<ReporteMensual> obtenerReportesMensualesEstudiante(int i
                 }
             }
         } catch (SQLException e) {
-            System.err.println("SQL Exception en obtenerReportesMensualesEstudiante: " + e.getMessage());
             throw new SQLException("Error al cargar los reportes desde la base de datos.", e);
         }
         return reportes;
@@ -89,7 +87,6 @@ public static ArrayList<ReporteMensual> obtenerReportesMensualesNoValidados() th
                 }
             }
         } catch (SQLException e) {
-            System.err.println("SQL Exception en obtenerReportesMensualesEstudiante: " + e.getMessage());
             throw new SQLException("Error al cargar los reportes desde la base de datos.", e);
         }
         return reportes;

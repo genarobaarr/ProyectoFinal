@@ -24,10 +24,8 @@ import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import proyectofinal.modelo.dao.ProyectoDAO;
-import proyectofinal.modelo.pojo.AcademicoEvaluador;
 import proyectofinal.modelo.pojo.ProyectoConEstudiante;
 import proyectofinal.modelo.pojo.Usuario;
-import proyectofinal.utilidades.SessionManager;
 import proyectofinal.utilidades.Utilidad;
 
 public class FXMLCU09_1_ProyectosRegistradosActivosController implements Initializable {
@@ -40,6 +38,7 @@ public class FXMLCU09_1_ProyectosRegistradosActivosController implements Initial
     private TableColumn<ProyectoConEstudiante, String> tcEstudianteVinculado;
 
     private ObservableList<ProyectoConEstudiante> listaProyectosConEstudiantes;
+    private Usuario academicoEvaluador;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -47,56 +46,19 @@ public class FXMLCU09_1_ProyectosRegistradosActivosController implements Initial
         cargarProyectosConEstudiantes(); 
     }
 
-    private void configurarTabla() {
-        tcProyecto.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombreProyecto()));
-        tcEstudianteVinculado.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombreCompletoEstudiante()));
-    }
-
-    private void cargarProyectosConEstudiantes() {
-        try {
-            List<ProyectoConEstudiante> proyectos = ProyectoDAO.obtenerProyectosConEstudiantesActivos();
-            listaProyectosConEstudiantes = FXCollections.observableArrayList(proyectos);
-            tvProyectoYEstudiante.setItems(listaProyectosConEstudiantes);
-
-            if (proyectos.isEmpty()) {
-                Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, 
-                        "Sin Datos", "No hay proyectos con estudiantes activos registrados en el sistema.");
-            }
-        } catch (SQLException e) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
-                    "Error en la base de datos", "Error de conexión con base de datos, inténtalo más tarde. Detalles: " + e.getMessage());
-        }
-    }
-
-    private AcademicoEvaluador obtenerAcademicoEvaluadorSesion() {
-        Usuario loggedInUser = SessionManager.getLoggedInUser();
-        if (loggedInUser == null) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
-                    "Error de Sesión", "No se encontró información del evaluador loggeado. Por favor, reinicie la aplicación y vuelva a iniciar sesión.");
-            return null;
-        }
-        if (!(loggedInUser instanceof AcademicoEvaluador)) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
-                    "Permiso Denegado", "El usuario loggeado no tiene permisos para realizar esta evaluación.");
-            return null;
-        }
-        return (AcademicoEvaluador) loggedInUser;
-    }
-
     @FXML
     private void clicBotonEvaluar(ActionEvent event) {
         ProyectoConEstudiante seleccion = tvProyectoYEstudiante.getSelectionModel().getSelectedItem();
         if (seleccion != null) {
-            AcademicoEvaluador academicoLoggeado = obtenerAcademicoEvaluadorSesion();
-            
-            if (academicoLoggeado != null) {
-                int idAcademicoLoggeado = academicoLoggeado.getIdUsuario();
+            if (academicoEvaluador != null) {
+                
+                int idAcademicoEvaluador = academicoEvaluador.getIdUsuario();
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/vista/FXMLCU09_EvaluarEstudiante.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/vista/FXMLCU09_2_EvaluarEstudiante.fxml"));
                     Parent vista = loader.load();
 
                     FXMLCU09_2_EvaluarEstudianteController controller = loader.getController();
-                    controller.inicializarInformacion(seleccion.getIdExpediente(), idAcademicoLoggeado);
+                    controller.inicializarInformacion(seleccion.getIdExpediente(), idAcademicoEvaluador);
 
                     Stage stage = new Stage();
                     stage.setScene(new Scene(vista));
@@ -120,6 +82,31 @@ public class FXMLCU09_1_ProyectosRegistradosActivosController implements Initial
     private void clicBotonCancelar(ActionEvent event) {
         if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas salir?")) {
             Utilidad.getEscenario(tvProyectoYEstudiante).close();
+        }
+    }
+    
+    public void inicializarInformacion (Usuario academicoEvaluador) {
+        this.academicoEvaluador = academicoEvaluador;
+    }
+
+    private void configurarTabla() {
+        tcProyecto.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombreProyecto()));
+        tcEstudianteVinculado.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombreCompletoEstudiante()));
+    }
+
+    private void cargarProyectosConEstudiantes() {
+        try {
+            List<ProyectoConEstudiante> proyectos = ProyectoDAO.obtenerProyectosConEstudiantesActivos();
+            listaProyectosConEstudiantes = FXCollections.observableArrayList(proyectos);
+            tvProyectoYEstudiante.setItems(listaProyectosConEstudiantes);
+
+            if (proyectos.isEmpty()) {
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, 
+                        "Sin Datos", "No hay proyectos con estudiantes activos registrados en el sistema.");
+            }
+        } catch (SQLException e) {
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
+                    "Error en la base de datos", "Error de conexión con base de datos, inténtalo más tarde. Detalles: " + e.getMessage());
         }
     }
 }

@@ -20,7 +20,7 @@
             <Font name="Gill Sans MT" size="14.0" />
          </font>
       </Label>
-      <TextArea fx:id="taDescripcion" layoutX="340.0" layoutY="63.0" prefHeight="266.0" prefWidth="245.0" style="-fx-border-color: #00AC4F;" />
+      <TextArea fx:id="taDescripcion" layoutX="340.0" layoutY="63.0" onKeyPressed="#taDescripcionPresionaEnter" prefHeight="266.0" prefWidth="245.0" style="-fx-border-color: #00AC4F;" />
       <TextField fx:id="tfNumeroReporte" layoutX="13.0" layoutY="63.0" onKeyPressed="#tfNumeroReportePresionaEnter" prefHeight="25.0" prefWidth="140.0" promptText="Reporte" style="-fx-border-color: #00AC4F;">
          <font>
             <Font name="Gill Sans MT" size="15.0" />
@@ -61,12 +61,12 @@
             <Font name="Gill Sans MT" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="tfNombreEstudiante" layoutX="14.0" layoutY="122.0" onKeyPressed="#tfNombreEstudiantePresionaEnter" prefHeight="25.0" prefWidth="300.0" promptText="Nombre del estudiante" style="-fx-border-color: #00AC4F;">
+      <TextField fx:id="tfNombreEstudiante" editable="false" layoutX="14.0" layoutY="122.0" prefHeight="25.0" prefWidth="300.0" promptText="Nombre del estudiante" style="-fx-border-color: #00AC4F;">
          <font>
             <Font name="Gill Sans MT" size="15.0" />
          </font>
       </TextField>
-      <TextField fx:id="tfMatricula" layoutX="14.0" layoutY="181.0" onKeyPressed="#tfMatriculaPresionaEnter" prefHeight="25.0" prefWidth="300.0" promptText="Matrícula del estudiante" style="-fx-border-color: #00AC4F;">
+      <TextField fx:id="tfMatricula" editable="false" layoutX="14.0" layoutY="181.0" prefHeight="25.0" prefWidth="300.0" promptText="Matrícula del estudiante" style="-fx-border-color: #00AC4F;">
          <font>
             <Font name="Gill Sans MT" size="15.0" />
          </font>
@@ -101,17 +101,17 @@
             <Font name="Gill Sans MT" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="tfProyectoVinculado" layoutX="14.0" layoutY="299.0" onKeyPressed="#tfPeriodoReportePresionaEnter" prefHeight="25.0" prefWidth="300.0" promptText="Proyecto vinculado" style="-fx-border-color: #00AC4F;">
+      <TextField fx:id="tfProyectoVinculado" editable="false" layoutX="14.0" layoutY="299.0" prefHeight="25.0" prefWidth="300.0" promptText="Proyecto vinculado" style="-fx-border-color: #00AC4F;">
          <font>
             <Font name="Gill Sans MT" size="15.0" />
          </font>
       </TextField>
-      <TextField fx:id="tfResponsableProyecto" layoutX="14.0" layoutY="363.0" onKeyPressed="#tfPeriodoReportePresionaEnter" prefHeight="30.0" prefWidth="241.0" promptText="Responsable de proyecto" style="-fx-border-color: #00AC4F;">
+      <TextField fx:id="tfResponsableProyecto" editable="false" layoutX="14.0" layoutY="363.0" prefHeight="30.0" prefWidth="241.0" promptText="Responsable de proyecto" style="-fx-border-color: #00AC4F;">
          <font>
             <Font name="Gill Sans MT" size="15.0" />
          </font>
       </TextField>
-      <TextField fx:id="tfOrganizacionVinculada" layoutX="314.0" layoutY="363.0" onKeyPressed="#tfPeriodoReportePresionaEnter" prefHeight="30.0" prefWidth="241.0" promptText="Organización Vinculada" style="-fx-border-color: #00AC4F;">
+      <TextField fx:id="tfOrganizacionVinculada" editable="false" layoutX="314.0" layoutY="363.0" prefHeight="30.0" prefWidth="241.0" promptText="Organización Vinculada" style="-fx-border-color: #00AC4F;">
          <font>
             <Font name="Gill Sans MT" size="15.0" />
          </font>

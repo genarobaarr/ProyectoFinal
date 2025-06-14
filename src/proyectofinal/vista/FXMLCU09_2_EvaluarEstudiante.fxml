@@ -62,7 +62,7 @@
             </Label>
             <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <children>
-                  <RadioButton mnemonicParsing="false" style="-fx-cursor: HAND;">
+                  <RadioButton fx:id="rbDominioTemaSatisfactorio" mnemonicParsing="false" style="-fx-cursor: HAND;">
                      <toggleGroup>
                         <ToggleGroup fx:id="tgDominioTema" />
                      </toggleGroup>
@@ -71,22 +71,22 @@
             </StackPane>
             <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <RadioButton mnemonicParsing="false" style="-fx-cursor: HAND;" toggleGroup="$tgDominioTema" />
+                  <RadioButton fx:id="rbDominioTemaExcelente" mnemonicParsing="false" style="-fx-cursor: HAND;" toggleGroup="$tgDominioTema" />
                </children>
             </StackPane>
             <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <children>
-                  <RadioButton mnemonicParsing="false" style="-fx-cursor: HAND;" toggleGroup="$tgDominioTema" />
+                  <RadioButton fx:id="rbDominioTemaPuedeMejorar" mnemonicParsing="false" style="-fx-cursor: HAND;" toggleGroup="$tgDominioTema" />
                </children>
             </StackPane>
             <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <children>
-                  <RadioButton mnemonicParsing="false" style="-fx-cursor: HAND;" toggleGroup="$tgDominioTema" />
+                  <RadioButton fx:id="rbDominioTemaNoCumple" mnemonicParsing="false" style="-fx-cursor: HAND;" toggleGroup="$tgDominioTema" />
                </children>
             </StackPane>
             <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <RadioButton mnemonicParsing="false" style="-fx-cursor: HAND;">
+                  <RadioButton fx:id="rbFormalidadPresentacionExcelente" mnemonicParsing="false" style="-fx-cursor: HAND;">
                      <toggleGroup>
                         <ToggleGroup fx:id="tgFormalidadPresentacion" />
                      </toggleGroup>
@@ -95,22 +95,22 @@
             </StackPane>
             <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <children>
-                  <RadioButton mnemonicParsing="false" prefHeight="26.0" prefWidth="21.0" style="-fx-cursor: HAND;" toggleGroup="$tgFormalidadPresentacion" />
+                  <RadioButton fx:id="rbFormalidadPresentacionSatisfactorio" mnemonicParsing="false" prefHeight="26.0" prefWidth="21.0" style="-fx-cursor: HAND;" toggleGroup="$tgFormalidadPresentacion" />
                </children>
             </StackPane>
             <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <children>
-                  <RadioButton mnemonicParsing="false" prefHeight="26.0" prefWidth="21.0" style="-fx-cursor: HAND;" toggleGroup="$tgFormalidadPresentacion" />
+                  <RadioButton fx:id="rbFormalidadPresentacionPuedeMejorar" mnemonicParsing="false" prefHeight="26.0" prefWidth="21.0" style="-fx-cursor: HAND;" toggleGroup="$tgFormalidadPresentacion" />
                </children>
             </StackPane>
             <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
                <children>
-                  <RadioButton mnemonicParsing="false" prefHeight="26.0" prefWidth="21.0" style="-fx-cursor: HAND;" toggleGroup="$tgFormalidadPresentacion" />
+                  <RadioButton fx:id="rbFormalidadPresentacionNoCumple" mnemonicParsing="false" prefHeight="26.0" prefWidth="21.0" style="-fx-cursor: HAND;" toggleGroup="$tgFormalidadPresentacion" />
                </children>
             </StackPane>
             <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <RadioButton mnemonicParsing="false" prefHeight="26.0" prefWidth="21.0" style="-fx-cursor: HAND;">
+                  <RadioButton fx:id="rbOrganizacionEquipoExcelente" mnemonicParsing="false" prefHeight="26.0" prefWidth="21.0" style="-fx-cursor: HAND;">
                      <toggleGroup>
                         <ToggleGroup fx:id="tgOrganizacionEquipo" />
                      </toggleGroup>
@@ -119,17 +119,17 @@
             </StackPane>
             <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <children>
-                  <RadioButton mnemonicParsing="false" prefHeight="26.0" prefWidth="21.0" style="-fx-cursor: HAND;" toggleGroup="$tgOrganizacionEquipo" />
+                  <RadioButton fx:id="rbOrganizacionEquipoSatisfactorio" mnemonicParsing="false" prefHeight="26.0" prefWidth="21.0" style="-fx-cursor: HAND;" toggleGroup="$tgOrganizacionEquipo" />
                </children>
             </StackPane>
             <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <children>
-                  <RadioButton mnemonicParsing="false" prefHeight="26.0" prefWidth="21.0" style="-fx-cursor: HAND;" toggleGroup="$tgOrganizacionEquipo" />
+                  <RadioButton fx:id="rbOrganizacionEquipoPuedeMejorar" mnemonicParsing="false" prefHeight="26.0" prefWidth="21.0" style="-fx-cursor: HAND;" toggleGroup="$tgOrganizacionEquipo" />
                </children>
             </StackPane>
             <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
                <children>
-                  <RadioButton mnemonicParsing="false" prefHeight="26.0" prefWidth="21.0" style="-fx-cursor: HAND;" toggleGroup="$tgOrganizacionEquipo" />
+                  <RadioButton fx:id="rbOrganizacionEquipoNoCumple" mnemonicParsing="false" prefHeight="26.0" prefWidth="21.0" style="-fx-cursor: HAND;" toggleGroup="$tgOrganizacionEquipo" />
                </children>
             </StackPane>
          </children>
@@ -144,13 +144,16 @@
             <Font name="Gill Sans MT" size="14.0" />
          </font>
       </Label>
-      <TextArea fx:id="taComentarios" layoutX="295.0" layoutY="101.0" prefHeight="59.0" prefWidth="275.0" style="-fx-border-color: #00AC4F;" />
-      <Button layoutX="155.0" layoutY="461.0" mnemonicParsing="false" onAction="#btnRegistrar" prefWidth="75.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Registrar" textFill="WHITE">
+      <TextArea fx:id="taComentarios" layoutX="295.0" layoutY="101.0" prefHeight="59.0" prefWidth="275.0" style="-fx-border-color: #00AC4F;">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font></TextArea>
+      <Button layoutX="155.0" layoutY="461.0" mnemonicParsing="false" onAction="#clicBotonRegistrar" prefWidth="75.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Registrar" textFill="WHITE">
          <font>
             <Font name="Gill Sans MT" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="385.0" layoutY="461.0" mnemonicParsing="false" onAction="#btnCancelar" prefWidth="75.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Cancelar" textFill="WHITE">
+      <Button layoutX="385.0" layoutY="461.0" mnemonicParsing="false" onAction="#clicBotonCancelar" prefWidth="75.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Cancelar" textFill="WHITE">
          <font>
             <Font name="Gill Sans MT" size="14.0" />
          </font>

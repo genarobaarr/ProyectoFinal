@@ -33,6 +33,30 @@ public class FXMLCU09_2_EvaluarEstudianteController implements Initializable {
     private ToggleGroup tgOrganizacionEquipo;
     @FXML
     private TextArea taComentarios;
+    @FXML
+    private RadioButton rbDominioTemaSatisfactorio;
+    @FXML
+    private RadioButton rbDominioTemaExcelente;
+    @FXML
+    private RadioButton rbDominioTemaPuedeMejorar;
+    @FXML
+    private RadioButton rbDominioTemaNoCumple;
+    @FXML
+    private RadioButton rbFormalidadPresentacionExcelente;
+    @FXML
+    private RadioButton rbFormalidadPresentacionSatisfactorio;
+    @FXML
+    private RadioButton rbFormalidadPresentacionPuedeMejorar;
+    @FXML
+    private RadioButton rbFormalidadPresentacionNoCumple;
+    @FXML
+    private RadioButton rbOrganizacionEquipoExcelente;
+    @FXML
+    private RadioButton rbOrganizacionEquipoSatisfactorio;
+    @FXML
+    private RadioButton rbOrganizacionEquipoPuedeMejorar;
+    @FXML
+    private RadioButton rbOrganizacionEquipoNoCumple;
 
     private int idExpediente;
     private int idAcademico;
@@ -45,13 +69,8 @@ public class FXMLCU09_2_EvaluarEstudianteController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }
 
-    public void inicializarInformacion(int idExpediente, int idAcademico) {
-        this.idExpediente = idExpediente;
-        this.idAcademico = idAcademico; 
-    }
-
     @FXML
-    private void btnRegistrar(ActionEvent event) {
+    private void clicBotonRegistrar(ActionEvent event) {
         if (tgDominioTema.getSelectedToggle() == null ||
             tgFormalidadPresentacion.getSelectedToggle() == null ||
             tgOrganizacionEquipo.getSelectedToggle() == null) {
@@ -93,8 +112,13 @@ public class FXMLCU09_2_EvaluarEstudianteController implements Initializable {
     }
 
     @FXML
-    private void btnCancelar(ActionEvent event) {
+    private void clicBotonCancelar(ActionEvent event) {
         Utilidad.getEscenario(taComentarios).close();
+    }
+
+    public void inicializarInformacion(int idExpediente, int idAcademico) {
+        this.idExpediente = idExpediente;
+        this.idAcademico = idAcademico; 
     }
 
     private double getPuntajeYCriterio(ToggleGroup group, String nombreCriterio, List<EvaluacionExposicionCriterio> criteriosLista) {
@@ -116,6 +140,8 @@ public class FXMLCU09_2_EvaluarEstudianteController implements Initializable {
             } else if (id.contains("NoCumple")) {
                 nivel = "No cumple con lo requerido";
                 valor = NO_CUMPLE;
+            } else {
+                return -1.0;
             }
             
             EvaluacionExposicionCriterio criterio = new EvaluacionExposicionCriterio();
@@ -125,7 +151,8 @@ public class FXMLCU09_2_EvaluarEstudianteController implements Initializable {
             criteriosLista.add(criterio);
 
             return valor;
-        }
-        return 0.0; 
+        } else {
+            return -1.0;
+        } 
     }
 }

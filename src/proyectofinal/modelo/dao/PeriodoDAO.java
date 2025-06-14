@@ -29,13 +29,11 @@ public class PeriodoDAO {
             if (resultado.next()) {
                 idPeriodo = resultado.getInt("idPeriodo");
             } else {
-                System.err.println("Advertencia: No se encontró un periodo activo para la fecha actual " + fechaActualStr);
                 String latestPeriodQuery = "SELECT idPeriodo FROM periodo ORDER BY fechaFin DESC LIMIT 1";
                 try (PreparedStatement sentenciaLatest = conexionBD.prepareStatement(latestPeriodQuery);
                      ResultSet resultadoLatest = sentenciaLatest.executeQuery()) {
                     if (resultadoLatest.next()) {
                         idPeriodo = resultadoLatest.getInt("idPeriodo");
-                        System.out.println("DEBUG: Usando el periodo más reciente con ID: " + idPeriodo);
                     } else {
                         throw new RuntimeException("No hay periodos registrados en la base de datos.");
                     }

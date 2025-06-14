@@ -37,7 +37,6 @@ public class EvaluacionOVResultadoDAO {
             }
 
         } catch (SQLException e) {
-            System.err.println("Error al guardar los resultados de la evaluación OV: " + e.getMessage());
             throw e;
         }
         return totalFilasAfectadas;

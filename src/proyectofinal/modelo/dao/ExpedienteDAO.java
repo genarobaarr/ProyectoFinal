@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import proyectofinal.modelo.ConexionBD;
-import proyectofinal.modelo.pojo.Expediente; // Asegúrate de importar el POJO Expediente
+import proyectofinal.modelo.pojo.Expediente;
 
 public class ExpedienteDAO {
 
@@ -39,7 +39,6 @@ public class ExpedienteDAO {
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Error al obtener expediente por ID: " + e.getMessage());
             throw e;
         }
         return expediente;
@@ -71,7 +70,6 @@ public class ExpedienteDAO {
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Error al obtener expediente por ID: " + e.getMessage());
             throw e;
         }
         return expediente;
@@ -97,7 +95,6 @@ public class ExpedienteDAO {
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Error al obtener expediente por ID: " + e.getMessage());
             throw e;
         }
         return idExpediente;

@@ -56,6 +56,21 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    }
+
+    @FXML
+    private void clicBotonCancelar(ActionEvent event) {
+        Utilidad.getEscenario(tfNumeroReporte).close();
+    }
+
+    @FXML
+    private void clicBotonRegistrar(ActionEvent event) {
+        if (validarCampos()) {
+            ReporteMensual reporteMensual = obtenerNuevoReporteMensual();
+            guardarReporteMensual(reporteMensual);
+        }else {
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Error", "Datos inválidos y/o campos vacíos");
+        }
     }    
     
     @FXML
@@ -67,38 +82,27 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
     }
 
     @FXML
-    private void clicBotonCancelar(ActionEvent event) {
-        Utilidad.getEscenario(tfNumeroReporte).close();
-    }
-
-    @FXML
-    private void clicBotonRegistrar(ActionEvent event) {
-    if (validarCampos()) {
-        ReporteMensual reporteMensual = obtenerNuevoReporteMensual();
-        guardarReporteMensual(reporteMensual);
-    }else {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Error", "Datos inválidos y/o campos vacíos");
-        }
-    }
-
-    @FXML
     private void tfNumeroHorasPresionaEnter(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            taDescripcion.requestFocus();
+            tfPeriodoReporte.requestFocus();
             event.consume();
         }
     }
 
     @FXML
-    private void tfNombreEstudiantePresionaEnter(KeyEvent event) {
-    }
-
-    @FXML
-    private void tfMatriculaPresionaEnter(KeyEvent event) {
-    }
-
-    @FXML
     private void tfPeriodoReportePresionaEnter(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            tfPeriodoReporte.requestFocus();
+            event.consume();
+        }
+    }
+
+    @FXML
+    private void taDescripcionPresionaEnter(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            clicBotonRegistrar(new ActionEvent());
+            event.consume();
+        }
     }
     
     public void inicializarInformacion (Estudiante estudiante) {
