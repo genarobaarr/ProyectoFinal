@@ -257,7 +257,6 @@ public class EstudianteDAO {
 
                     estudiante = new Estudiante(fechaNacimiento, matricula, idExperiencia, usuarioId, nombre, apellidoPaterno, apellidoMaterno, email, username, idExpediente, horasAcumuladas);
                 }
-                System.out.println("DEBUG: Found student: " + (estudiante != null ? estudiante.getNombre() : "null"));
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error al cargar estudiante por ID de usuario desde la base de datos.", e);

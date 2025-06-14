@@ -62,6 +62,7 @@ public class FXMLCU06_1_ValidarReportesController implements Initializable {
 
     @FXML
     private void clicBotonCancelar(ActionEvent event) {
+        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Desea salir?"))
         Utilidad.getEscenario(tvReportesMensuales).close();
     }
     

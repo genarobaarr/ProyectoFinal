@@ -60,7 +60,9 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
 
     @FXML
     private void clicBotonCancelar(ActionEvent event) {
-        Utilidad.getEscenario(tfNumeroReporte).close();
+        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas cancelar el registro del reporte? No se guardarán los cambios")) {
+            Utilidad.getEscenario(taDescripcion).close();
+        }
     }
 
     @FXML

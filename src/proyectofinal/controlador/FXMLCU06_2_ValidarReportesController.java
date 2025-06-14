@@ -75,6 +75,9 @@ public class FXMLCU06_2_ValidarReportesController implements Initializable {
 
     @FXML
     private void clicBotonCancelar(ActionEvent event) {
+        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Desea cancelar la validación del reporte?")) {
+            Utilidad.getEscenario(tfNumeroReporte).close();
+        }
     }
 
     @FXML
@@ -188,7 +191,7 @@ public class FXMLCU06_2_ValidarReportesController implements Initializable {
             if(!resultadoValidar.isError()){
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, 
                         "Operación exitosa", 
-                        "El reporte mensual" + reporte.getNombreArchivo()+ " ha sido validado exitosamente.");
+                        "El reporte mensual " + reporte.getNombreArchivo()+ " ha sido validado exitosamente.");
                 Utilidad.getEscenario(tfNumeroReporte).close();
             }
         } catch (SQLException ex) {

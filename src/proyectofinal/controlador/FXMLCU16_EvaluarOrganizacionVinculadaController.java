@@ -95,7 +95,7 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
 
     @FXML
     private void clicBotonCancelar(ActionEvent event) {
-        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas cancelar?")) {
+        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas salir?")) {
             Utilidad.getEscenario(btnAceptar).close();
         }
     }

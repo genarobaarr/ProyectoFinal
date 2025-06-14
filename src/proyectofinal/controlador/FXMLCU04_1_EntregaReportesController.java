@@ -75,6 +75,7 @@ public class FXMLCU04_1_EntregaReportesController implements Initializable {
 
     @FXML
     private void clicBotonCancelar(ActionEvent event) {
+        if (Utilidad.mostrarAlertaConfirmacion("Confiramción", "¿Deseas salir? No se guardarán los cambios"))
         Utilidad.getEscenario(tvReportesMensuales).close();
     }
     
