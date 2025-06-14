@@ -40,7 +40,7 @@ public class FXMLCU04_1_EntregaReportesController implements Initializable {
     
     private ObservableList<ReporteMensual> reportes;
     private Estudiante estudiante;
-    private AsignacionReporte asignacionReporte;
+    private AsignacionReporte asignacionReporte = new AsignacionReporte();
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -49,18 +49,10 @@ public class FXMLCU04_1_EntregaReportesController implements Initializable {
     @FXML
     private void clicBotonNuevoReporte(ActionEvent event) {
         try {
-            if (asignacionReporte != null && asignacionReporte.getEstatus().equalsIgnoreCase("Habilitado")) {
-                Stage escenarioBase = (Stage) tvReportesMensuales.getScene().getWindow();
-                FXMLLoader cargador = new FXMLLoader(ProyectoFinal.class.getResource("vista/FXMLCU04_2_EntregaReportes.fxml"));
-                Parent vista = cargador.load();
-
-                FXMLCU04_2_EntregaReportesController controlador = cargador.getController();
-                controlador.inicializarInformacion(estudiante);
-
-                Scene escenaPrincipal = new Scene(vista);
-                escenarioBase.setScene(escenaPrincipal);
-                escenarioBase.setTitle("Entregar reporte");
-                escenarioBase.show();
+            if (asignacionReporte != null) {
+                if (asignacionReporte.getEstatus().equals("Habilitado")) {
+                    irPantallaSiguiente();
+                }
             } else {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, 
                         "Acceso denegado", 
@@ -71,7 +63,6 @@ public class FXMLCU04_1_EntregaReportesController implements Initializable {
                     "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
         }
     }
-
 
     @FXML
     private void clicBotonCancelar(ActionEvent event) {
@@ -84,6 +75,10 @@ public class FXMLCU04_1_EntregaReportesController implements Initializable {
         this.estudiante = estudiante;
         configurarTabla();
         cargarInformacionTabla();
+    }
+    
+    private void configurarTabla() {
+        colNombres.setCellValueFactory(new PropertyValueFactory("nombreArchivo"));
     }
     
     private void cargarInformacionTabla() {
@@ -101,17 +96,27 @@ public class FXMLCU04_1_EntregaReportesController implements Initializable {
         }
     }
     
-    private void configurarTabla() {
-        colNombres.setCellValueFactory(new PropertyValueFactory("nombreArchivo"));
-    }
-    
     private AsignacionReporte verificarAsignacionReporte() {
+        AsignacionReporte resultadoAsignacionReporte = new AsignacionReporte();
         try {
-            AsignacionReporte asignacionReporte = AsignacionReporteDAO.obtenerAsignacionActual();
+            resultadoAsignacionReporte = AsignacionReporteDAO.obtenerAsignacionActual();
         } catch (SQLException ex) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error de conexión", "Por el momento no hay conexión.");
         }
-        return asignacionReporte;
+        return resultadoAsignacionReporte;
     }
     
+    public void irPantallaSiguiente () throws IOException {
+        Stage escenarioBase = (Stage) tvReportesMensuales.getScene().getWindow();
+        FXMLLoader cargador = new FXMLLoader(ProyectoFinal.class.getResource("vista/FXMLCU04_2_EntregaReportes.fxml"));
+        Parent vista = cargador.load();
+
+        FXMLCU04_2_EntregaReportesController controlador = cargador.getController();
+        controlador.inicializarInformacion(estudiante);
+
+        Scene escenaPrincipal = new Scene(vista);
+        escenarioBase.setScene(escenaPrincipal);
+        escenarioBase.setTitle("Entregar reporte");
+        escenarioBase.show();
+    }
 }
