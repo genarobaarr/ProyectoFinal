@@ -49,10 +49,8 @@ public class FXMLCU04_1_EntregaReportesController implements Initializable {
     @FXML
     private void clicBotonNuevoReporte(ActionEvent event) {
         try {
-            if (asignacionReporte != null) {
-                if (asignacionReporte.getEstatus().equals("Habilitado")) {
+            if (asignacionReporte != null && asignacionReporte.getEstatus().equals("Habilitado")) {
                     irPantallaSiguiente();
-                }
             } else {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, 
                         "Acceso denegado", 

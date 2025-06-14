@@ -34,7 +34,6 @@ public class AsignacionReporteDAO {
         } catch (SQLException e) {
             throw e;
         }
-
         return asignacion;
     }
 
@@ -69,7 +68,6 @@ public class AsignacionReporteDAO {
         } catch (SQLException e) {
             throw e;
         }
-
         return resultado;
     }
 
@@ -102,7 +100,6 @@ public class AsignacionReporteDAO {
         } catch (SQLException e) {
             throw e;
         }
-
         return resultado;
     }
 }
