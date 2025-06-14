@@ -48,7 +48,8 @@ public class Utilidad {
         Timeline reloj = new Timeline(
             new KeyFrame(Duration.ZERO, e -> {
                 LocalDateTime ahora = LocalDateTime.now();
-                lbReloj.setText(ahora.format(FORMATO_HORA));
+                LocalDateTime horaAjustada = ahora.minusHours(1);
+                lbReloj.setText(horaAjustada.format(FORMATO_HORA));
             }),
             new KeyFrame(Duration.minutes(1))
         );
