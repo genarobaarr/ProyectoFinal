@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FEFEFE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLCreditosController">
+   <children>
+      <Button layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#clicBotonRegresar" prefHeight="37.0" prefWidth="105.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Regresar" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recursos/iconoRegresar.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <ImageView fitHeight="283.0" fitWidth="115.0" layoutX="486.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
+         <image>
+            <Image url="@../recursos/lis_ONLYlogo_credits.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="283.0" fitWidth="100.0" layoutX="501.0" layoutY="293.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../recursos/lis_ONLYlogo_credits.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="124.0" layoutY="116.0" style="-fx-cursor: CROSSHAIR;" text="Barradas Sánchez Genaro Alejandro">
+         <font>
+            <Font name="Gill Sans MT" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="163.0" layoutY="175.0" style="-fx-cursor: CROSSHAIR;" text="Martínez Ramírez Alejandro">
+         <font>
+            <Font name="Gill Sans MT" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="194.0" layoutY="234.0" style="-fx-cursor: CROSSHAIR;" text="Morales García Omar">
+         <font>
+            <Font name="Gill Sans MT" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="260.0" layoutY="145.0" text="S23014083">
+         <font>
+            <Font name="Gill Sans MT" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="260.0" layoutY="204.0" text="S23014058">
+         <font>
+            <Font name="Gill Sans MT" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="260.0" layoutY="263.0" text="S23014039">
+         <font>
+            <Font name="Gill Sans MT" size="18.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="ivGenaroABS" fitHeight="39.0" fitWidth="35.0" layoutX="84.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../recursos/lis_ONLYlogo.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="ivAlejandroMR" fitHeight="39.0" fitWidth="35.0" layoutX="123.0" layoutY="172.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+         <image>
+            <Image url="@../recursos/lis_ONLYlogo.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="ivOmarMG" fitHeight="39.0" fitWidth="35.0" layoutX="154.0" layoutY="231.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+         <image>
+            <Image url="@../recursos/lis_ONLYlogo.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="283.0" fitWidth="100.0" layoutY="293.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+         <image>
+            <Image url="@../recursos/lis_ONLYlogo_credits.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lbCreditos" layoutX="228.0" layoutY="63.0" text="Desarrollado por:">
+         <font>
+            <Font name="Gill Sans MT" size="20.0" />
+         </font>
+      </Label>
+      <Pane layoutX="270.0" layoutY="389.0" prefHeight="13.0" prefWidth="331.0" style="-fx-background-color: #005BAC; -fx-border-color: #005BAC;" />
+      <Pane prefHeight="13.0" prefWidth="342.0" style="-fx-background-color: #005BAC; -fx-border-color: #005BAC;" />
+      <Pane layoutY="60.0" prefHeight="340.0" prefWidth="13.0" style="-fx-background-color: #00AF4D; -fx-border-color: #00AF4D;" />
+      <Pane layoutX="600.0" layoutY="140.0" prefHeight="262.0" prefWidth="13.0" style="-fx-background-color: #005BAC; -fx-border-color: #005BAC;" />
+      <Pane layoutY="389.0" prefHeight="13.0" prefWidth="271.0" style="-fx-background-color: #00AF4D; -fx-border-color: #00AF4D;" />
+      <Pane prefHeight="60.0" prefWidth="13.0" style="-fx-background-color: #005BAC; -fx-border-color: #005BAC;" />
+      <Pane layoutX="342.0" prefHeight="13.0" prefWidth="270.0" style="-fx-background-color: #00AF4D; -fx-border-color: #00AF4D;" />
+      <Pane layoutX="600.0" prefHeight="140.0" prefWidth="13.0" style="-fx-background-color: #00AC4F; -fx-border-color: #00AC4F;" />
+   </children>
+</AnchorPane>
