@@ -122,7 +122,6 @@ public class ReporteMensualDAO {
         } else {
             throw new SQLException("Error: Sin conexión a la base de datos.");
         }
-
         return resultado;
     }
 
@@ -154,7 +153,6 @@ public class ReporteMensualDAO {
         } else {
             throw new SQLException("Error: Sin conexión a la base de datos.");
         }
-
         return resultado;
     }
     

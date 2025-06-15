@@ -66,16 +66,16 @@ public class InicioDeSesionDAO {
     private static Usuario determinarRolEspecifico(Usuario usuarioBase, Connection conexionBD) throws SQLException {
         
         String consultaEstudiante = "SELECT fechaNacimiento, matricula, idExperiencia FROM estudiante WHERE idUsuario = ?";
-        try (PreparedStatement ps = conexionBD.prepareStatement(consultaEstudiante)) {
-            ps.setInt(1, usuarioBase.getIdUsuario());
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
+        try (PreparedStatement sentencia = conexionBD.prepareStatement(consultaEstudiante)) {
+            sentencia.setInt(1, usuarioBase.getIdUsuario());
+            try (ResultSet resultado = sentencia.executeQuery()) {
+                if (resultado.next()) {
                     Estudiante estudiante = new Estudiante();
                     
                     copiarAtributosUsuario(usuarioBase, estudiante);
-                    estudiante.setFechaNacimiento(rs.getString("fechaNacimiento"));
-                    estudiante.setMatricula(rs.getString("matricula"));
-                    estudiante.setIdExperienciaEducativa(rs.getInt("idExperiencia"));
+                    estudiante.setFechaNacimiento(resultado.getString("fechaNacimiento"));
+                    estudiante.setMatricula(resultado.getString("matricula"));
+                    estudiante.setIdExperienciaEducativa(resultado.getInt("idExperiencia"));
                     
                     return estudiante;
                 }
@@ -83,14 +83,14 @@ public class InicioDeSesionDAO {
         }
 
         String consultaCoordinador = "SELECT telefono FROM coordinador WHERE idUsuario = ?";
-        try (PreparedStatement ps = conexionBD.prepareStatement(consultaCoordinador)) {
-            ps.setInt(1, usuarioBase.getIdUsuario());
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
+        try (PreparedStatement sentencia = conexionBD.prepareStatement(consultaCoordinador)) {
+            sentencia.setInt(1, usuarioBase.getIdUsuario());
+            try (ResultSet resultado = sentencia.executeQuery()) {
+                if (resultado.next()) {
                     Coordinador coordinador = new Coordinador();
                     
                     copiarAtributosUsuario(usuarioBase, coordinador);
-                    coordinador.setTelefono(rs.getString("telefono"));
+                    coordinador.setTelefono(resultado.getString("telefono"));
                     
                     return coordinador;
                 }
@@ -98,14 +98,14 @@ public class InicioDeSesionDAO {
         }
 
         String consultaAcademico = "SELECT noPersonal FROM academico WHERE idUsuario = ?";
-        try (PreparedStatement ps = conexionBD.prepareStatement(consultaAcademico)) {
-            ps.setInt(1, usuarioBase.getIdUsuario());
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
+        try (PreparedStatement sentencia = conexionBD.prepareStatement(consultaAcademico)) {
+            sentencia.setInt(1, usuarioBase.getIdUsuario());
+            try (ResultSet resultado = sentencia.executeQuery()) {
+                if (resultado.next()) {
                     Academico academico = new Academico();
                     
                     copiarAtributosUsuario(usuarioBase, academico);
-                    academico.setNoPersonal(rs.getInt("noPersonal"));
+                    academico.setNoPersonal(resultado.getInt("noPersonal"));
                     
                     return academico;
                 }
@@ -113,14 +113,14 @@ public class InicioDeSesionDAO {
         }
         
         String consultaAcademicoEvaluador = "SELECT noPersonal FROM academico_evaluador WHERE idUsuario = ?";
-        try (PreparedStatement ps = conexionBD.prepareStatement(consultaAcademicoEvaluador)) {
-            ps.setInt(1, usuarioBase.getIdUsuario());
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
+        try (PreparedStatement sentencia = conexionBD.prepareStatement(consultaAcademicoEvaluador)) {
+            sentencia.setInt(1, usuarioBase.getIdUsuario());
+            try (ResultSet resultado = sentencia.executeQuery()) {
+                if (resultado.next()) {
                     AcademicoEvaluador academicoEvaluador = new AcademicoEvaluador();
                     
                     copiarAtributosUsuario(usuarioBase, academicoEvaluador);
-                    academicoEvaluador.setNoPersonal(rs.getInt("noPersonal"));
+                    academicoEvaluador.setNoPersonal(resultado.getInt("noPersonal"));
                     
                     return academicoEvaluador;
                 }

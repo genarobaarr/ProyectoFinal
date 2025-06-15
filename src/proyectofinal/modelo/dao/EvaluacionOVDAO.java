@@ -17,34 +17,33 @@ public class EvaluacionOVDAO {
 
     public static int guardarEvaluacionOV(EvaluacionOV evaluacionOV) throws SQLException {
         int idGenerado = -1;
-        String query = "INSERT INTO evaluacion_ov (comentarios, fecha, puntaje_final, idExpediente) VALUES (?, ?, ?, ?)";
+        String consulta = "INSERT INTO evaluacion_ov (comentarios, fecha, puntaje_final, idExpediente) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = ConexionBD.abrirConexion()) {
-            if (conn == null) {
+        try (Connection conexionBD = ConexionBD.abrirConexion()) {
+            if (conexionBD == null) {
                 throw new SQLException("No se pudo establecer conexión con la base de datos.");
             }
 
-            try (PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-                pstmt.setString(1, evaluacionOV.getComentarios());
-                pstmt.setString(2, LocalDate.now().toString());
-                pstmt.setDouble(3, evaluacionOV.getPuntajeFinal());
-                pstmt.setInt(4, evaluacionOV.getIdExpediente());
+            try (PreparedStatement sentencia = conexionBD.prepareStatement(consulta, Statement.RETURN_GENERATED_KEYS)) {
+                sentencia.setString(1, evaluacionOV.getComentarios());
+                sentencia.setString(2, LocalDate.now().toString());
+                sentencia.setDouble(3, evaluacionOV.getPuntajeFinal());
+                sentencia.setInt(4, evaluacionOV.getIdExpediente());
 
-                int filasAfectadas = pstmt.executeUpdate();
+                int filasAfectadas = sentencia.executeUpdate();
                 if (filasAfectadas == 0) {
                     throw new SQLException("La inserción de la evaluación OV no afectó ninguna fila.");
                 }
 
-                try (ResultSet rs = pstmt.getGeneratedKeys()) {
-                    if (rs.next()) {
-                        idGenerado = rs.getInt(1);
+                try (ResultSet resultado = sentencia.getGeneratedKeys()) {
+                    if (resultado.next()) {
+                        idGenerado = resultado.getInt(1);
                     }
                 }
             }
         } catch (SQLException e) {
             throw new SQLException("Error al guardar la evaluación OV en la base de datos.", e);
         }
-
         return idGenerado;
     }
 }

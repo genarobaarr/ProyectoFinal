@@ -17,20 +17,20 @@ public class EvaluacionOVCategoriaDAO {
 
     public static List<EvaluacionOVCategoria> obtenerCategorias() throws SQLException {
         List<EvaluacionOVCategoria> categorias = new ArrayList<>();
-        String query = "SELECT idCategoriaEvaluacionOV, nombre FROM categoria_evaluacion_ov ORDER BY idCategoriaEvaluacionOV ASC";
+        String consulta = "SELECT idCategoriaEvaluacionOV, nombre FROM categoria_evaluacion_ov ORDER BY idCategoriaEvaluacionOV ASC";
 
-        try (Connection conn = ConexionBD.abrirConexion()) {
-            if (conn == null) {
+        try (Connection conexionBD = ConexionBD.abrirConexion()) {
+            if (conexionBD == null) {
                 throw new SQLException("No se pudo establecer conexión con la base de datos.");
             }
 
-            try (PreparedStatement pstmt = conn.prepareStatement(query);
-                 ResultSet rs = pstmt.executeQuery()) {
+            try (PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+                 ResultSet resultado = sentencia.executeQuery()) {
 
-                while (rs.next()) {
+                while (resultado.next()) {
                     EvaluacionOVCategoria categoria = new EvaluacionOVCategoria(
-                        rs.getInt("idCategoriaEvaluacionOV"),
-                        rs.getString("nombre")
+                        resultado.getInt("idCategoriaEvaluacionOV"),
+                        resultado.getString("nombre")
                     );
                     categorias.add(categoria);
                 }
@@ -39,7 +39,6 @@ public class EvaluacionOVCategoriaDAO {
         } catch (SQLException e) {
             throw new SQLException("Error al obtener las categorías de evaluación OV.", e);
         }
-
         return categorias;
     }
 }
