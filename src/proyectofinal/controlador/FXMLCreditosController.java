@@ -27,12 +27,13 @@ public class FXMLCreditosController implements Initializable {
     @FXML
     private Label lbCreditos;
     
-    private double rotacionActual = 0;
+    private double rotacion1 = 0;
+    private double rotacion2 = 45;
+    private double rotacion3 = 90;
     private Timeline timelineRotacion;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        iniciarRotacionImagenes();
     }    
 
     @FXML
@@ -45,14 +46,19 @@ public class FXMLCreditosController implements Initializable {
             new KeyFrame(Duration.ZERO, event -> {
             }), 
             new KeyFrame(Duration.seconds(1), event -> {
-                rotacionActual = (rotacionActual + 45) % 360;
-                ivGenaroABS.setRotate(rotacionActual);
-                ivAlejandroMR.setRotate(rotacionActual);
-                ivOmarMG.setRotate(rotacionActual);
+                rotacion1 = (rotacion1 + 45) % 360;
+                rotacion2 = (rotacion2 + 45) % 360;
+                rotacion3 = (rotacion3 + 45) % 360;
+                ivGenaroABS.setRotate(rotacion1);
+                ivAlejandroMR.setRotate(rotacion2);
+                ivOmarMG.setRotate(rotacion3);
             })
         );
         timelineRotacion.setCycleCount(Timeline.INDEFINITE);
         timelineRotacion.play();
     }
     
+    public void inicializarInformacion() {
+        iniciarRotacionImagenes();
+    }
 }

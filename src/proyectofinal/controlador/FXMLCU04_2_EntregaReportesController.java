@@ -111,13 +111,12 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
             this.responsableProyecto = obtenerResponsableDeProyecto(proyecto.getIdResponsableDeProyecto());
             this.idExpediente = obtenerIdExpediente(estudiante.getIdUsuario());
             tfNumeroReporte.setText(String.valueOf(obtenerNumeroReporte(idExpediente)));
-            tfNombreEstudiante.setText(estudiante.getNombre()+" "+estudiante.getApellidoPaterno()+" "+estudiante.getApellidoMaterno());
+            tfNombreEstudiante.setText(estudiante.getNombre() + " " + estudiante.getApellidoPaterno() + " " + estudiante.getApellidoMaterno());
             tfMatricula.setText(estudiante.getMatricula());
             tfProyectoVinculado.setText(proyecto.getNombre());
             tfResponsableProyecto.setText(responsableProyecto.getNombre());
             tfOrganizacionVinculada.setText(obtenerOrganizacionVinculada(responsableProyecto.getIdOrganizacionVinculada()).getNombre());
         } catch (SQLException ex) {
-            ex.printStackTrace();
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
                     "Error al cargar la información", "No se pudo cargar la inforamción");
             Utilidad.getEscenario(tfNumeroReporte).close();
@@ -241,7 +240,6 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
                         "Error al regitrar", resultadoReporte.getMensaje());
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error de conexión", "Por el momento no hay conexión.");
         }
     }

@@ -18,6 +18,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import proyectofinal.ProyectoFinal;
@@ -100,6 +102,11 @@ public class FXMLPrincipalController implements Initializable {
     @FXML
     private void clicBotonEvaluaciones(ActionEvent event) {
         irPantallaSecundaria(usuarioSesion, "vista/FXMLEvaluaciones.fxml", "Evaluaciones");
+    }
+
+    @FXML
+    private void clicBotonCreditos(MouseEvent event) {
+        irPantallaSecundaria(usuarioSesion, "vista/FXMLCreditos.fxml", "Créditos");
     }
     
     public void inicializarInformacion(Usuario usuario) {
@@ -195,6 +202,10 @@ public class FXMLPrincipalController implements Initializable {
                 case "Evaluaciones":
                     FXMLEvaluacionesController controladorEvaluaciones = cargador.getController();
                     controladorEvaluaciones.inicializarInformacion(usuarioSesion);
+                    break;
+                case "Créditos":
+                    FXMLCreditosController controladorCreditos = cargador.getController();
+                    controladorCreditos.inicializarInformacion();
                     break;
                 default:
                     break;
