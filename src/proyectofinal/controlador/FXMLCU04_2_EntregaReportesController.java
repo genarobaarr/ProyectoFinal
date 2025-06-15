@@ -73,14 +73,6 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
         }else {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Error", "Datos inválidos y/o campos vacíos");
         }
-    }    
-    
-    @FXML
-    private void tfNumeroReportePresionaEnter(KeyEvent event) {
-        if (event.getCode() == KeyCode.ENTER) {
-            tfNumeroHoras.requestFocus();
-            event.consume();
-        }
     }
 
     @FXML
@@ -94,7 +86,7 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
     @FXML
     private void tfPeriodoReportePresionaEnter(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            tfPeriodoReporte.requestFocus();
+            taDescripcion.requestFocus();
             event.consume();
         }
     }
@@ -113,14 +105,17 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
             this.proyecto = obtenerProyectoDeEstudiante(estudiante.getIdUsuario());
             this.responsableProyecto = obtenerResponsableDeProyecto(proyecto.getIdResponsableDeProyecto());
             this.idExpediente = obtenerIdExpediente(estudiante.getIdUsuario());
+            tfNumeroReporte.setText(String.valueOf(obtenerNumeroReporte(idExpediente)));
             tfNombreEstudiante.setText(estudiante.getNombre()+" "+estudiante.getApellidoPaterno()+" "+estudiante.getApellidoMaterno());
             tfMatricula.setText(estudiante.getMatricula());
             tfProyectoVinculado.setText(proyecto.getNombre());
             tfResponsableProyecto.setText(responsableProyecto.getNombre());
             tfOrganizacionVinculada.setText(obtenerOrganizacionVinculada(responsableProyecto.getIdOrganizacionVinculada()).getNombre());
         } catch (SQLException ex) {
+            ex.printStackTrace();
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
                     "Error al cargar la información", "No se pudo cargar la inforamción");
+            Utilidad.getEscenario(tfNumeroReporte).close();
         }
     }
     
@@ -144,27 +139,17 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
         return idExpediente;
     }
     
+    private int obtenerNumeroReporte(int idExpediente) throws SQLException {
+        int numeroReporte = ReporteMensualDAO.obtenerSiguienteNumeroReporte(idExpediente);
+        return numeroReporte;
+    }
+    
     private boolean validarCampos() {
         boolean camposValidos = true;
-        String numeroReporte = tfNumeroReporte.getText();
         String numeroHoras = tfNumeroHoras.getText();
         String periodoReporte = tfPeriodoReporte.getText();
         String descripcion = taDescripcion.getText();
         
-        if (numeroReporte.isEmpty() ) {
-            camposValidos = false;
-        } else {
-            try {
-                int numeroReporteParseado = Integer.parseInt(numeroReporte);
-                if (numeroReporteParseado < 0 || numeroReporteParseado > 6) {
-                    camposValidos = false;
-                    tfNumeroReporte.setText("");
-                }
-            } catch (NumberFormatException e) {
-                camposValidos = false;
-                tfNumeroReporte.setText("");
-            }
-        }
         if (numeroHoras.isEmpty()) {
             camposValidos = false;
         } else {
@@ -182,7 +167,7 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
         if (periodoReporte.isEmpty()) {
             camposValidos = false;
         }
-        if (descripcion == null) {
+        if (descripcion.isEmpty()) {
             camposValidos = false;
         }
         return camposValidos;
@@ -196,7 +181,7 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
         reporteMensual.setExtensionArchivo("pdf");
         reporteMensual.setIdExpediente(idExpediente);
         reporteMensual.setNombreArchivo(estudiante.getNombre() + estudiante.getApellidoPaterno() + estudiante.getApellidoMaterno() 
-                + "_Reporte_Mensual_" + Integer.parseInt(tfNumeroReporte.getText()) + "_" + tfPeriodoReporte.getText());
+                + "_ReporteMensual_" + Integer.parseInt(tfNumeroReporte.getText()) + "_" + tfPeriodoReporte.getText());
         return reporteMensual;
     }
     
