@@ -38,6 +38,8 @@ public class FXMLAvanceController implements Initializable {
     private ImageView ivConsultarAvance;
     @FXML
     private ImageView ivSubirDocumentos;
+    
+    private Usuario estudiante;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -62,23 +64,29 @@ public class FXMLAvanceController implements Initializable {
     public void inicializarInformacion(Usuario usuario) {
         if (usuario instanceof Academico) {
             btnConsultarAvance.setDisable(false);
-            
             btnSubirDocumento.setDisable(true);
             btnSubirDocumento.setText("No disponible");
             ivSubirDocumentos.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
         } else if (usuario instanceof Estudiante) {
             btnConsultarAvance.setDisable(true);
             btnConsultarAvance.setText("No disponible");
-            ivConsultarAvance.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
-            
+            ivConsultarAvance.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));   
             btnSubirDocumento.setDisable(false);
+            this.estudiante = usuario;
         }
     }
     
     public void irPantalla(String fxmlPath, String titulo) {
         try {
             Stage escenarioNuevo = new Stage();
-            Parent vista = FXMLLoader.load(ProyectoFinal.class.getResource(fxmlPath));
+            FXMLLoader cargador = new FXMLLoader(ProyectoFinal.class.getResource(fxmlPath));
+            Parent vista = cargador.load();
+            
+            if (fxmlPath.equals("vista/FXMLCU03_ActualizarExpediente.fxml")){
+                FXMLCU03_ActualizarExpedienteController controlador = cargador.getController();
+                controlador.inicializarInformacion(estudiante);
+            }
+            
             Scene escena = new Scene(vista);
             escenarioNuevo.setScene(escena);
             escenarioNuevo.setTitle(titulo);
