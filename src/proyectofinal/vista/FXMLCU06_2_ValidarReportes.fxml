@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLCU06_2_ValidarReportesController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #FEFEFE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLCU06_2_ValidarReportesController">
    <children>
       <TextField fx:id="tfNumeroReporte" editable="false" layoutX="14.0" layoutY="63.0" prefHeight="25.0" prefWidth="140.0" promptText="Reporte" style="-fx-border-color: #00AC4F;">
          <font>

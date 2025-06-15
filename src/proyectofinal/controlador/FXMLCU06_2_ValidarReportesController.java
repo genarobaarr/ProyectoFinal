@@ -65,12 +65,7 @@ public class FXMLCU06_2_ValidarReportesController implements Initializable {
 
     @FXML
     private void clicBotonValidarReporte(ActionEvent event) {
-        if(validarCampos()){
-            ReporteMensual reporteMensual = obtenerNuevoReporteMensual();
-            validarReporte(reporte);
-        } else{
-             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error", "No se pudo validar el reporte, intentelo más tarde");
-        }
+        validarReporte(reporte);
     }
 
     @FXML
@@ -95,6 +90,7 @@ public class FXMLCU06_2_ValidarReportesController implements Initializable {
             tfPeriodoReporte.setText(obtenerPeriodoDeArchivo(reporte.getNombreArchivo()));
             tfNumeroHoras.setText(String.valueOf(reporte.getNumeroHoras()));
             tfNumeroReporte.setText(String.valueOf(reporte.getNumeroReporte()));
+            taDescripcion.setText(reporte.getObservaciones());
             lbNombreReporte.setText(reporte.getNombreArchivo());
         } catch (SQLException ex) {
              ex.printStackTrace();
@@ -124,62 +120,6 @@ public class FXMLCU06_2_ValidarReportesController implements Initializable {
     private Expediente obtenerExpediente(int idExpediente) throws SQLException {
         Expediente expediente = ExpedienteDAO.obtenerExpedientePorId(idExpediente);
         return expediente;
-    }
-    
-    private boolean validarCampos() {
-        boolean camposValidos = true;
-        String numeroReporte = tfNumeroReporte.getText();
-        String numeroHoras = tfNumeroHoras.getText();
-        String periodoReporte = tfPeriodoReporte.getText();
-        String descripcion = taDescripcion.getText();
-        
-        if (numeroReporte.isEmpty() ) {
-            camposValidos = false;
-        } else {
-            try {
-                int numeroReporteParseado = Integer.parseInt(numeroReporte);
-                if (numeroReporteParseado < 0 || numeroReporteParseado > 6) {
-                    camposValidos = false;
-                    tfNumeroReporte.setText("");
-                }
-            } catch (NumberFormatException e) {
-                camposValidos = false;
-                tfNumeroReporte.setText("");
-            }
-        }
-        if (numeroHoras.isEmpty()) {
-            camposValidos = false;
-        } else {
-            try {
-                int numeroHorasParseado = Integer.parseInt(numeroHoras);
-                if (numeroHorasParseado < 0) {
-                    camposValidos = false;
-                    tfNumeroHoras.setText("");
-                }
-            } catch (NumberFormatException e) {
-                camposValidos = false;
-                tfNumeroHoras.setText("");
-            }
-        }
-        if (periodoReporte.isEmpty()) {
-            camposValidos = false;
-        }
-        if (descripcion == null) {
-            camposValidos = false;
-        }
-        return camposValidos;
-        }
-    
-    public ReporteMensual obtenerNuevoReporteMensual() {
-        ReporteMensual reporteMensual = new ReporteMensual();
-        reporteMensual.setNumeroReporte(Integer.parseInt(tfNumeroReporte.getText()));
-        reporteMensual.setNumeroHoras(Integer.parseInt(tfNumeroHoras.getText()));
-        reporteMensual.setObservaciones(taDescripcion.getText());
-        reporteMensual.setExtensionArchivo("pdf");
-        reporteMensual.setIdExpediente(expediente.getIdExpediente());
-        reporteMensual.setNombreArchivo(estudiante.getNombre() + estudiante.getApellidoPaterno() + estudiante.getApellidoMaterno() 
-                + "_Reporte_Mensual_" + Integer.parseInt(tfNumeroReporte.getText()) + "_" + tfPeriodoReporte.getText());
-        return reporteMensual;
     }
     
     private void validarReporte (ReporteMensual reporte) {
