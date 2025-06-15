@@ -23,30 +23,28 @@ public class PeriodoDAO {
                 throw new SQLException("No se pudo establecer conexión con la base de datos.");
             }
 
-            try (PreparedStatement stmtPeriodoActual = conexionBD.prepareStatement(consultaActual)) {
-                stmtPeriodoActual.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
+            try (PreparedStatement sentenciaPeriodoActual = conexionBD.prepareStatement(consultaActual)) {
+                sentenciaPeriodoActual.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
 
-                try (ResultSet rs = stmtPeriodoActual.executeQuery()) {
-                    if (rs.next()) {
-                        idPeriodo = rs.getInt("idPeriodo");
+                try (ResultSet resultado = sentenciaPeriodoActual.executeQuery()) {
+                    if (resultado.next()) {
+                        idPeriodo = resultado.getInt("idPeriodo");
                         return idPeriodo;
                     }
                 }
             }
 
-            try (PreparedStatement stmtUltimoPeriodo = conexionBD.prepareStatement(consultaMasReciente);
-                 ResultSet rsUltimo = stmtUltimoPeriodo.executeQuery()) {
-                if (rsUltimo.next()) {
-                    idPeriodo = rsUltimo.getInt("idPeriodo");
+            try (PreparedStatement sentenciaUltimoPeriodo = conexionBD.prepareStatement(consultaMasReciente);
+                 ResultSet resultadoUltimo = sentenciaUltimoPeriodo.executeQuery()) {
+                if (resultadoUltimo.next()) {
+                    idPeriodo = resultadoUltimo.getInt("idPeriodo");
                 } else {
                     throw new SQLException("No hay periodos registrados en la base de datos.");
                 }
             }
-
         } catch (SQLException e) {
             throw new SQLException("Error al obtener el ID del período desde la base de datos.", e);
         }
-
         return idPeriodo;
     }
 }

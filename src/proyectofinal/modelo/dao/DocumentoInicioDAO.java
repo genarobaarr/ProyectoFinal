@@ -131,6 +131,5 @@ public class DocumentoInicioDAO {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos PDF", "*.pdf"));
         return fileChooser.showOpenDialog(null);
     }
-    
-}
 
+}

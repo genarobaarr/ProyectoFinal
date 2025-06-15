@@ -21,26 +21,26 @@ public class ProyectoDAO {
 
     public static List<Proyecto> obtenerProyectosSinAsignar() throws SQLException{
         List<Proyecto> proyectos = new ArrayList<>();
-        String query = "SELECT p.idProyecto, p.nombre, p.descripcion, p.objetivos, " +
+        String consulta = "SELECT p.idProyecto, p.nombre, p.descripcion, p.objetivos, " +
                        "p.fechaInicio, p.fechaFin, p.idResponsableDeProyecto, p.idCoordinador " +
                        "FROM proyecto p " +
                        "LEFT JOIN expediente exp ON p.idProyecto = exp.idProyecto AND exp.estatus = 'Activo' " +
                        "WHERE exp.idProyecto IS NULL";
 
-        try (Connection conn = ConexionBD.abrirConexion();
-             PreparedStatement pstmt = conn.prepareStatement(query);
-             ResultSet rs = pstmt.executeQuery()) {
+        try (Connection conexionBD = ConexionBD.abrirConexion();
+             PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+             ResultSet resultado = sentencia.executeQuery()) {
 
-            while (rs.next()) {
+            while (resultado.next()) {
                 Proyecto proyecto = new Proyecto();
-                proyecto.setIdProyecto(rs.getInt("idProyecto"));
-                proyecto.setNombre(rs.getString("nombre"));
-                proyecto.setDescripcion(rs.getString("descripcion"));
-                proyecto.setObjetivos(rs.getString("objetivos"));
-                proyecto.setFechaInicio(rs.getString("fechaInicio"));
-                proyecto.setFechaFin(rs.getString("fechaFin"));
-                proyecto.setIdResponsableDeProyecto(rs.getInt("idResponsableDeProyecto"));
-                proyecto.setIdCoordinador(rs.getInt("idCoordinador"));
+                proyecto.setIdProyecto(resultado.getInt("idProyecto"));
+                proyecto.setNombre(resultado.getString("nombre"));
+                proyecto.setDescripcion(resultado.getString("descripcion"));
+                proyecto.setObjetivos(resultado.getString("objetivos"));
+                proyecto.setFechaInicio(resultado.getString("fechaInicio"));
+                proyecto.setFechaFin(resultado.getString("fechaFin"));
+                proyecto.setIdResponsableDeProyecto(resultado.getInt("idResponsableDeProyecto"));
+                proyecto.setIdCoordinador(resultado.getInt("idCoordinador"));
                 proyectos.add(proyecto);
             }
         } catch (SQLException e) {
@@ -59,15 +59,15 @@ public class ProyectoDAO {
             conexionBD = ConexionBD.abrirConexion();
             if (conexionBD != null) {
                 String consulta = "SELECT p.idProyecto, p.nombre, p.descripcion, p.objetivos, p.fechaInicio, p.fechaFin, " +
-                "p.idCoordinador, p.IdResponsableDeProyecto, e.horasAcumuladas, ov.nombre AS nombreOrganizacion, " +
-                "rp.nombre AS nombreResponsable, rp.departamento AS departamentoResponsable, " +
-                "rp.puesto AS cargoResponsable " +
-                "FROM proyecto p " +
-                "INNER JOIN expediente e ON p.idProyecto = e.idProyecto " +
-                "LEFT JOIN responsable_de_proyecto rp ON p.idResponsableDeProyecto = rp.idResponsableDeProyecto " +
-                "LEFT JOIN organizacion_vinculada ov ON rp.idOrganizacionVinculada = ov.idOrganizacionVinculada " +
-                "WHERE p.idProyecto = ?;";
-                        sentencia = conexionBD.prepareStatement(consulta);
+                            "p.idCoordinador, p.IdResponsableDeProyecto, e.horasAcumuladas, ov.nombre AS nombreOrganizacion, " +
+                            "rp.nombre AS nombreResponsable, rp.departamento AS departamentoResponsable, " +
+                            "rp.puesto AS cargoResponsable " +
+                            "FROM proyecto p " +
+                            "INNER JOIN expediente e ON p.idProyecto = e.idProyecto " +
+                            "LEFT JOIN responsable_de_proyecto rp ON p.idResponsableDeProyecto = rp.idResponsableDeProyecto " +
+                            "LEFT JOIN organizacion_vinculada ov ON rp.idOrganizacionVinculada = ov.idOrganizacionVinculada " +
+                            "WHERE p.idProyecto = ?;";
+                sentencia = conexionBD.prepareStatement(consulta);
                 sentencia.setInt(1, idProyecto);
                 resultado = sentencia.executeQuery();
 
@@ -96,9 +96,15 @@ public class ProyectoDAO {
         } catch (SQLException e) {
             throw  new SQLException("Error al obtener proyecto por ID: " + e.getMessage());
         } finally {
-            if (resultado != null) resultado.close();
-            if (sentencia != null) sentencia.close();
-            if (conexionBD != null) conexionBD.close();
+            if (resultado != null) {
+                resultado.close();
+            }
+            if (sentencia != null) {
+                sentencia.close();
+            }
+            if (conexionBD != null) {
+                conexionBD.close();
+            }
         }
         return proyecto;
     }
@@ -129,9 +135,15 @@ public class ProyectoDAO {
                 throw new SQLException("Error de conexión con base de datos, intentalo más tarde");
             }
         } finally {
-            if (resultado != null) resultado.close();
-            if (sentencia != null) sentencia.close();
-            if (conexionBD != null) conexionBD.close();
+            if (resultado != null) {
+                resultado.close();
+            }
+            if (sentencia != null) {
+                sentencia.close();
+            }
+            if (conexionBD != null) {
+                conexionBD.close();
+            }
         }
         return proyectos;
     }
@@ -247,7 +259,7 @@ public class ProyectoDAO {
                     + "ON est.idUsuario = u.idUsuario WHERE exp.estatus = 'Activo' AND u.idUsuario = ?;";
             PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
             sentencia.setInt(1, idEstudiante);
-             ResultSet resultado = sentencia.executeQuery();
+            ResultSet resultado = sentencia.executeQuery();
             
             while (resultado.next()) {
                 proyecto = convertirRegistroProyectoSimple(resultado);
@@ -302,7 +314,7 @@ public class ProyectoDAO {
     public static List<ProyectoConEstudiante> obtenerProyectosConEstudiantesActivos() throws SQLException {
         List<ProyectoConEstudiante> lista = new ArrayList<>();
         
-        String query = "SELECT " +
+        String consulta = "SELECT " +
                        "p.idProyecto, p.nombre AS nombreProyecto, p.descripcion, p.objetivos, p.fechaInicio, p.fechaFin, " +
                        "p.idResponsableDeProyecto, p.idCoordinador, " +
                        "u.idUsuario, u.nombre AS nombreEstudiante, u.apellidoPaterno, u.apellidoMaterno, u.email, u.username, " +
@@ -314,41 +326,41 @@ public class ProyectoDAO {
                        "INNER JOIN usuario u ON est.idUsuario = u.idUsuario " +
                        "WHERE exp.estatus = 'Activo'"; 
 
-        try (Connection conn = ConexionBD.abrirConexion();
-             PreparedStatement pstmt = conn.prepareStatement(query);
-             ResultSet rs = pstmt.executeQuery()) {
+        try (Connection conexionBD = ConexionBD.abrirConexion();
+             PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+             ResultSet resultado = sentencia.executeQuery()) {
 
-            while (rs.next()) {
+            while (resultado.next()) {
                 Proyecto proyecto = new Proyecto();
-                proyecto.setIdProyecto(rs.getInt("idProyecto"));
-                proyecto.setNombre(rs.getString("nombreProyecto"));
-                proyecto.setDescripcion(rs.getString("descripcion"));
-                proyecto.setObjetivos(rs.getString("objetivos")); 
+                proyecto.setIdProyecto(resultado.getInt("idProyecto"));
+                proyecto.setNombre(resultado.getString("nombreProyecto"));
+                proyecto.setDescripcion(resultado.getString("descripcion"));
+                proyecto.setObjetivos(resultado.getString("objetivos")); 
 
-                Date fechaInicioSql = rs.getDate("fechaInicio");
+                Date fechaInicioSql = resultado.getDate("fechaInicio");
                 proyecto.setFechaInicio((fechaInicioSql != null) ? fechaInicioSql.toString() : null);
-                Date fechaFinSql = rs.getDate("fechaFin");
+                Date fechaFinSql = resultado.getDate("fechaFin");
                 proyecto.setFechaFin((fechaFinSql != null) ? fechaFinSql.toString() : null);
                 
-                proyecto.setIdResponsableDeProyecto(rs.getInt("idResponsableDeProyecto"));
-                proyecto.setIdCoordinador(rs.getInt("idCoordinador"));
+                proyecto.setIdResponsableDeProyecto(resultado.getInt("idResponsableDeProyecto"));
+                proyecto.setIdCoordinador(resultado.getInt("idCoordinador"));
 
-                Date fechaNacimientoEstudianteSql = rs.getDate("fechaNacimiento");
+                Date fechaNacimientoEstudianteSql = resultado.getDate("fechaNacimiento");
                 String fechaNacimientoEstudiante = (fechaNacimientoEstudianteSql != null) ? fechaNacimientoEstudianteSql.toString() : null;
 
                 Estudiante estudiante = new Estudiante(
                     fechaNacimientoEstudiante,
-                    rs.getString("matricula"), 
-                    rs.getInt("idExperiencia"), 
-                    rs.getInt("idUsuario"),
-                    rs.getString("nombreEstudiante"), 
-                    rs.getString("apellidoPaterno"), 
-                    rs.getString("apellidoMaterno"), 
-                    rs.getString("email"), 
-                    rs.getString("username") 
+                    resultado.getString("matricula"), 
+                    resultado.getInt("idExperiencia"), 
+                    resultado.getInt("idUsuario"),
+                    resultado.getString("nombreEstudiante"), 
+                    resultado.getString("apellidoPaterno"), 
+                    resultado.getString("apellidoMaterno"), 
+                    resultado.getString("email"), 
+                    resultado.getString("username") 
                 );
 
-                int idExpediente = rs.getInt("idExpediente");
+                int idExpediente = resultado.getInt("idExpediente");
 
                 ProyectoConEstudiante pce = new ProyectoConEstudiante(proyecto, estudiante, idExpediente);
                 lista.add(pce);

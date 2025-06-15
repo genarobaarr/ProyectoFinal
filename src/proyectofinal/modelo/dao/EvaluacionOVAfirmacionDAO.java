@@ -18,24 +18,24 @@ public class EvaluacionOVAfirmacionDAO {
     public static List<EvaluacionOVAfirmacion> obtenerAfirmacionesPorCategoria(int idCategoria) throws SQLException {
         List<EvaluacionOVAfirmacion> afirmaciones = new ArrayList<>();
 
-        String query = "SELECT idAfirmacionEvaluacionOV, descripcion, idCategoriaEvaluacionOV " +
+        String consulta = "SELECT idAfirmacionEvaluacionOV, descripcion, idCategoriaEvaluacionOV " +
                        "FROM afirmacion_evaluacion_ov " +
                        "WHERE idCategoriaEvaluacionOV = ? " +
                        "ORDER BY idAfirmacionEvaluacionOV ASC";
 
-        try (Connection conn = ConexionBD.abrirConexion()) {
-            if (conn == null) {
+        try (Connection conexionBD = ConexionBD.abrirConexion()) {
+            if (conexionBD == null) {
                 throw new SQLException("No se pudo establecer conexión con la base de datos.");
             }
 
-            try (PreparedStatement pstmt = conn.prepareStatement(query)) {
-                pstmt.setInt(1, idCategoria);
-                try (ResultSet rs = pstmt.executeQuery()) {
-                    while (rs.next()) {
+            try (PreparedStatement sentencia = conexionBD.prepareStatement(consulta)) {
+                sentencia.setInt(1, idCategoria);
+                try (ResultSet resultado = sentencia.executeQuery()) {
+                    while (resultado.next()) {
                         EvaluacionOVAfirmacion afirmacion = new EvaluacionOVAfirmacion(
-                            rs.getInt("idAfirmacionEvaluacionOV"),
-                            rs.getString("descripcion"),
-                            rs.getInt("idCategoriaEvaluacionOV")
+                            resultado.getInt("idAfirmacionEvaluacionOV"),
+                            resultado.getString("descripcion"),
+                            resultado.getInt("idCategoriaEvaluacionOV")
                         );
                         afirmaciones.add(afirmacion);
                     }
@@ -44,30 +44,29 @@ public class EvaluacionOVAfirmacionDAO {
         } catch (SQLException e) {
             throw new SQLException("Error en obtenerAfirmacionesPorCategoria: " + e.getMessage(), e);
         }
-
         return afirmaciones;
     }
 
     public static List<EvaluacionOVAfirmacion> obtenerTodasAfirmaciones() throws SQLException {
         List<EvaluacionOVAfirmacion> afirmaciones = new ArrayList<>();
 
-        String query = "SELECT idAfirmacionEvaluacionOV, descripcion, idCategoriaEvaluacionOV " +
+        String consulta = "SELECT idAfirmacionEvaluacionOV, descripcion, idCategoriaEvaluacionOV " +
                        "FROM afirmacion_evaluacion_ov " +
                        "ORDER BY idCategoriaEvaluacionOV, idAfirmacionEvaluacionOV ASC";
 
-        try (Connection conn = ConexionBD.abrirConexion()) {
-            if (conn == null) {
+        try (Connection conexionBD = ConexionBD.abrirConexion()) {
+            if (conexionBD == null) {
                 throw new SQLException("No se pudo establecer conexión con la base de datos.");
             }
 
-            try (PreparedStatement pstmt = conn.prepareStatement(query);
-                 ResultSet rs = pstmt.executeQuery()) {
+            try (PreparedStatement pstmt = conexionBD.prepareStatement(consulta);
+                 ResultSet resultado = pstmt.executeQuery()) {
 
-                while (rs.next()) {
+                while (resultado.next()) {
                     EvaluacionOVAfirmacion afirmacion = new EvaluacionOVAfirmacion(
-                        rs.getInt("idAfirmacionEvaluacionOV"),
-                        rs.getString("descripcion"),
-                        rs.getInt("idCategoriaEvaluacionOV")
+                        resultado.getInt("idAfirmacionEvaluacionOV"),
+                        resultado.getString("descripcion"),
+                        resultado.getInt("idCategoriaEvaluacionOV")
                     );
                     afirmaciones.add(afirmacion);
                 }
@@ -75,7 +74,6 @@ public class EvaluacionOVAfirmacionDAO {
         } catch (SQLException e) {
             throw new SQLException("Error en obtenerTodasAfirmaciones: " + e.getMessage(), e);
         }
-
         return afirmaciones;
     }
 }

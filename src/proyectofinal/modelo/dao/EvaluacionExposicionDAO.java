@@ -15,6 +15,7 @@ import proyectofinal.modelo.pojo.EvaluacionExposicion;
 import proyectofinal.modelo.pojo.EvaluacionExposicionCriterio;
 
 public class EvaluacionExposicionDAO {
+    
     public static int guardarEvaluacionExposicion(EvaluacionExposicion evaluacion, List<EvaluacionExposicionCriterio> criterios) throws SQLException {
         int idGenerado = -1;
         Connection conexionBD = null;
@@ -23,8 +24,8 @@ public class EvaluacionExposicionDAO {
             if (conexionBD == null) {
                 throw new SQLException("No se pudo establecer conexión con la base de datos.");
             }
+            
             conexionBD.setAutoCommit(false);
-
             String insertEvaluacionSQL = "INSERT INTO evaluacion_exposicion (fechaEvaluacion, comentarios, puntajeFinal, idExpediente, idAcademicoEvaluador) VALUES (?, ?, ?, ?, ?)";
 
             try (PreparedStatement pstmtEvaluacion = conexionBD.prepareStatement(insertEvaluacionSQL, Statement.RETURN_GENERATED_KEYS)) {
@@ -83,7 +84,6 @@ public class EvaluacionExposicionDAO {
                 throw e;
             }
         }
-
         return idGenerado;
     }
 }
