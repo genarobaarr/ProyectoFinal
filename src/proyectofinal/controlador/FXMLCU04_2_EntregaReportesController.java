@@ -6,6 +6,8 @@ package proyectofinal.controlador;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -53,6 +55,9 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
     private Proyecto proyecto;
     private ResponsableDeProyecto responsableProyecto;
     private int idExpediente;
+    private static final List<String> NOMBRES_MESES = Arrays.asList(
+            "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", 
+            "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -146,16 +151,16 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
     
     private boolean validarCampos() {
         boolean camposValidos = true;
-        String numeroHoras = tfNumeroHoras.getText();
-        String periodoReporte = tfPeriodoReporte.getText();
-        String descripcion = taDescripcion.getText();
+        String numeroHoras = tfNumeroHoras.getText().trim();
+        String periodoReporte = tfPeriodoReporte.getText().trim();
+        String descripcion = taDescripcion.getText().trim();
         
         if (numeroHoras.isEmpty()) {
             camposValidos = false;
         } else {
             try {
                 int numeroHorasParseado = Integer.parseInt(numeroHoras);
-                if (numeroHorasParseado < 0) {
+                if (numeroHorasParseado <= 0) {
                     camposValidos = false;
                     tfNumeroHoras.setText("");
                 }
@@ -166,12 +171,49 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
         }
         if (periodoReporte.isEmpty()) {
             camposValidos = false;
+        } else if (!validarFormatoPeriodo(periodoReporte)) {
+            camposValidos = false;
+            tfPeriodoReporte.setText("");
         }
         if (descripcion.isEmpty()) {
             camposValidos = false;
         }
         return camposValidos;
+    }
+    
+    private boolean validarFormatoPeriodo(String periodo) {
+        if (!periodo.contains("-")) {
+            return false;
         }
+        String[] partes = periodo.split("-");
+        if (partes.length != 2) {
+            return false;
+        }
+        
+        String mes1 = partes[0].trim();
+        String mes2 = partes[1].trim();
+        
+        if (mes1.isEmpty() || mes2.isEmpty()) {
+            return false;
+        }
+        
+        int indiceMes1 = NOMBRES_MESES.indexOf(mes1);
+        int indiceMes2 = NOMBRES_MESES.indexOf(mes2);
+        
+        if (indiceMes1 == -1) {
+            return false;
+        }
+        if (indiceMes2 == -1) {
+            return false;
+        }
+        if (indiceMes2 != (indiceMes1 + 1)) {
+            if (indiceMes1 == NOMBRES_MESES.size() - 1 && indiceMes2 == 0) {
+                return true;
+            }
+            return false;
+        }
+        return true;
+    }
     
     public ReporteMensual obtenerNuevoReporteMensual () {
         ReporteMensual reporteMensual = new ReporteMensual();
