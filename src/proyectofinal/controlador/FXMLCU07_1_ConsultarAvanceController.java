@@ -6,6 +6,7 @@ package proyectofinal.controlador;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -35,9 +36,12 @@ public class FXMLCU07_1_ConsultarAvanceController implements Initializable {
     @FXML
     private TableColumn<Estudiante, String> tcApellidoPaterno;
     @FXML
+    private TableColumn<Estudiante, String> tcMaterno;
+    @FXML
     private TableColumn<Estudiante, String> tcMatricula;
 
     private ObservableList<Estudiante> listaEstudiantes;
+    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -66,6 +70,7 @@ public class FXMLCU07_1_ConsultarAvanceController implements Initializable {
     private void configurarTablaEstudiantes() {
         tcNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tcApellidoPaterno.setCellValueFactory(new PropertyValueFactory<>("apellidoPaterno"));
+        tcMaterno.setCellValueFactory(new PropertyValueFactory<>("apellidoMaterno"));
         tcMatricula.setCellValueFactory(new PropertyValueFactory<>("matricula"));
     }
      
@@ -77,6 +82,9 @@ public class FXMLCU07_1_ConsultarAvanceController implements Initializable {
         } catch (RuntimeException e) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
                     "Error", "Sin conexión a la base de datos");
+        } catch (SQLException ex) {
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
+                    "Error", "Sin conexión con la base de datos");
         }
     }
     

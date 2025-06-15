@@ -51,26 +51,25 @@ public class FXMLCU01_AsignarProyectoController implements Initializable {
         Proyecto proyectoSeleccionado = tvProyectos.getSelectionModel().getSelectedItem();
 
         if (estudianteSeleccionado == null || proyectoSeleccionado == null) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Selección inválida", "Por favor, seleccione un estudiante y un proyecto.");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Selección inválida", "Por favor, "
+                    + "seleccione un estudiante y un proyecto.");
             return;
         }
 
         String mensajeConfirmacion = "¿Está seguro que desea asignar el proyecto " + proyectoSeleccionado.getNombre() +
                                      " al estudiante " + estudianteSeleccionado.toString() + "?";
-
         if (Utilidad.mostrarAlertaConfirmacion("Confirmación", mensajeConfirmacion)) {
             try {
                 int idPeriodoActual = PeriodoDAO.obtenerIdPeriodoActual();
                 if (idPeriodoActual == -1) {
-                    Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error de Período", "No se pudo determinar el período actual. No se puede asignar el proyecto.");
+                    Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error de Período", 
+                            "No se pudo determinar el período actual. No se puede asignar el proyecto.");
                     return;
                 }
                 EstudianteDAO.crearExpedienteEstudianteProyecto(estudianteSeleccionado.getIdUsuario(), proyectoSeleccionado.getIdProyecto(), idPeriodoActual);
-
-                Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, "Operación exitosa", "El proyecto ha sido asignado exitosamente");
-
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, "Operación exitosa", 
+                        "El proyecto ha sido asignado exitosamente");
                 cargarDatos();
-
             } catch (SQLException e) {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la operación",
                                              "Hubo un problema al asignar el proyecto: " + e.getMessage());
@@ -99,6 +98,8 @@ public class FXMLCU01_AsignarProyectoController implements Initializable {
         } catch (RuntimeException e) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error al cargar datos",
                     "No se pudieron cargar los datos. Inténtalo más tarde. Detalles: " + e.getMessage());
+        } catch (SQLException ex){
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error", "Sin conexión con la base de datos");
         }
     }
 }

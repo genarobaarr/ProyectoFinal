@@ -19,14 +19,14 @@ public class EvaluacionOVCriterioDAO {
         List<EvaluacionOVCriterio> criterios = new ArrayList<>();
         String query = "SELECT idCriterioEvaluacionOV, nombre, valor FROM criterio_evaluacion_ov ORDER BY valor ASC";
 
-        try (Connection conn = ConexionBD.abrirConexion();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-
+        try (Connection conn = ConexionBD.abrirConexion()) {
             if (conn == null) {
-                throw new SQLException("No hay conexión a la base de datos.");
+                throw new SQLException("No se pudo establecer conexión con la base de datos.");
             }
 
-            try (ResultSet rs = pstmt.executeQuery()) {
+            try (PreparedStatement pstmt = conn.prepareStatement(query);
+                 ResultSet rs = pstmt.executeQuery()) {
+
                 while (rs.next()) {
                     EvaluacionOVCriterio criterio = new EvaluacionOVCriterio(
                         rs.getInt("idCriterioEvaluacionOV"),
@@ -35,10 +35,12 @@ public class EvaluacionOVCriterioDAO {
                     );
                     criterios.add(criterio);
                 }
+
             }
         } catch (SQLException e) {
-            throw e;
+            throw new SQLException("Error al obtener los criterios de evaluación OV.", e);
         }
+
         return criterios;
     }
 }

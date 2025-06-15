@@ -306,7 +306,7 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
                         "Error", "No se pudo registrar la evaluación principal.");
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
                     "Error en la base de datos", "Error de conexión con base de datos, intentalo más tarde: " + e.getMessage());
         }

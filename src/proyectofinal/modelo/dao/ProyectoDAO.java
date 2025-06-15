@@ -19,7 +19,7 @@ import proyectofinal.modelo.pojo.ResultadoOperacion;
 
 public class ProyectoDAO {
 
-    public static List<Proyecto> obtenerProyectosSinAsignar() {
+    public static List<Proyecto> obtenerProyectosSinAsignar() throws SQLException{
         List<Proyecto> proyectos = new ArrayList<>();
         String query = "SELECT p.idProyecto, p.nombre, p.descripcion, p.objetivos, " +
                        "p.fechaInicio, p.fechaFin, p.idResponsableDeProyecto, p.idCoordinador " +
@@ -44,7 +44,7 @@ public class ProyectoDAO {
                 proyectos.add(proyecto);
             }
         } catch (SQLException e) {
-            System.err.println("Error al obtener proyectos sin asignar: " + e.getMessage());
+            throw new SQLException("Error al obtener proyectos sin asignar: " + e.getMessage());
         }
         return proyectos;
     }
@@ -59,14 +59,14 @@ public class ProyectoDAO {
             conexionBD = ConexionBD.abrirConexion();
             if (conexionBD != null) {
                 String consulta = "SELECT p.idProyecto, p.nombre, p.descripcion, p.objetivos, p.fechaInicio, p.fechaFin, " +
-        "p.idCoordinador, p.IdResponsableDeProyecto, e.horasAcumuladas, ov.nombre AS nombreOrganizacion, " +
-        "rp.nombre AS nombreResponsable, rp.departamento AS departamentoResponsable, " +
-        "rp.puesto AS cargoResponsable " +
-        "FROM proyecto p " +
-        "INNER JOIN expediente e ON p.idProyecto = e.idProyecto " +
-        "LEFT JOIN responsable_de_proyecto rp ON p.idResponsableDeProyecto = rp.idResponsableDeProyecto " +
-        "LEFT JOIN organizacion_vinculada ov ON rp.idOrganizacionVinculada = ov.idOrganizacionVinculada " +
-        "WHERE p.idProyecto = ?;";
+                "p.idCoordinador, p.IdResponsableDeProyecto, e.horasAcumuladas, ov.nombre AS nombreOrganizacion, " +
+                "rp.nombre AS nombreResponsable, rp.departamento AS departamentoResponsable, " +
+                "rp.puesto AS cargoResponsable " +
+                "FROM proyecto p " +
+                "INNER JOIN expediente e ON p.idProyecto = e.idProyecto " +
+                "LEFT JOIN responsable_de_proyecto rp ON p.idResponsableDeProyecto = rp.idResponsableDeProyecto " +
+                "LEFT JOIN organizacion_vinculada ov ON rp.idOrganizacionVinculada = ov.idOrganizacionVinculada " +
+                "WHERE p.idProyecto = ?;";
                         sentencia = conexionBD.prepareStatement(consulta);
                 sentencia.setInt(1, idProyecto);
                 resultado = sentencia.executeQuery();
@@ -94,8 +94,7 @@ public class ProyectoDAO {
                 throw new SQLException("Error de conexión con base de datos, inténtalo más tarde");
             }
         } catch (SQLException e) {
-            System.err.println("Error al obtener proyecto por ID: " + e.getMessage());
-            throw e;
+            throw  new SQLException("Error al obtener proyecto por ID: " + e.getMessage());
         } finally {
             if (resultado != null) resultado.close();
             if (sentencia != null) sentencia.close();
@@ -232,8 +231,7 @@ public class ProyectoDAO {
             }
         }
         return resultado;
-    }
-    
+    }    
 
     public static Proyecto obtenerProyectoPorEstudiante(int idEstudiante) throws SQLException{
         Proyecto proyecto = null;
@@ -291,12 +289,12 @@ public class ProyectoDAO {
         try {
             proyecto.setIdResponsableDeProyecto(resultado.getInt("idResponsableDeProyecto"));
         } catch (SQLException e) { 
-            System.err.println("Advertencia: Columna idResponsableDeProyecto no encontrada o inválida: " + e.getMessage());
+            throw e;
         }
         try {
             proyecto.setIdCoordinador(resultado.getInt("idCoordinador"));
         } catch (SQLException e) { 
-            System.err.println("Advertencia: Columna idCoordinador no encontrada o inválida: " + e.getMessage());
+            throw e;
         }
         return proyecto;
     }
@@ -356,10 +354,10 @@ public class ProyectoDAO {
                 lista.add(pce);
             }
         } catch (SQLException e) {
-            throw new SQLException("Error al cargar proyectos con estudiantes activos.", e);
+            throw new SQLException("Error al cargar proyectos con estudiantes activos.");
             
         } catch (Exception e) {
-            throw new SQLException("Error inesperado al cargar proyectos con estudiantes activos.", e);
+            throw new SQLException("Error inesperado al cargar proyectos con estudiantes activos.");
         }
         return lista;
     }

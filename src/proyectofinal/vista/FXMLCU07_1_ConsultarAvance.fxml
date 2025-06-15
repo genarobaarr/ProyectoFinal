@@ -12,9 +12,10 @@
    <children>
       <TableView fx:id="tvEstudiantes" layoutX="78.0" layoutY="53.0" prefHeight="294.0" prefWidth="445.0" style="-fx-background-color: #FEFEFE; -fx-border-color: #00AC4F;">
         <columns>
-          <TableColumn fx:id="tcNombre" editable="false" prefWidth="166.0" text="Nombre" />
-            <TableColumn fx:id="tcApellidoPaterno" prefWidth="134.0" text="Apellido Paterno" />
-            <TableColumn fx:id="tcMatricula" prefWidth="144.0" text="Matrícula" />
+          <TableColumn fx:id="tcNombre" editable="false" prefWidth="120.0" text="Nombre" />
+            <TableColumn fx:id="tcApellidoPaterno" prefWidth="120.0" text="Paterno" />
+            <TableColumn fx:id="tcMaterno" prefWidth="120.0" text="Materno" />
+            <TableColumn fx:id="tcMatricula" prefWidth="120.0" text="Matrícula" />
         </columns>
       </TableView>
       <Label layoutX="53.0" layoutY="8.0" text="Estudiantes">

@@ -17,28 +17,31 @@ public class EvaluacionOVResultadoDAO {
         int totalFilasAfectadas = 0;
         String query = "INSERT INTO resultado_evaluacion_ov (idCriterioEvaluacionOV, idAfirmacionEvaluacionOV, idEvaluacionOV) VALUES (?, ?, ?)";
 
-        try (Connection conn = ConexionBD.abrirConexion();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-
+        try (Connection conn = ConexionBD.abrirConexion()) {
             if (conn == null) {
-                throw new SQLException("No hay conexión a la base de datos.");
+                throw new SQLException("No se pudo establecer conexión con la base de datos.");
             }
 
-            for (EvaluacionOVResultado resultado : resultados) {
-                pstmt.setInt(1, resultado.getIdCriterioEvaluacionOV());
-                pstmt.setInt(2, resultado.getIdAfirmacionEvaluacionOV());
-                pstmt.setInt(3, resultado.getIdEvaluacionOV());
-                pstmt.addBatch(); 
-            }
+            try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+                for (EvaluacionOVResultado resultado : resultados) {
+                    pstmt.setInt(1, resultado.getIdCriterioEvaluacionOV());
+                    pstmt.setInt(2, resultado.getIdAfirmacionEvaluacionOV());
+                    pstmt.setInt(3, resultado.getIdEvaluacionOV());
+                    pstmt.addBatch();
+                }
 
-            int[] filasAfectadasPorBatch = pstmt.executeBatch();
-            for (int count : filasAfectadasPorBatch) {
-                totalFilasAfectadas += count;
+                int[] resultadosBatch = pstmt.executeBatch();
+                for (int resultado : resultadosBatch) {
+                    if (resultado == PreparedStatement.EXECUTE_FAILED) {
+                        throw new SQLException("Falló la ejecución del batch para guardar resultados de evaluación OV.");
+                    }
+                    totalFilasAfectadas += resultado;
+                }
             }
-
         } catch (SQLException e) {
-            throw e;
+            throw new SQLException("Error al guardar los resultados de evaluación OV.", e);
         }
+
         return totalFilasAfectadas;
     }
 }

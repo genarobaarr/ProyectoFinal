@@ -17,46 +17,52 @@ public class EvaluacionOVAfirmacionDAO {
 
     public static List<EvaluacionOVAfirmacion> obtenerAfirmacionesPorCategoria(int idCategoria) throws SQLException {
         List<EvaluacionOVAfirmacion> afirmaciones = new ArrayList<>();
+
         String query = "SELECT idAfirmacionEvaluacionOV, descripcion, idCategoriaEvaluacionOV " +
-                       "FROM afirmacion_evaluacion_ov WHERE idCategoriaEvaluacionOV = ? ORDER BY idAfirmacionEvaluacionOV ASC";
+                       "FROM afirmacion_evaluacion_ov " +
+                       "WHERE idCategoriaEvaluacionOV = ? " +
+                       "ORDER BY idAfirmacionEvaluacionOV ASC";
 
-        try (Connection conn = ConexionBD.abrirConexion();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-
+        try (Connection conn = ConexionBD.abrirConexion()) {
             if (conn == null) {
-                throw new SQLException("No hay conexión a la base de datos.");
+                throw new SQLException("No se pudo establecer conexión con la base de datos.");
             }
 
-            pstmt.setInt(1, idCategoria);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                while (rs.next()) {
-                    EvaluacionOVAfirmacion afirmacion = new EvaluacionOVAfirmacion(
-                        rs.getInt("idAfirmacionEvaluacionOV"),
-                        rs.getString("descripcion"),
-                        rs.getInt("idCategoriaEvaluacionOV")
-                    );
-                    afirmaciones.add(afirmacion);
+            try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+                pstmt.setInt(1, idCategoria);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    while (rs.next()) {
+                        EvaluacionOVAfirmacion afirmacion = new EvaluacionOVAfirmacion(
+                            rs.getInt("idAfirmacionEvaluacionOV"),
+                            rs.getString("descripcion"),
+                            rs.getInt("idCategoriaEvaluacionOV")
+                        );
+                        afirmaciones.add(afirmacion);
+                    }
                 }
             }
         } catch (SQLException e) {
-            throw e;
+            throw new SQLException("Error en obtenerAfirmacionesPorCategoria: " + e.getMessage(), e);
         }
+
         return afirmaciones;
     }
 
     public static List<EvaluacionOVAfirmacion> obtenerTodasAfirmaciones() throws SQLException {
         List<EvaluacionOVAfirmacion> afirmaciones = new ArrayList<>();
+
         String query = "SELECT idAfirmacionEvaluacionOV, descripcion, idCategoriaEvaluacionOV " +
-                       "FROM afirmacion_evaluacion_ov ORDER BY idCategoriaEvaluacionOV, idAfirmacionEvaluacionOV ASC";
+                       "FROM afirmacion_evaluacion_ov " +
+                       "ORDER BY idCategoriaEvaluacionOV, idAfirmacionEvaluacionOV ASC";
 
-        try (Connection conn = ConexionBD.abrirConexion();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-
+        try (Connection conn = ConexionBD.abrirConexion()) {
             if (conn == null) {
-                throw new SQLException("No hay conexión a la base de datos.");
+                throw new SQLException("No se pudo establecer conexión con la base de datos.");
             }
 
-            try (ResultSet rs = pstmt.executeQuery()) {
+            try (PreparedStatement pstmt = conn.prepareStatement(query);
+                 ResultSet rs = pstmt.executeQuery()) {
+
                 while (rs.next()) {
                     EvaluacionOVAfirmacion afirmacion = new EvaluacionOVAfirmacion(
                         rs.getInt("idAfirmacionEvaluacionOV"),
@@ -67,8 +73,9 @@ public class EvaluacionOVAfirmacionDAO {
                 }
             }
         } catch (SQLException e) {
-            throw e;
+            throw new SQLException("Error en obtenerTodasAfirmaciones: " + e.getMessage(), e);
         }
+
         return afirmaciones;
     }
 }

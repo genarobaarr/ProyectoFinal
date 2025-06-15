@@ -8,44 +8,43 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement; // Importar Statement
-import proyectofinal.modelo.pojo.EvaluacionOV;
+import java.sql.Statement;
 import java.time.LocalDate;
 import proyectofinal.modelo.ConexionBD;
+import proyectofinal.modelo.pojo.EvaluacionOV;
 
 public class EvaluacionOVDAO {
 
     public static int guardarEvaluacionOV(EvaluacionOV evaluacionOV) throws SQLException {
-        int idGenerado = -1; // Valor por defecto si no se genera ID
+        int idGenerado = -1;
         String query = "INSERT INTO evaluacion_ov (comentarios, fecha, puntaje_final, idExpediente) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = ConexionBD.abrirConexion();
-             PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) { // Añadir Statement.RETURN_GENERATED_KEYS
-
+        try (Connection conn = ConexionBD.abrirConexion()) {
             if (conn == null) {
-                System.err.println("ERROR: Connection is null in guardarEvaluacionOV.");
-                throw new SQLException("No database connection available.");
+                throw new SQLException("No se pudo establecer conexión con la base de datos.");
             }
 
-            pstmt.setString(1, evaluacionOV.getComentarios());
-            pstmt.setString(2, LocalDate.now().toString());
-            pstmt.setDouble(3, evaluacionOV.getPuntajeFinal());
-            pstmt.setInt(4, evaluacionOV.getIdExpediente());
+            try (PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+                pstmt.setString(1, evaluacionOV.getComentarios());
+                pstmt.setString(2, LocalDate.now().toString());
+                pstmt.setDouble(3, evaluacionOV.getPuntajeFinal());
+                pstmt.setInt(4, evaluacionOV.getIdExpediente());
 
-            int filasAfectadas = pstmt.executeUpdate();
+                int filasAfectadas = pstmt.executeUpdate();
+                if (filasAfectadas == 0) {
+                    throw new SQLException("La inserción de la evaluación OV no afectó ninguna fila.");
+                }
 
-            if (filasAfectadas > 0) {
                 try (ResultSet rs = pstmt.getGeneratedKeys()) {
                     if (rs.next()) {
-                        idGenerado = rs.getInt(1); // Obtener el ID generado automáticamente
+                        idGenerado = rs.getInt(1);
                     }
                 }
             }
-
         } catch (SQLException e) {
-            System.err.println("Error al guardar la evaluación OV en la base de datos: " + e.getMessage());
-            throw e;
+            throw new SQLException("Error al guardar la evaluación OV en la base de datos.", e);
         }
+
         return idGenerado;
     }
 }
