@@ -187,17 +187,19 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
     
     public void guardarReporteMensual (ReporteMensual reporteMensual) {
         try {
-            ResultadoOperacion resultado = ReporteMensualDAO.registrarReporteMensual(reporteMensual);
-            if (!resultado.isError()) {
+            ResultadoOperacion resultadoReporte = ReporteMensualDAO.registrarReporteMensual(reporteMensual);
+            ResultadoOperacion resultadoHoras = ExpedienteDAO.actualizarNumeroHorasAcumuladas(reporteMensual.getNumeroHoras(), idExpediente);
+            if (!resultadoReporte.isError() && !resultadoHoras.isError()) {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, 
                         "Operación exitosa", 
                         "Reporte mensual registrado");
                 Utilidad.getEscenario(tfNumeroReporte).close();
             } else {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
-                        "Error al regitrar", resultado.getMensaje());
+                        "Error al regitrar", resultadoReporte.getMensaje());
             }
         } catch (SQLException ex) {
+            ex.printStackTrace();
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error de conexión", "Por el momento no hay conexión.");
         }
     }

@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import proyectofinal.modelo.ConexionBD;
 import proyectofinal.modelo.pojo.Expediente;
+import proyectofinal.modelo.pojo.ResultadoOperacion;
 
 public class ExpedienteDAO {
 
@@ -98,5 +99,38 @@ public class ExpedienteDAO {
             throw e;
         }
         return idExpediente;
+    }
+    
+    public static ResultadoOperacion actualizarNumeroHorasAcumuladas(int numeroHoras, int idExpediente) throws SQLException {
+        Connection conexionBD = null;
+        PreparedStatement sentencia = null;
+        ResultadoOperacion resultado = new ResultadoOperacion();
+        try {
+            conexionBD = ConexionBD.abrirConexion();
+
+            if (conexionBD != null) {
+                String consulta = "UPDATE expediente SET horasAcumuladas = horasAcumuladas + ? WHERE idExpediente = ?";
+
+                sentencia = conexionBD.prepareStatement(consulta);
+                sentencia.setInt(1, numeroHoras);
+                sentencia.setInt(2, idExpediente);
+                
+                int filasAfectadas = sentencia.executeUpdate();
+
+                if (filasAfectadas == 1) {
+                    resultado.setError(false);
+                    resultado.setMensaje("Reporte mensual registrado correctamente.");
+                } else {
+                    resultado.setError(true);
+                    resultado.setMensaje("Lo sentimos :( no se pudo registrar el reporte mensual. Intente más tarde.");
+                }
+            } else {
+                throw new SQLException("Error: Sin conexión a la base de datos.");
+            }
+        } finally {
+            sentencia.close();
+            conexionBD.close();
+        }
+        return resultado;
     }
 }
