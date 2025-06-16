@@ -49,32 +49,23 @@ public class FXMLCU09_1_ProyectosRegistradosActivosController implements Initial
     @FXML
     private void clicBotonEvaluar(ActionEvent event) {
         ProyectoConEstudiante seleccion = tvProyectoYEstudiante.getSelectionModel().getSelectedItem();
+        
         if (seleccion != null) {
             if (academicoEvaluador != null) {
-                
                 int idAcademicoEvaluador = academicoEvaluador.getIdUsuario();
+                
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/vista/FXMLCU09_2_EvaluarEstudiante.fxml"));
-                    Parent vista = loader.load();
-
-                    FXMLCU09_2_EvaluarEstudianteController controller = loader.getController();
-                    controller.inicializarInformacion(seleccion.getIdExpediente(), idAcademicoEvaluador);
-
-                    Stage stage = new Stage();
-                    stage.setScene(new Scene(vista));
-                    stage.setTitle("Evaluación de Exposición");
-                    stage.initModality(Modality.APPLICATION_MODAL);
-                    stage.showAndWait();
-                    cargarProyectosConEstudiantes();
+                    irPantallaSiguiente(seleccion.getIdExpediente(), idAcademicoEvaluador);
 
                 } catch (IOException e) {
-                    Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
-                            "Error de Interfaz", "No se pudo cargar la ventana de evaluación. Inténtalo más tarde.");
+                    Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
+                        "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
+                    Utilidad.getEscenario(tvProyectoYEstudiante).close();
                 }
             }
         } else {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, 
-                    "Selección Requerida", "Por favor, seleccione un proyecto con estudiante para evaluar.");
+                    "Selección requerida", "Por favor, seleccione un proyecto con estudiante para evaluar.");
         }
     }
 
@@ -105,8 +96,24 @@ public class FXMLCU09_1_ProyectosRegistradosActivosController implements Initial
                         "Sin Datos", "No hay proyectos con estudiantes activos registrados en el sistema.");
             }
         } catch (SQLException e) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
-                    "Error en la base de datos", "Error de conexión con base de datos, inténtalo más tarde. Detalles: " + e.getMessage());
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
+            Utilidad.getEscenario(tvProyectoYEstudiante).close();
         }
+    }
+    
+    private void irPantallaSiguiente (int idExpediente, int idAcademicoEvaluador) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/vista/FXMLCU09_2_EvaluarEstudiante.fxml"));
+        Parent vista = loader.load();
+
+        FXMLCU09_2_EvaluarEstudianteController controller = loader.getController();
+        controller.inicializarInformacion(idExpediente, idAcademicoEvaluador);
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(vista));
+        stage.setTitle("Evaluación de Exposición");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+        cargarProyectosConEstudiantes();
     }
 }

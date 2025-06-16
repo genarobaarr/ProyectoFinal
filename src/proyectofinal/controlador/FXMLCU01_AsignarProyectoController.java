@@ -50,13 +50,14 @@ public class FXMLCU01_AsignarProyectoController implements Initializable {
         Proyecto proyectoSeleccionado = tvProyectos.getSelectionModel().getSelectedItem();
 
         if (estudianteSeleccionado == null || proyectoSeleccionado == null) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Selección inválida", "Por favor, "
-                    + "seleccione un estudiante y un proyecto.");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Selección inválida", 
+                    "Por favor, seleccione un estudiante y un proyecto.");
             return;
         }
 
-        String mensajeConfirmacion = "¿Está seguro que desea asignar el proyecto " + proyectoSeleccionado.getNombre() +
-                                     " al estudiante " + estudianteSeleccionado.toString() + "?";
+        String mensajeConfirmacion = "¿Está seguro que desea asignar el proyecto " + 
+                proyectoSeleccionado.getNombre() + " al estudiante " + 
+                estudianteSeleccionado.toString() + "?";
         if (Utilidad.mostrarAlertaConfirmacion("Confirmación", mensajeConfirmacion)) {
             try {
                 int idPeriodoActual = PeriodoDAO.obtenerIdPeriodoActual();
@@ -70,8 +71,9 @@ public class FXMLCU01_AsignarProyectoController implements Initializable {
                         "El proyecto ha sido asignado exitosamente");
                 cargarDatos();
             } catch (SQLException e) {
-                Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la operación",
-                                             "Hubo un problema al asignar el proyecto: " + e.getMessage());
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
+                Utilidad.getEscenario(tvProyectos).close();
             }
         } else {
             if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas cancelar el proceso?")) {
@@ -82,7 +84,8 @@ public class FXMLCU01_AsignarProyectoController implements Initializable {
 
     @FXML
     private void clicBotonSalir(ActionEvent event) {
-        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas salir? No se guardarán los cambios")) {
+        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", 
+                "¿Deseas salir? No se guardarán los cambios")) {
             Utilidad.getEscenario(tvProyectos).close();
         }
     }
@@ -101,9 +104,12 @@ public class FXMLCU01_AsignarProyectoController implements Initializable {
             tvProyectos.setItems(listaProyectosSinAsignar);
         } catch (RuntimeException e) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error al cargar datos",
-                    "No se pudieron cargar los datos. Inténtalo más tarde. Detalles: " + e.getMessage());
+                    "No se pudieron cargar los datos. Inténtalo más tarde.");
+            Utilidad.getEscenario(tvProyectos).close();
         } catch (SQLException ex){
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error", "Sin conexión con la base de datos");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
+            Utilidad.getEscenario(tvProyectos).close();
         }
     }
 }

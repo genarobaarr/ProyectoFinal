@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
@@ -42,7 +43,8 @@ public class FXMLCU05_HabilitarEntregasController implements Initializable {
     
     @FXML
     private void clicBotonCancelar(ActionEvent event) {
-        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas salir? El avance no se guardará")) {
+        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", 
+                "¿Deseas salir? El avance no se guardará")) {
             Utilidad.getEscenario(dpFechaFin).close();
         }
     }
@@ -53,7 +55,8 @@ public class FXMLCU05_HabilitarEntregasController implements Initializable {
             AsignacionReporte asignacion = obtenerAsignacion();
             guardarAsignacionReporte(asignacion);
         } else {
-            Utilidad.mostrarAlertaSimple(AlertType.WARNING, "Error", "Datos inválidos y/o campos vacíos");
+            Utilidad.mostrarAlertaSimple(AlertType.WARNING, "Error", 
+                    "Datos inválidos y/o campos vacíos");
         }
         
     }
@@ -83,7 +86,8 @@ public class FXMLCU05_HabilitarEntregasController implements Initializable {
                 this.esEdicion = false;
             }
         } catch (SQLException e) {
-            Utilidad.mostrarAlertaSimple(AlertType.ERROR, "Error", "No se pudo cargar la asignación actual");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
             Utilidad.getEscenario(dpFechaFin).close();
         }
     }
@@ -153,7 +157,8 @@ public class FXMLCU05_HabilitarEntregasController implements Initializable {
                 Utilidad.getEscenario(dpFechaFin).close();
             }
         } catch (SQLException e) {
-            Utilidad.mostrarAlertaSimple(AlertType.ERROR, "Error", "Error al actualizar la asignación");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
             Utilidad.getEscenario(dpFechaFin).close();
         }
     }

@@ -175,8 +175,8 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
                 btnAceptar.disableProperty().set(true);
             }
         } catch (SQLException e) {
-                Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
-                        "Error de conexión", "Error al cargar datos del proyecto/organización desde la base de datos: " + e.getMessage());
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
                 btnAceptar.disableProperty().set(true);
         }
     }
@@ -191,7 +191,8 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
             if (categorias.isEmpty() || criterios.isEmpty()) {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Datos de rúbrica incompletos", "No se pudieron cargar las categorías o criterios de la rúbrica.");
                 btnAceptar.disableProperty().set(true);
-                return;
+                Utilidad.getEscenario(btnAceptar).close();
+                
             }
 
             for (EvaluacionOVCategoria categoria : categorias) {
@@ -233,6 +234,7 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
         } catch (Exception e) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error al cargar rúbrica", "No se pudieron cargar los datos de la rúbrica: " + e.getMessage());
             btnAceptar.disableProperty().set(true);
+            Utilidad.getEscenario(btnAceptar).close();
         }
     }
 
@@ -280,8 +282,8 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
         }
 
         evaluacionOVActual.setPuntajeFinal(puntajeTotal);
-
         evaluacionOVActual.setComentarios(taComentariosGenerales.getText().trim());
+        
         if (evaluacionOVActual.getComentarios().isEmpty()) {
              Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, 
                      "Campos vacíos", "Debes añadir comentarios generales de la evaluación.");
@@ -301,14 +303,17 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
 
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, 
                         "Operación exitosa", "Evaluación a organización vinculada registrada y rúbrica guardada.");
+                Utilidad.getEscenario(btnAceptar).close();
                 btnAceptar.getScene().getWindow().hide();
             } else {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
                         "Error", "No se pudo registrar la evaluación principal.");
+                Utilidad.getEscenario(btnAceptar).close();
             }
         } catch (SQLException e) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
-                    "Error en la base de datos", "Error de conexión con base de datos, intentalo más tarde: " + e.getMessage());
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
+            Utilidad.getEscenario(btnAceptar).close();
         }
     }
 }

@@ -59,7 +59,8 @@ public class FXMLCU10_1_RegistrarProyectoController implements Initializable {
                 irPantallaSiguiente(organizacionVinculada, "/proyectofinal/vista/FXMLCU10_2_RegistrarProyecto.fxml", "Selección de responsable");
             } catch (IOException ex) {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                        "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla: " + ex.getMessage());
+                        "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
+                Utilidad.getEscenario(tvOrganizacionesVinculadas).close();
             }
         } else {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, 
@@ -84,30 +85,23 @@ public class FXMLCU10_1_RegistrarProyectoController implements Initializable {
             tvOrganizacionesVinculadas.setItems(organizaciones);
             
         } catch (SQLException ex) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error al cargar", 
-                    "Lo sentimos, por el momento no se puede mostrar la información "
-                            + "de las organizaciones vinculadas, por favor, "
-                            + "inténtelo de nuevo más tarde.");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
             Utilidad.getEscenario(tvOrganizacionesVinculadas).close();
         }
     }
     
-    private void irPantallaSiguiente(OrganizacionVinculada organizacionVinculada, String fxmlPath, String titulo) throws IOException{
-        try {
-            Stage escenarioBase = (Stage) tvOrganizacionesVinculadas.getScene().getWindow();
-            FXMLLoader cargador = new FXMLLoader(ProyectoFinal.class.getResource(fxmlPath));
-            Parent vista = cargador.load();
+    private void irPantallaSiguiente(OrganizacionVinculada organizacionVinculada, String fxmlPath, String titulo) throws IOException {
+        Stage escenarioBase = (Stage) tvOrganizacionesVinculadas.getScene().getWindow();
+        FXMLLoader cargador = new FXMLLoader(ProyectoFinal.class.getResource(fxmlPath));
+        Parent vista = cargador.load();
 
-            FXMLCU10_2_RegistrarProyectoController controlador = cargador.getController();
-            controlador.inicializarInformacion(organizacionVinculada, coordinador);
+        FXMLCU10_2_RegistrarProyectoController controlador = cargador.getController();
+        controlador.inicializarInformacion(organizacionVinculada, coordinador);
 
-            Scene escenaPrincipal = new Scene(vista);
-            escenarioBase.setScene(escenaPrincipal);
-            escenarioBase.setTitle(titulo);
-            escenarioBase.show();
-        } catch (IOException ex) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
-        }
+        Scene escenaPrincipal = new Scene(vista);
+        escenarioBase.setScene(escenaPrincipal);
+        escenarioBase.setTitle(titulo);
+        escenarioBase.show();
     }
 }

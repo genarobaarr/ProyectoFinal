@@ -53,7 +53,7 @@ public class FXMLCU07_1_ConsultarAvanceController implements Initializable {
     private void clicBotonConsultarAvance(ActionEvent event) {
         Estudiante estudianteSeleccionado = tvEstudiantes.getSelectionModel().getSelectedItem();
         if (estudianteSeleccionado != null) {
-            mostrarVentanaAvanceEstudiante(estudianteSeleccionado);
+            irPantallaSiguiente(estudianteSeleccionado);
         } else {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Selección de estudiante", 
                     "Por favor, selecciona un estudiante de la lista para consultar su avance.");
@@ -81,14 +81,16 @@ public class FXMLCU07_1_ConsultarAvanceController implements Initializable {
             tvEstudiantes.setItems(listaEstudiantes);
         } catch (RuntimeException e) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
-                    "Error", "Sin conexión a la base de datos");
+                    "Error", "Ocurrió un error inesperado");
+            Utilidad.getEscenario(tvEstudiantes).close();
         } catch (SQLException ex) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
-                    "Error", "Sin conexión con la base de datos");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
+            Utilidad.getEscenario(tvEstudiantes).close();
         }
     }
     
-    private void mostrarVentanaAvanceEstudiante(Estudiante estudiante) {
+    private void irPantallaSiguiente(Estudiante estudiante) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/vista/FXMLCU07_2_AvanceEstudiante.fxml"));
             Parent root = loader.load();
@@ -103,7 +105,8 @@ public class FXMLCU07_1_ConsultarAvanceController implements Initializable {
             stage.showAndWait();
         } catch (IOException e) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                    "Error al cargar la pantalla", "No se pudo cargar la pantalla principal");
+                    "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
+            Utilidad.getEscenario(tvEstudiantes).close();
         }
     }
 }

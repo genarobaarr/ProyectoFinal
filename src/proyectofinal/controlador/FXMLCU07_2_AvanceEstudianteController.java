@@ -83,25 +83,6 @@ public class FXMLCU07_2_AvanceEstudianteController implements Initializable {
         cargarInformacionAvance();
     }
 
-    private void configurarTablaReportesMensuales() {
-        tcNoReporte.setCellValueFactory(new PropertyValueFactory<>("numeroReporte"));
-        tcNumeroHorasReporte.setCellValueFactory(new PropertyValueFactory<>("numeroHoras"));
-        tcObservacionesReporte.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
-        tcNombreArchivo.setCellValueFactory(new PropertyValueFactory<>("nombreArchivo")); 
-        tcExtensionArchivo.setCellValueFactory(new PropertyValueFactory<>("extensionArchivo")); 
-    }
-
-    private void configurarTablaEvaluacionesOV() {
-        tcComentariosOV.setCellValueFactory(new PropertyValueFactory<>("comentarios"));
-        tcFechaEvaluacionOV.setCellValueFactory(new PropertyValueFactory<>("fecha")); 
-        tcPuntajeOV.setCellValueFactory(new PropertyValueFactory<>("puntajeFinal")); 
-    }
-
-    private void configurarTablaEvaluacionesExposicion() {
-        tcComentariosExposicion.setCellValueFactory(new PropertyValueFactory<>("comentarios"));
-        tcPuntajeExposicion.setCellValueFactory(new PropertyValueFactory<>("puntajeFinal")); 
-    }
-
     private void cargarInformacionAvance() {
         if (estudianteActual != null) {
             lbNombreEstudiante.setText("Nombre del estudiante: " + estudianteActual.getNombre() + " " +
@@ -128,12 +109,31 @@ public class FXMLCU07_2_AvanceEstudianteController implements Initializable {
                             "Sin Datos", "El estudiante seleccionado no tiene reportes ni evaluaciones registradas.");
                 }
             } catch (SQLException e) {
-                Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
-                        "Error de Base de Datos", "Hubo un problema al intentar recuperar los datos del estudiante");
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
             }
         } else {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
-                    "Estudiante No Seleccionado", "No se ha seleccionado un estudiante para mostrar su avance.");
+                    "Estudiante no seleccionado", "No se ha seleccionado un estudiante para mostrar su avance.");
         }
+    }
+
+    private void configurarTablaReportesMensuales() {
+        tcNoReporte.setCellValueFactory(new PropertyValueFactory<>("numeroReporte"));
+        tcNumeroHorasReporte.setCellValueFactory(new PropertyValueFactory<>("numeroHoras"));
+        tcObservacionesReporte.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
+        tcNombreArchivo.setCellValueFactory(new PropertyValueFactory<>("nombreArchivo")); 
+        tcExtensionArchivo.setCellValueFactory(new PropertyValueFactory<>("extensionArchivo")); 
+    }
+
+    private void configurarTablaEvaluacionesOV() {
+        tcComentariosOV.setCellValueFactory(new PropertyValueFactory<>("comentarios"));
+        tcFechaEvaluacionOV.setCellValueFactory(new PropertyValueFactory<>("fecha")); 
+        tcPuntajeOV.setCellValueFactory(new PropertyValueFactory<>("puntajeFinal")); 
+    }
+
+    private void configurarTablaEvaluacionesExposicion() {
+        tcComentariosExposicion.setCellValueFactory(new PropertyValueFactory<>("comentarios"));
+        tcPuntajeExposicion.setCellValueFactory(new PropertyValueFactory<>("puntajeFinal")); 
     }
 }

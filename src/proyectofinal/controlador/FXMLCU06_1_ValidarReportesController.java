@@ -44,26 +44,24 @@ public class FXMLCU06_1_ValidarReportesController implements Initializable {
     private void clicBotonValidar(ActionEvent event) {
         ReporteMensual reporteMensual = tvReportesMensuales.getSelectionModel().getSelectedItem();
         try {
-            Stage escenarioBase = (Stage) tvReportesMensuales.getScene().getWindow();
-            FXMLLoader cargador = new FXMLLoader(ProyectoFinal.class.getResource("vista/FXMLCU06_2_ValidarReportes.fxml"));
-            Parent vista = cargador.load();
-
-            FXMLCU06_2_ValidarReportesController controlador = cargador.getController();
-            controlador.inicializarInformacion(reporteMensual);
-
-            Scene escenaPrincipal = new Scene(vista);
-            escenarioBase.setScene(escenaPrincipal);
-            escenarioBase.setTitle("Validar reporte");
-            escenarioBase.show();
+            if (reporteMensual != null) {
+                irPantallaSiguiente(reporteMensual);
+            } else {
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Selecciona un reporte", 
+                    "Para validar un reporte mensual, selecciona alguno de la lista");
+            }
         } catch (IOException ex) {
-            ex.printStackTrace();
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
+                    "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
+            Utilidad.getEscenario(tvReportesMensuales).close();
         }
     }
 
     @FXML
     private void clicBotonCancelar(ActionEvent event) {
-        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Desea salir?"))
-        Utilidad.getEscenario(tvReportesMensuales).close();
+        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Desea salir?")) {
+            Utilidad.getEscenario(tvReportesMensuales).close();
+        }
     }
     
     public void inicializarInformacion() {
@@ -78,14 +76,26 @@ public class FXMLCU06_1_ValidarReportesController implements Initializable {
             reportes.addAll(reportesDAO);
             tvReportesMensuales.setItems(reportes);
         } catch (SQLException ex) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error al cargar", 
-                    "Lo sentimos, por el momento no se puede mostrar la información "
-                            + "de los responsables de proyecto, por favor, "
-                            + "inténtelo de nuevo más tarde.");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
             Utilidad.getEscenario(tvReportesMensuales).close();
         }
     }
     private void configurarTabla() {
         colNombres.setCellValueFactory(new PropertyValueFactory("nombreArchivo"));
+    }
+    
+    private void irPantallaSiguiente (ReporteMensual reporteMensual) throws IOException {
+        Stage escenarioBase = (Stage) tvReportesMensuales.getScene().getWindow();
+        FXMLLoader cargador = new FXMLLoader(ProyectoFinal.class.getResource("vista/FXMLCU06_2_ValidarReportes.fxml"));
+        Parent vista = cargador.load();
+
+        FXMLCU06_2_ValidarReportesController controlador = cargador.getController();
+        controlador.inicializarInformacion(reporteMensual);
+
+        Scene escenaPrincipal = new Scene(vista);
+        escenarioBase.setScene(escenaPrincipal);
+        escenarioBase.setTitle("Validar reporte");
+        escenarioBase.show();
     }
 }

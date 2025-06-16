@@ -108,10 +108,13 @@ public class FXMLInicioSesionController implements Initializable {
                         "Credenciales incorrectas", "Usuario y/o contraseña incorrectos, por favor verifica tu información.");
             }
         } catch (SQLException ex) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en base de datos", ex.getMessage());
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
+            Utilidad.getEscenario(tfUsuario).close();
         } catch (IOException ex) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                    "Error al cargar pantalla principal", "No se pudo cargar la pantalla: " + ex.getMessage());
+                    "Error al cargar pantalla principal", "No se pudo cargar la pantalla");
+            Utilidad.getEscenario(tfUsuario).close();
         }
     }
 

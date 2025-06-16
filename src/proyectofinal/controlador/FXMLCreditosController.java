@@ -41,6 +41,10 @@ public class FXMLCreditosController implements Initializable {
         Utilidad.getEscenario(lbCreditos).close();
     }
     
+    public void inicializarInformacion() {
+        iniciarRotacionImagenes();
+    }
+    
     private void iniciarRotacionImagenes() {
         timelineRotacion = new Timeline(
             new KeyFrame(Duration.ZERO, event -> {
@@ -56,9 +60,5 @@ public class FXMLCreditosController implements Initializable {
         );
         timelineRotacion.setCycleCount(Timeline.INDEFINITE);
         timelineRotacion.play();
-    }
-    
-    public void inicializarInformacion() {
-        iniciarRotacionImagenes();
     }
 }

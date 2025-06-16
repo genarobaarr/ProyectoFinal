@@ -65,7 +65,8 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
 
     @FXML
     private void clicBotonCancelar(ActionEvent event) {
-        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas cancelar el registro del reporte? No se guardarán los cambios")) {
+        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", 
+                "¿Deseas cancelar el registro del reporte? No se guardarán los cambios")) {
             Utilidad.getEscenario(taDescripcion).close();
         }
     }
@@ -76,7 +77,8 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
             ReporteMensual reporteMensual = obtenerNuevoReporteMensual();
             guardarReporteMensual(reporteMensual);
         }else {
-                Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Error", "Datos inválidos y/o campos vacíos");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Error", 
+                    "Datos inválidos y/o campos vacíos");
         }
     }
 
@@ -111,14 +113,15 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
             this.responsableProyecto = obtenerResponsableDeProyecto(proyecto.getIdResponsableDeProyecto());
             this.idExpediente = obtenerIdExpediente(estudiante.getIdUsuario());
             tfNumeroReporte.setText(String.valueOf(obtenerNumeroReporte(idExpediente)));
-            tfNombreEstudiante.setText(estudiante.getNombre() + " " + estudiante.getApellidoPaterno() + " " + estudiante.getApellidoMaterno());
+            tfNombreEstudiante.setText(estudiante.getNombre() + " " + 
+                    estudiante.getApellidoPaterno() + " " + estudiante.getApellidoMaterno());
             tfMatricula.setText(estudiante.getMatricula());
             tfProyectoVinculado.setText(proyecto.getNombre());
             tfResponsableProyecto.setText(responsableProyecto.getNombre());
             tfOrganizacionVinculada.setText(obtenerOrganizacionVinculada(responsableProyecto.getIdOrganizacionVinculada()).getNombre());
         } catch (SQLException ex) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                    "Error al cargar la información", "No se pudo cargar la inforamción");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
             Utilidad.getEscenario(tfNumeroReporte).close();
         }
     }
@@ -221,8 +224,10 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
         reporteMensual.setObservaciones(taDescripcion.getText());
         reporteMensual.setExtensionArchivo("pdf");
         reporteMensual.setIdExpediente(idExpediente);
-        reporteMensual.setNombreArchivo(estudiante.getNombre() + estudiante.getApellidoPaterno() + estudiante.getApellidoMaterno() 
-                + "_ReporteMensual_" + Integer.parseInt(tfNumeroReporte.getText()) + "_" + tfPeriodoReporte.getText());
+        reporteMensual.setNombreArchivo(estudiante.getNombre() + 
+                estudiante.getApellidoPaterno() + estudiante.getApellidoMaterno() 
+                + "_ReporteMensual_" + Integer.parseInt(tfNumeroReporte.getText()) 
+                + "_" + tfPeriodoReporte.getText());
         return reporteMensual;
     }
     
@@ -238,9 +243,12 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
             } else {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
                         "Error al regitrar", resultadoReporte.getMensaje());
+                Utilidad.getEscenario(taDescripcion).close();
             }
         } catch (SQLException ex) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error de conexión", "Por el momento no hay conexión.");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
+            Utilidad.getEscenario(taDescripcion).close();
         }
     }
 }

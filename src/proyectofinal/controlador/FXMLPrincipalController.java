@@ -18,7 +18,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -76,6 +75,7 @@ public class FXMLPrincipalController implements Initializable {
             usuarioSesion = null;
         } catch (IOException ex) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error", "Error al cerrar sesión");
+            Utilidad.getEscenario(lbNombre).close();
         }
     }
     
@@ -113,6 +113,7 @@ public class FXMLPrincipalController implements Initializable {
         if (usuario != null) {
             this.usuarioSesion = usuario;
             lbNombre.setText("Bienvenido(a), " + usuarioSesion.toString());
+            
             if (usuarioSesion instanceof Estudiante) {
                 btnProyectos.setDisable(true);
                 btnProyectos.setText("No disponible");
@@ -176,7 +177,8 @@ public class FXMLPrincipalController implements Initializable {
             }
         } else {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                    "Error al cargar la pantalla", "No se pudo cargar la pantalla principal");
+                    "Error al cargar la pantalla", "No se pudo cargar la pantalla");
+            Utilidad.getEscenario(lbNombre).close();
         }
     }
     
@@ -218,7 +220,8 @@ public class FXMLPrincipalController implements Initializable {
             escenarioNuevo.showAndWait();
         } catch (IOException ex) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                    "Error al cargar la pantalla", "No se pudo cargar la pantalla siguiente");
+                    "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
+            Utilidad.getEscenario(lbNombre).close();
         }
     }
 }

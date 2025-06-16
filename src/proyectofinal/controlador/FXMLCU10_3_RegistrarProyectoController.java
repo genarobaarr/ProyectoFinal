@@ -108,7 +108,6 @@ public class FXMLCU10_3_RegistrarProyectoController implements Initializable {
         return camposValidos;
     }
     
-    
     private Proyecto obtenerProyectoNuevo() {
         Proyecto proyecto = new Proyecto();
         proyecto.setDescripcion(taBreveDescripcion.getText());
@@ -132,9 +131,12 @@ public class FXMLCU10_3_RegistrarProyectoController implements Initializable {
             } else {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
                         "Error al regitrar proyecto", resultadoInsertar.getMensaje());
+                Utilidad.getEscenario(tfNombreProyecto).close();
             }
         } catch (SQLException ex) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error de conexión", "Por el momento no hay conexión.");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
+            Utilidad.getEscenario(tfNombreProyecto).close();
         }
     }
 }

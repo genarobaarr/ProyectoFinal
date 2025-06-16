@@ -158,7 +158,8 @@ public class FXMLCU03_ActualizarExpedienteController implements Initializable {
     
     public boolean validarArchivo(File archivoSeleccionado) {
         if (archivoSeleccionado == null) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING,  "Archivo no seleccionado", "Por favor, selecciona un archivo antes de subirlo");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING,  
+                    "Archivo no seleccionado", "Por favor, selecciona un archivo antes de subirlo");
             return false;
         }
 
@@ -180,6 +181,7 @@ public class FXMLCU03_ActualizarExpedienteController implements Initializable {
             } else {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
                         "Error al registrar documento", resultadoSubir.getMensaje());
+                Utilidad.getEscenario(tvExpediente).close();
             }
         } catch (SQLException e) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
@@ -213,6 +215,7 @@ public class FXMLCU03_ActualizarExpedienteController implements Initializable {
             } else {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
                         "Error al registrar documento", resultadoSubir.getMensaje());
+                Utilidad.getEscenario(tvExpediente).close();
             }
         } catch (SQLException e) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 

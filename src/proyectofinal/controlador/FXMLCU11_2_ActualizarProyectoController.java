@@ -53,7 +53,8 @@ public class FXMLCU11_2_ActualizarProyectoController implements Initializable {
                         "/proyectofinal/vista/FXMLCU11_3_ActualizarProyecto.fxml", "Actualizar proyecto");
             } catch (IOException ex) {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                        "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla: " + ex.getMessage());
+                    "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
+                Utilidad.getEscenario(lbProyectoFiltro).close();
             }
         } else {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, 
@@ -81,30 +82,23 @@ public class FXMLCU11_2_ActualizarProyectoController implements Initializable {
             tvProyectosEncontrados.setItems(proyectos);
             
         } catch (SQLException ex) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error al cargar", 
-                    "Lo sentimos, por el momento no se puede mostrar la información "
-                            + "de los proyectos, por favor, "
-                            + "inténtelo de nuevo más tarde.");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
             Utilidad.getEscenario(lbProyectoFiltro).close();
         }
     }
     
-    private void irPantallaSiguiente(Proyecto proyecto, String fxmlPath, String titulo) throws IOException{
-        try {
-            Stage escenarioBase = (Stage) tvProyectosEncontrados.getScene().getWindow();
-            FXMLLoader cargador = new FXMLLoader(ProyectoFinal.class.getResource(fxmlPath));
-            Parent vista = cargador.load();
+    private void irPantallaSiguiente(Proyecto proyecto, String fxmlPath, String titulo) throws IOException {
+        Stage escenarioBase = (Stage) tvProyectosEncontrados.getScene().getWindow();
+        FXMLLoader cargador = new FXMLLoader(ProyectoFinal.class.getResource(fxmlPath));
+        Parent vista = cargador.load();
 
-            FXMLCU11_3_ActualizarProyectoController controlador = cargador.getController();
-            controlador.inicializarInformacion(proyecto);
+        FXMLCU11_3_ActualizarProyectoController controlador = cargador.getController();
+        controlador.inicializarInformacion(proyecto);
 
-            Scene escenaPrincipal = new Scene(vista);
-            escenarioBase.setScene(escenaPrincipal);
-            escenarioBase.setTitle(titulo);
-            escenarioBase.show();
-        } catch (IOException ex) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
-        }
+        Scene escenaPrincipal = new Scene(vista);
+        escenarioBase.setScene(escenaPrincipal);
+        escenarioBase.setTitle(titulo);
+        escenarioBase.show();
     }
 }

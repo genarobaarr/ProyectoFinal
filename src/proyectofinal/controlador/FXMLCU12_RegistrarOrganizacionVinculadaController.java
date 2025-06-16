@@ -141,9 +141,12 @@ public class FXMLCU12_RegistrarOrganizacionVinculadaController implements Initia
             } else {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
                         "Error al registrar organización vinculada", resultadoInsertar.getMensaje());
+                Utilidad.getEscenario(tfTelefono).close();
             }
         } catch (SQLException ex) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error de conexión", "Por el momento no hay conexión.");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
+            Utilidad.getEscenario(tfTelefono).close();
         }
     }
 }

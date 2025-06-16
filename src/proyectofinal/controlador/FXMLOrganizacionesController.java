@@ -56,7 +56,8 @@ public class FXMLOrganizacionesController implements Initializable {
             escenarioNuevo.showAndWait();
         } catch (IOException ex) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                    "Error al cargar la pantalla", "No se pudo cargar la pantalla siguiente");
+                    "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
+            Utilidad.getEscenario(lbReloj).close();
         }
     }
 }

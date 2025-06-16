@@ -65,8 +65,8 @@ public class FXMLProyectosController implements Initializable {
             Parent vista = cargador.load();
             
             if  (fxmlPath.equals("vista/FXMLCU10_1_RegistrarProyecto.fxml")) {
-                    FXMLCU10_1_RegistrarProyectoController controlador = cargador.getController();
-                    controlador.inicializarInformacion(coordinador);
+                FXMLCU10_1_RegistrarProyectoController controlador = cargador.getController();
+                controlador.inicializarInformacion(coordinador);
             }
             
             Scene escena = new Scene(vista);
@@ -76,7 +76,8 @@ public class FXMLProyectosController implements Initializable {
             escenarioNuevo.showAndWait();
         } catch (IOException ex) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                    "Error al cargar la pantalla", "No se pudo cargar la pantalla siguiente");
+                    "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
+            Utilidad.getEscenario(lbReloj).close();
         }
     }
 }

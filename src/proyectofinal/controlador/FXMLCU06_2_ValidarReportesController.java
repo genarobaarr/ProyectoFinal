@@ -14,7 +14,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import proyectofinal.modelo.dao.EstudianteDAO;
 import proyectofinal.modelo.dao.ExpedienteDAO;
 import proyectofinal.modelo.dao.OrganizacionVinculadaDAO;
@@ -70,7 +69,8 @@ public class FXMLCU06_2_ValidarReportesController implements Initializable {
 
     @FXML
     private void clicBotonCancelar(ActionEvent event) {
-        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Desea cancelar la validación del reporte?")) {
+        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", 
+                "¿Desea cancelar la validación del reporte?")) {
             Utilidad.getEscenario(tfNumeroReporte).close();
         }
     }
@@ -93,7 +93,9 @@ public class FXMLCU06_2_ValidarReportesController implements Initializable {
             taDescripcion.setText(reporte.getObservaciones());
             lbNombreReporte.setText(reporte.getNombreArchivo());
         } catch (SQLException ex) {
-             ex.printStackTrace();
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
+            Utilidad.getEscenario(tfNumeroReporte).close();
         }
     }
     
@@ -130,9 +132,15 @@ public class FXMLCU06_2_ValidarReportesController implements Initializable {
                         "Operación exitosa", 
                         "El reporte mensual " + reporte.getNombreArchivo()+ " ha sido validado exitosamente.");
                 Utilidad.getEscenario(tfNumeroReporte).close();
+            } else {
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error al validar", 
+                    resultadoValidar.getMensaje());
+                Utilidad.getEscenario(tfNumeroReporte).close();
             }
         } catch (SQLException ex) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error de conexión", "Por el momento no hay conexión.");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
+            Utilidad.getEscenario(tfNumeroReporte).close();
         }
     }
 
@@ -143,7 +151,8 @@ public class FXMLCU06_2_ValidarReportesController implements Initializable {
         if (ultimoGuionBajo != -1 && ultimoGuionBajo < nombreArchivo.length() - 1) {
             periodo = nombreArchivo.substring(ultimoGuionBajo + 1);
         } else {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error al obtener periodo ", "Error, por el  momento nose pudo obtener el periodo del arhivo");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error al obtener periodo ", 
+                    "Error, no se pudo obtener el periodo del arhivo");
         }
         return periodo;
     }

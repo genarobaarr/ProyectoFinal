@@ -59,13 +59,15 @@ public class FXMLCU04_1_EntregaReportesController implements Initializable {
         } catch (IOException ex) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
                     "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
+            Utilidad.getEscenario(tvReportesMensuales).close();
         }
     }
 
     @FXML
     private void clicBotonCancelar(ActionEvent event) {
-        if (Utilidad.mostrarAlertaConfirmacion("Confiramción", "¿Deseas salir? No se guardarán los cambios"))
-        Utilidad.getEscenario(tvReportesMensuales).close();
+        if (Utilidad.mostrarAlertaConfirmacion("Confiramción", "¿Deseas salir? No se guardarán los cambios")) {
+            Utilidad.getEscenario(tvReportesMensuales).close();
+        }
     }
     
     public void inicializarInformacion (Estudiante estudiante) {
@@ -80,16 +82,14 @@ public class FXMLCU04_1_EntregaReportesController implements Initializable {
     }
     
     private void cargarInformacionTabla() {
-          try {
+        try {
             reportes = FXCollections.observableArrayList();
             ArrayList<ReporteMensual> reportesDAO = ReporteMensualDAO.obtenerReportesMensualesEstudiante(estudiante.getIdUsuario());
             reportes.addAll(reportesDAO);
             tvReportesMensuales.setItems(reportes);
         } catch (SQLException ex) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error al cargar", 
-                    "Lo sentimos, por el momento no se puede mostrar la información "
-                            + "de los responsables de proyecto, por favor, "
-                            + "inténtelo de nuevo más tarde.");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
             Utilidad.getEscenario(tvReportesMensuales).close();
         }
     }
@@ -99,7 +99,9 @@ public class FXMLCU04_1_EntregaReportesController implements Initializable {
         try {
             resultadoAsignacionReporte = AsignacionReporteDAO.obtenerAsignacionActual();
         } catch (SQLException ex) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error de conexión", "Por el momento no hay conexión.");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
+            Utilidad.getEscenario(tvReportesMensuales).close();
         }
         return resultadoAsignacionReporte;
     }

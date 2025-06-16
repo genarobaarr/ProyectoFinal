@@ -7,7 +7,6 @@ package proyectofinal.controlador;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -148,7 +147,8 @@ public class FXMLReportesController implements Initializable {
             escenarioNuevo.showAndWait();
         } catch (IOException ex) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                    "Error al cargar la pantalla", "No se pudo cargar la pantalla siguiente");
+                    "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
+            Utilidad.getEscenario(lbReloj).close();
         }
     }
     
@@ -171,7 +171,8 @@ public class FXMLReportesController implements Initializable {
                     }
                 } catch (DateTimeParseException ex) {
                     Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                        "Error al cargar la pantalla", "No se pudo cargar la pantalla siguiente");
+                        "Error al cargar la pantalla", "No se pudo cargar la pantalla siguiente.");
+                    Utilidad.getEscenario(lbReloj).close();
                 }
             }
         }
@@ -193,11 +194,12 @@ public class FXMLReportesController implements Initializable {
             ResultadoOperacion resultadoInsertar = AsignacionReporteDAO.actualizarAsignacion(asignacionReporte);
             if (resultadoInsertar.isError()) {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                    "Error al cargar la pantalla", "No se pudo cargar la pantalla siguiente");
+                    "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
                 Utilidad.getEscenario(lbReloj).close();
             }
         } catch (SQLException ex) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error de conexión", "Por el momento no hay conexión.");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
             Utilidad.getEscenario(lbReloj).close();
         }
     }

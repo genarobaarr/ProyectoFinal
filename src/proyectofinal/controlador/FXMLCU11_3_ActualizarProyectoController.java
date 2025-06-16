@@ -76,7 +76,9 @@ public class FXMLCU11_3_ActualizarProyectoController implements Initializable {
             this.organizacionVinculada = obtenerOrganizacionVinculada(responsableDeProyecto.getIdOrganizacionVinculada());
             cargarInformacionFormulario();
         } catch (SQLException ex) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", ex.getMessage());
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
+            Utilidad.getEscenario(tfNombreProyecto).close();
         }
     }
     
@@ -133,7 +135,6 @@ public class FXMLCU11_3_ActualizarProyectoController implements Initializable {
         return organizacionVinculada;
     }
     
-    
     private Proyecto obtenerProyectoNuevo() {
         Proyecto proyecto = new Proyecto();
         proyecto.setDescripcion(taBreveDescripcion.getText());
@@ -147,7 +148,6 @@ public class FXMLCU11_3_ActualizarProyectoController implements Initializable {
         return proyecto;
     }
     
-    
     private void guardarProyecto (Proyecto proyecto) {
         try {
             ResultadoOperacion resultadoModificar = ProyectoDAO.modificarProyecto(proyecto);
@@ -159,9 +159,12 @@ public class FXMLCU11_3_ActualizarProyectoController implements Initializable {
             } else {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
                         "Error al modificar proyecto", resultadoModificar.getMensaje());
+                Utilidad.getEscenario(tfNombreProyecto).close();
             }
         } catch (SQLException ex) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error de conexión", "Por el momento no hay conexión.");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
+            Utilidad.getEscenario(tfNombreProyecto).close();
         }
     }
 }

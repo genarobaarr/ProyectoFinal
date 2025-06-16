@@ -42,10 +42,11 @@ public class FXMLCU11_1_ActualizarProyectoController implements Initializable {
     private void clicBotonBuscar(ActionEvent event) {
         if (validarCampos()) {
             try {
-                    irPantallaSiguiente(tfNombreProyecto.getText(), "/proyectofinal/vista/FXMLCU11_2_ActualizarProyecto.fxml", "Seleccionar proyecto");
+                irPantallaSiguiente(tfNombreProyecto.getText(), "/proyectofinal/vista/FXMLCU11_2_ActualizarProyecto.fxml", "Seleccionar proyecto");
             } catch (IOException ex) {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
                         "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
+                Utilidad.getEscenario(tfNombreProyecto).close();
             }
         }
     }
@@ -61,21 +62,16 @@ public class FXMLCU11_1_ActualizarProyectoController implements Initializable {
     }
     
     private void irPantallaSiguiente(String nombreProyecto, String fxmlPath, String titulo) throws IOException{
-        try {
-            Stage escenarioBase = (Stage) tfNombreProyecto.getScene().getWindow();
-            FXMLLoader cargador = new FXMLLoader(ProyectoFinal.class.getResource(fxmlPath));
-            Parent vista = cargador.load();
+        Stage escenarioBase = (Stage) tfNombreProyecto.getScene().getWindow();
+        FXMLLoader cargador = new FXMLLoader(ProyectoFinal.class.getResource(fxmlPath));
+        Parent vista = cargador.load();
 
-            FXMLCU11_2_ActualizarProyectoController controlador = cargador.getController();
-            controlador.inicializarInformacion(nombreProyecto);
+        FXMLCU11_2_ActualizarProyectoController controlador = cargador.getController();
+        controlador.inicializarInformacion(nombreProyecto);
 
-            Scene escenaPrincipal = new Scene(vista);
-            escenarioBase.setScene(escenaPrincipal);
-            escenarioBase.setTitle(titulo);
-            escenarioBase.show();
-        } catch (IOException ex) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
-        }
+        Scene escenaPrincipal = new Scene(vista);
+        escenarioBase.setScene(escenaPrincipal);
+        escenarioBase.setTitle(titulo);
+        escenarioBase.show();
     }
 }

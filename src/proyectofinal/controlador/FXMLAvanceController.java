@@ -64,6 +64,7 @@ public class FXMLAvanceController implements Initializable {
     public void inicializarInformacion(Usuario usuario) {
         if (usuario instanceof Academico) {
             btnConsultarAvance.setDisable(false);
+            
             btnSubirDocumento.setDisable(true);
             btnSubirDocumento.setText("No disponible");
             ivSubirDocumentos.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
@@ -71,6 +72,7 @@ public class FXMLAvanceController implements Initializable {
             btnConsultarAvance.setDisable(true);
             btnConsultarAvance.setText("No disponible");
             ivConsultarAvance.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));   
+            
             btnSubirDocumento.setDisable(false);
             this.estudiante = usuario;
         }
@@ -94,7 +96,8 @@ public class FXMLAvanceController implements Initializable {
             escenarioNuevo.showAndWait();
         } catch (IOException ex) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                    "Error al cargar la pantalla", "No se pudo cargar la pantalla siguiente");
+                    "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
+            Utilidad.getEscenario(lbReloj).close();
         }
     }
 }

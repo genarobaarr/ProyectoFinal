@@ -163,9 +163,12 @@ public class FXMLCU13_2_RegistrarResponsableProyectoController implements Initia
             } else {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
                         "Error al regitrar responsable", resultadoInsertar.getMensaje());
+                Utilidad.getEscenario(tfDepartamento).close();
             }
         } catch (SQLException ex) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error de conexión", "Por el momento no hay conexión.");
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
+            Utilidad.getEscenario(tfDepartamento).close();
         }
     }
 }

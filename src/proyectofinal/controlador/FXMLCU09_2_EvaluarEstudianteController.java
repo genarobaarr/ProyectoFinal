@@ -74,9 +74,9 @@ public class FXMLCU09_2_EvaluarEstudianteController implements Initializable {
         if (tgDominioTema.getSelectedToggle() == null ||
             tgFormalidadPresentacion.getSelectedToggle() == null ||
             tgOrganizacionEquipo.getSelectedToggle() == null) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Campos Incompletos", 
-                    "Por favor, seleccione una calificación para todas las categorías de la rúbrica.");
-            return;
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Campos Incompletos", 
+                        "Por favor, seleccione una calificación para todas las categorías de la rúbrica.");
+                return;
         }
 
         List<EvaluacionExposicionCriterio> criterios = new ArrayList<>();
@@ -104,10 +104,12 @@ public class FXMLCU09_2_EvaluarEstudianteController implements Initializable {
             } else {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
                         "Error al registrar", "No se pudo registrar la evaluación de exposición. Inténtalo más tarde.");
+                Utilidad.getEscenario(taComentarios).close();
             }
         } catch (SQLException e) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, 
-                    "Error en la base de datos", "Error al guardar la evaluación de exposición. Detalles: " + e.getMessage());
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
+            Utilidad.getEscenario(taComentarios).close();
         }
     }
 
