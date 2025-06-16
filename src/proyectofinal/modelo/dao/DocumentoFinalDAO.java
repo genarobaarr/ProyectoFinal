@@ -80,4 +80,40 @@ public class DocumentoFinalDAO {
         }
         return resultado;
     }
+    
+    public static int contarDocumentosFinalPorEstudiante(int idEstudiante) throws SQLException {
+        int cantidadDocumentos = 0;
+        Connection conexionBD = null;
+        PreparedStatement sentencia = null;
+        ResultSet resultado = null;
+
+        try {
+            int idExpediente = ExpedienteDAO.obtenerIdExpedientePorIdEstudiante(idEstudiante);
+
+            if (idExpediente == 0) {
+                return 0;
+            }
+            
+            conexionBD = ConexionBD.abrirConexion();
+            if (conexionBD == null) {
+                throw new SQLException("No hay conexión con la base de datos.");
+            }
+
+            String consulta = "SELECT COUNT(*) AS totalDocumentos FROM documento_final WHERE idExpediente = ?";
+            sentencia = conexionBD.prepareStatement(consulta);
+            sentencia.setInt(1, idExpediente);
+            resultado = sentencia.executeQuery();
+
+            if (resultado.next()) {
+                cantidadDocumentos = resultado.getInt("totalDocumentos");
+            }
+            
+            resultado.close();
+            sentencia.close();
+            conexionBD.close();
+        } catch (SQLException e) {
+            throw new SQLException("Error: Sin conexión a la base de datos.");
+        }
+        return cantidadDocumentos;
+    }
 }

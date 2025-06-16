@@ -20,12 +20,12 @@
           <TableColumn fx:id="colDocumentos" prefWidth="325.0" />
         </columns>
       </TableView>
-      <Button layoutX="152.0" layoutY="350.0" mnemonicParsing="false" onAction="#clicBotonCargar" prefWidth="77.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Cargar" textFill="WHITE">
+      <Button fx:id="btnCargar" layoutX="152.0" layoutY="350.0" mnemonicParsing="false" onAction="#clicBotonCargar" prefWidth="77.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Cargar" textFill="WHITE">
          <font>
             <Font name="Gill Sans MT" size="15.0" />
          </font>
       </Button>
-      <Button layoutX="262.0" layoutY="350.0" mnemonicParsing="false" onAction="#clicBotonSubir" prefWidth="77.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Subir" textFill="WHITE">
+      <Button fx:id="btnSubir" layoutX="262.0" layoutY="350.0" mnemonicParsing="false" onAction="#clicBotonSubir" prefWidth="77.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Subir" textFill="WHITE">
          <font>
             <Font name="Gill Sans MT" size="15.0" />
          </font>

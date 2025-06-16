@@ -11,7 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import proyectofinal.modelo.dao.DocumentoInicioDAO;
 import proyectofinal.modelo.pojo.DocumentoInicio;
@@ -22,6 +21,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.stage.FileChooser;
 import proyectofinal.modelo.dao.DocumentoFinalDAO;
@@ -38,6 +38,10 @@ public class FXMLCU03_ActualizarExpedienteController implements Initializable {
     private TableView<String> tvExpediente;
     @FXML
     private TableColumn<String, String> colDocumentos;
+    @FXML
+    private Button btnCargar;
+    @FXML
+    private Button btnSubir;
     
     private ObservableList<String> documentos;
     private File archivoSeleccionado;
@@ -52,6 +56,8 @@ public class FXMLCU03_ActualizarExpedienteController implements Initializable {
     private void clicBotonCargar(ActionEvent event) {
         archivoSeleccionado = seleccionarArchivo();
         if (archivoSeleccionado != null) {
+            btnSubir.setDisable(false);
+            btnCargar.setDisable(true);
             Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, "Archivo seleccionado",
                 "Has seleccionado: " + archivoSeleccionado.getName());
         }
@@ -64,12 +70,19 @@ public class FXMLCU03_ActualizarExpedienteController implements Initializable {
                 if (DocumentoInicioDAO.contarDocumentosInicioPorEstudiante(estudiante.getIdUsuario()) < 4) {
                     DocumentoInicio documentoInicio = obtenerNuevoDocumentoInicio(archivoSeleccionado, idExpediente);
                     subirArchivoDocumentoInicio(documentoInicio);
-                    archivoSeleccionado = null;
                 } else {
-                    DocumentoFinal documentoFinal = obtenerNuevoDocumentoFinal(archivoSeleccionado, idExpediente);
-                    subirArchivoDocumentoFinal(documentoFinal);
-                    archivoSeleccionado = null;
+                    if (DocumentoFinalDAO.contarDocumentosFinalPorEstudiante(estudiante.getIdUsuario()) < 2) {
+                        DocumentoFinal documentoFinal = obtenerNuevoDocumentoFinal(archivoSeleccionado, idExpediente);
+                        subirArchivoDocumentoFinal(documentoFinal);
+                    } else {
+                        Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error", 
+                            "Ya no puedes introducir documentos nuevos.");
+                        Utilidad.getEscenario(tvExpediente).close();
+                    }
                 }
+                archivoSeleccionado = null;
+                btnSubir.setDisable(true);
+                btnCargar.setDisable(false);
                 cargarInformacionTabla();
             } else {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Error de carga", 
@@ -95,6 +108,8 @@ public class FXMLCU03_ActualizarExpedienteController implements Initializable {
         try {
             this.estudiante = estudiante;
             this.idExpediente = obtenerIdExpediente(estudiante.getIdUsuario());
+            btnSubir.setDisable(true);
+            btnCargar.setDisable(false);
             configurarTabla();
             cargarInformacionTabla();
         } catch (SQLException ex) {
@@ -125,6 +140,7 @@ public class FXMLCU03_ActualizarExpedienteController implements Initializable {
         } catch (SQLException e) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
                     "Error de conexion con base de datos, intentalo más tarde");
+            Utilidad.getEscenario(tvExpediente).close();
         }
     }
 
@@ -168,6 +184,7 @@ public class FXMLCU03_ActualizarExpedienteController implements Initializable {
         } catch (SQLException e) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
                     "Error de conexión con base de datos, inténtalo más tarde");
+            Utilidad.getEscenario(tvExpediente).close();
         }
     }
     
@@ -200,6 +217,7 @@ public class FXMLCU03_ActualizarExpedienteController implements Initializable {
         } catch (SQLException e) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
                     "Error de conexión con base de datos, inténtalo más tarde");
+            Utilidad.getEscenario(tvExpediente).close();
         }
     }
     
