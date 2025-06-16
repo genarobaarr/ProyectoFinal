@@ -19,7 +19,7 @@ public class ReporteMensualDAO {
     public static ArrayList<ReporteMensual> obtenerReportesMensualesEstudiante(int idEstudiante) throws SQLException{
         ArrayList<ReporteMensual> reportes = new ArrayList<>();
         String consulta = "SELECT rm.idReporteMensual, rm.numeroReporteMensual, rm.numeroHoras, rm.observaciones, " +
-                       "rm.nombreArchivo, rm.extensionArchivo, rm.archivo, rm.idExpediente " +
+                       "rm.nombreArchivo, rm.extensionArchivo, rm.estatus, rm.idExpediente " +
                        "FROM reporte_mensual rm " +
                        "INNER JOIN expediente exp ON rm.idExpediente = exp.idExpediente " +
                        "WHERE exp.idEstudiante = ? ORDER BY rm.numeroReporteMensual ASC;";
@@ -70,7 +70,7 @@ public class ReporteMensualDAO {
     public static ArrayList<ReporteMensual> obtenerReportesMensualesNoValidados() throws SQLException{
         ArrayList<ReporteMensual> reportes = new ArrayList<>();
         String consulta = "SELECT rm.idReporteMensual, rm.numeroReporteMensual, rm.numeroHoras, rm.observaciones, " +
-                       "rm.nombreArchivo, rm.extensionArchivo, rm.archivo, rm.idExpediente " +
+                       "rm.nombreArchivo, rm.extensionArchivo, rm.estatus, rm.idExpediente " +
                        "FROM reporte_mensual rm " +
                        "INNER JOIN expediente exp ON rm.idExpediente = exp.idExpediente " +
                        "WHERE rm.estatus = 'No validado' ORDER BY rm.numeroReporteMensual ASC ";
@@ -200,7 +200,7 @@ public class ReporteMensualDAO {
 
         reporteMensual.setNombreArchivo(resultado.getString("nombreArchivo"));
         reporteMensual.setExtensionArchivo(resultado.getString("extensionArchivo"));
-        reporteMensual.setArchivo(resultado.getBytes("archivo"));
+        reporteMensual.setEstatus(resultado.getString("estatus"));
         reporteMensual.setIdExpediente(resultado.getInt("idExpediente"));
 
         return reporteMensual;
