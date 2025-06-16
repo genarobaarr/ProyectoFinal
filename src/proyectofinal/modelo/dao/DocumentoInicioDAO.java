@@ -14,11 +14,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import proyectofinal.modelo.ConexionBD;
 import proyectofinal.modelo.pojo.DocumentoInicio;
 import proyectofinal.modelo.pojo.Estudiante;
 import proyectofinal.modelo.pojo.ResultadoOperacion;
+import proyectofinal.utilidades.Utilidad;
 
 public class DocumentoInicioDAO {
     
@@ -99,37 +101,42 @@ public class DocumentoInicioDAO {
         return resultado;
     }
     
-    public static ResultadoOperacion subirArchivo(File archivo, int idExpediente) {
-        ResultadoOperacion resultado = new ResultadoOperacion();
+    public static int contarDocumentosInicioPorEstudiante(int idEstudiante) throws SQLException {
+        int cantidadDocumentos = 0;
+        Connection conexionBD = null;
+        PreparedStatement sentencia = null;
+        ResultSet resultado = null;
 
         try {
-            byte[] contenido = Files.readAllBytes(archivo.toPath());
+            int idExpediente = ExpedienteDAO.obtenerIdExpedientePorIdEstudiante(idEstudiante);
 
-            DocumentoInicio documento = new DocumentoInicio();
-            documento.setFechaEntregado(LocalDate.now().toString());
-            documento.setNombreArchivo(archivo.getName());
-            documento.setExtensionArchivo("pdf");
-            documento.setArchivo(contenido);
-            documento.setIdExpediente(idExpediente);
+            if (idExpediente == 0) {
+                System.out.println("DEBUG: No se encontró expediente para el estudiante con ID: " + idEstudiante + ". Cantidad de documentos: 0.");
+                return 0;
+            }
+            
+            conexionBD = ConexionBD.abrirConexion();
+            if (conexionBD == null) {
+                throw new SQLException("No hay conexión con la base de datos.");
+            }
 
-            resultado = DocumentoInicioDAO.registrarDocumentoInicio(documento);
+            String consulta = "SELECT COUNT(*) AS totalDocumentos FROM documento_inicio WHERE idExpediente = ?";
+            sentencia = conexionBD.prepareStatement(consulta);
+            sentencia.setInt(1, idExpediente);
+            resultado = sentencia.executeQuery();
 
-        } catch (IOException e) {
-            resultado.setError(true);
-            resultado.setMensaje("Error al leer el archivo.");
+            if (resultado.next()) {
+                cantidadDocumentos = resultado.getInt("totalDocumentos");
+            }
+
         } catch (SQLException e) {
-            resultado.setError(true);
-            resultado.setMensaje("Error al guardar en la base de datos.");
+            e.printStackTrace();
+            throw e;
+        } finally {
+            resultado.close();
+            sentencia.close();
+            conexionBD.close(); 
         }
-
-        return resultado;
+        return cantidadDocumentos;
     }
-    
-    public File seleccionarArchivo() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Selecciona un archivo");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos PDF", "*.pdf"));
-        return fileChooser.showOpenDialog(null);
-    }
-
 }

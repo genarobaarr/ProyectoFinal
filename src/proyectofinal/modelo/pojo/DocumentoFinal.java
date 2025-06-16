@@ -9,13 +9,13 @@ public class DocumentoFinal {
     private String fechaEntregado;
     private String nombreArchivo;
     private String extensionArchivo;
-    private Byte[] archivo;
+    private byte[] archivo;
     private int idExpediente;
 
     public DocumentoFinal() {
     }
 
-    public DocumentoFinal(int idDocumentoFinal, String fechaEntregado, String nombreArchivo, String extensionArchivo, Byte[] archivo, int idExpediente) {
+    public DocumentoFinal(int idDocumentoFinal, String fechaEntregado, String nombreArchivo, String extensionArchivo, byte[] archivo, int idExpediente) {
         this.idDocumentoFinal = idDocumentoFinal;
         this.fechaEntregado = fechaEntregado;
         this.nombreArchivo = nombreArchivo;
@@ -56,11 +56,11 @@ public class DocumentoFinal {
         this.extensionArchivo = extensionArchivo;
     }
 
-    public Byte[] getArchivo() {
+    public byte[] getArchivo() {
         return archivo;
     }
 
-    public void setArchivo(Byte[] archivo) {
+    public void setArchivo(byte[] archivo) {
         this.archivo = archivo;
     }
 
