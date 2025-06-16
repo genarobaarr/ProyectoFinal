@@ -9,6 +9,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,7 +21,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import proyectofinal.modelo.dao.ProyectoDAO;
@@ -56,6 +56,7 @@ public class FXMLCU09_1_ProyectosRegistradosActivosController implements Initial
 
                 try {
                     irPantallaSiguiente(seleccion.getIdExpediente(), idAcademicoEvaluador);
+
                 } catch (IOException e) {
                     Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
                         "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
@@ -80,8 +81,8 @@ public class FXMLCU09_1_ProyectosRegistradosActivosController implements Initial
     }
 
     private void configurarTabla() {
-        tcProyecto.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        tcEstudianteVinculado.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        tcProyecto.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombreProyecto()));
+        tcEstudianteVinculado.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombreCompletoEstudiante()));
     }
 
     private void cargarProyectosConEstudiantes() {
