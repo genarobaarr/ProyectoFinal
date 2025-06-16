@@ -4,11 +4,7 @@
  */
 package proyectofinal.modelo.dao;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import proyectofinal.modelo.ConexionBD;
 import proyectofinal.modelo.pojo.DocumentoFinal;
@@ -18,36 +14,38 @@ public class DocumentoFinalDAO {
 
     public static ArrayList<DocumentoFinal> obtenerDocumentosFinalesPorEstudiante(int idEstudiante) throws SQLException {
         ArrayList<DocumentoFinal> documentos = new ArrayList<>();
-        Connection conexionBD = ConexionBD.abrirConexion();
+        try {
+            Connection conexionBD = ConexionBD.abrirConexion();
 
-        if (conexionBD != null) {
-            String consulta = "SELECT df.idDocumentoFinal, df.fechaEntregado, df.nombreArchivo, " +
-                              "df.extensionArchivo, df.archivo, df.idExpediente " +
-                              "FROM documento_final df " +
-                              "JOIN expediente e ON df.idExpediente = e.idExpediente " +
-                              "WHERE e.idEstudiante = ?";
+            if (conexionBD != null) {
+                String consulta = "SELECT df.idDocumentoFinal, df.fechaEntregado, df.nombreArchivo, " +
+                                  "df.extensionArchivo, df.archivo, df.idExpediente " +
+                                  "FROM documento_final df " +
+                                  "JOIN expediente e ON df.idExpediente = e.idExpediente " +
+                                  "WHERE e.idEstudiante = ?";
 
-            PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
-            sentencia.setInt(1, idEstudiante);
-            ResultSet resultados = sentencia.executeQuery();
+                PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+                sentencia.setInt(1, idEstudiante);
+                ResultSet resultados = sentencia.executeQuery();
 
-            while (resultados.next()) {
-                DocumentoFinal documento = new DocumentoFinal();
-                documento.setIdDocumentoFinal(resultados.getInt("idDocumentoFinal"));
-                documento.setFechaEntregado(resultados.getString("fechaEntregado"));
-                documento.setNombreArchivo(resultados.getString("nombreArchivo"));
-                documento.setExtensionArchivo(resultados.getString("extensionArchivo"));
-                documento.setArchivo(resultados.getBytes("archivo"));
-                documento.setIdExpediente(resultados.getInt("idExpediente"));
+                while (resultados.next()) {
+                    DocumentoFinal documento = new DocumentoFinal();
+                    documento.setIdDocumentoFinal(resultados.getInt("idDocumentoFinal"));
+                    documento.setFechaEntregado(resultados.getString("fechaEntregado"));
+                    documento.setNombreArchivo(resultados.getString("nombreArchivo"));
+                    documento.setExtensionArchivo(resultados.getString("extensionArchivo"));
+                    documento.setArchivo(resultados.getBytes("archivo"));
+                    documento.setIdExpediente(resultados.getInt("idExpediente"));
 
-                documentos.add(documento);
+                    documentos.add(documento);
+                }
+                resultados.close();
+                sentencia.close();
+                conexionBD.close();
             }
-
-            resultados.close();
-            sentencia.close();
-            conexionBD.close();
+        } catch (SQLException e) {
+            throw new SQLException("Error: Sin conexión a la base de datos.");
         }
-
         return documentos;
     }
 
@@ -80,7 +78,6 @@ public class DocumentoFinalDAO {
         } else {
             throw new SQLException("Error: Sin conexión a la base de datos.");
         }
-
         return resultado;
     }
 }
