@@ -11,6 +11,7 @@ public class Usuario {
     private String apellidoMaterno;
     private String email;
     private String username;
+    private String password;
 
     public Usuario() {
     }
@@ -22,6 +23,16 @@ public class Usuario {
         this.apellidoMaterno = apellidoMaterno;
         this.email = email;
         this.username = username;
+    }
+    
+    public Usuario(int idUsuario, String nombre, String apellidoPaterno, String apellidoMaterno, String email, String username, String password) {
+        this.idUsuario = idUsuario;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.email = email;
+        this.username = username;
+        this.password = password;
     }
 
     public int getIdUsuario() {
@@ -70,6 +81,14 @@ public class Usuario {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

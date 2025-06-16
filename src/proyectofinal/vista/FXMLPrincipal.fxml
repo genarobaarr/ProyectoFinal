@@ -116,5 +116,17 @@
             <Font name="Gill Sans MT" size="13.0" />
          </font>
       </Label>
+      <Button fx:id="btnConfiguracion" layoutX="5.0" layoutY="90.0" mnemonicParsing="false" onAction="#clicBotonConfiguracion" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recursos/iconoConfig.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

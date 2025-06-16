@@ -16,6 +16,7 @@ import proyectofinal.modelo.ConexionBD;
 import proyectofinal.modelo.pojo.EvaluacionOV;
 import proyectofinal.modelo.pojo.EvaluacionExposicion;
 import java.math.BigDecimal;
+import proyectofinal.modelo.pojo.ResultadoOperacion;
 
 public class EstudianteDAO {
 
@@ -208,5 +209,83 @@ public class EstudianteDAO {
             }
         }
         return estudiante;
+    }
+    
+    public static ResultadoOperacion registrarEstudiante(Estudiante estudiante) throws SQLException {
+        ResultadoOperacion resultado = new ResultadoOperacion();
+        String consulta = "INSERT INTO estudiante (idUsuario, fechaNacimiento, matricula, idExperiencia) VALUES (?, ?, ?, ?)";
+        
+        Connection conexionBD = null;
+        PreparedStatement sentencia = null;
+
+        try {
+            conexionBD = ConexionBD.abrirConexion();
+            if (conexionBD == null) {
+                throw new SQLException("No hay conexión con la base de datos.");
+            }
+
+            sentencia = conexionBD.prepareStatement(consulta);
+            sentencia.setInt(1, estudiante.getIdUsuario());
+            sentencia.setString(2, estudiante.getFechaNacimiento());
+            sentencia.setString(3, estudiante.getMatricula());
+            sentencia.setInt(4, estudiante.getIdExperienciaEducativa());
+            
+            int filasAfectadas = sentencia.executeUpdate();
+            
+            if (filasAfectadas == 1) {
+                resultado.setError(false);
+                resultado.setMensaje("Estudiante registrado correctamente");
+            } else {
+                resultado.setError(true);
+                resultado.setMensaje("Lo sentimos :( por el momento no se puede "
+                        + "registrar la información del estudiante, "
+                        + "por favor inténtelo más tarde");
+            }
+        } finally {
+            if (sentencia != null) { 
+                sentencia.close(); 
+            }
+            if (conexionBD != null) { 
+                conexionBD.close();
+            }
+        }
+        return resultado;
+    }
+    
+    public static boolean existeMatricula(String matricula) throws SQLException {
+        boolean existe = false;
+        String consulta = "SELECT COUNT(*) FROM estudiante WHERE matricula = ?";
+        
+        Connection conexionBD = null;
+        PreparedStatement sentencia = null;
+        ResultSet resultado = null;
+
+        try {
+            conexionBD = ConexionBD.abrirConexion();
+            if (conexionBD == null) {
+                throw new SQLException("No hay conexión con la base de datos.");
+            }
+
+            sentencia = conexionBD.prepareStatement(consulta);
+            sentencia.setString(1, matricula);
+            resultado = sentencia.executeQuery();
+
+            if (resultado.next()) {
+                if (resultado.getInt(1) > 0) {
+                    existe = true;
+                }
+            }
+        } finally {
+            if (resultado != null) { 
+                resultado.close(); 
+            }
+            if (sentencia != null) { 
+                sentencia.close();
+            }
+            if (conexionBD != null) { 
+                conexionBD.close();
+            }
+        }
+        return existe;
     }
 }

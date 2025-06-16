@@ -55,6 +55,8 @@ public class FXMLPrincipalController implements Initializable {
     private ImageView ivAvance;
     @FXML
     private ImageView ivEvaluaciones;
+    @FXML
+    private Button btnConfiguracion;
     
     private Usuario usuarioSesion;
 
@@ -108,6 +110,11 @@ public class FXMLPrincipalController implements Initializable {
     private void clicBotonCreditos(MouseEvent event) {
         irPantallaSecundaria(usuarioSesion, "vista/FXMLCreditos.fxml", "Créditos");
     }
+
+    @FXML
+    private void clicBotonConfiguracion(ActionEvent event) {
+        irPantallaSecundaria(usuarioSesion, "vista/FXMLAgregarUsuarioNuevo.fxml", "Agregar usuario nuevo");
+    }
     
     public void inicializarInformacion(Usuario usuario) {
         if (usuario != null) {
@@ -127,6 +134,7 @@ public class FXMLPrincipalController implements Initializable {
                 btnAvance.setDisable(false);
                 btnEvaluaciones.setDisable(false);
                 
+                btnConfiguracion.setDisable(true);
             } else if (usuarioSesion instanceof AcademicoEvaluador) {
                 btnProyectos.setDisable(true);
                 btnProyectos.setText("No disponible");
@@ -146,6 +154,7 @@ public class FXMLPrincipalController implements Initializable {
                 
                 btnEvaluaciones.setDisable(false);
                 
+                btnConfiguracion.setDisable(true);
             } else if (usuarioSesion instanceof Academico) {
                 btnProyectos.setDisable(true);
                 btnProyectos.setText("No disponible");
@@ -162,6 +171,7 @@ public class FXMLPrincipalController implements Initializable {
                 btnEvaluaciones.setText("No disponible");
                 ivEvaluaciones.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
                 
+                btnConfiguracion.setDisable(true);
             } else if (usuarioSesion instanceof Coordinador) {
                 btnProyectos.setDisable(false);
                 btnOrganizaciones.setDisable(false);
@@ -174,6 +184,8 @@ public class FXMLPrincipalController implements Initializable {
                 btnEvaluaciones.setDisable(true);
                 btnEvaluaciones.setText("No disponible");
                 ivEvaluaciones.setImage(new Image("/proyectofinal/recursos/iconoTriste.png"));
+                
+                btnConfiguracion.setDisable(false);
             }
         } else {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
@@ -189,26 +201,36 @@ public class FXMLPrincipalController implements Initializable {
             Parent vista = cargador.load();
             
             switch (titulo) {
-                case "Proyectos":
+                case "Proyectos": {
                     FXMLProyectosController controladorProyectos = cargador.getController();
                     controladorProyectos.inicializarInformacion(usuarioSesion);
                     break;
-                case "Reportes":
+                }
+                case "Reportes": {
                     FXMLReportesController controladorReportes = cargador.getController();
                     controladorReportes.inicializarInformacion(usuarioSesion);
                     break;
-                case "Avance":
+                }
+                case "Avance": {
                     FXMLAvanceController controladorAvance = cargador.getController();
                     controladorAvance.inicializarInformacion(usuarioSesion);
                     break;
-                case "Evaluaciones":
+                }
+                case "Evaluaciones": {
                     FXMLEvaluacionesController controladorEvaluaciones = cargador.getController();
                     controladorEvaluaciones.inicializarInformacion(usuarioSesion);
                     break;
-                case "Créditos":
+                }
+                case "Créditos": {
                     FXMLCreditosController controladorCreditos = cargador.getController();
                     controladorCreditos.inicializarInformacion();
                     break;
+                }
+                case "Agregar usuario nuevo": {
+                    FXMLAgregarUsuarioNuevoController controladorCreditos = cargador.getController();
+                    controladorCreditos.inicializarInformacion();
+                    break;
+                }
                 default:
                     break;
             }

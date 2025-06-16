@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #FEFEFE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.controlador.FXMLAgregarUsuarioNuevoController">
+   <children>
+      <Button layoutX="481.0" layoutY="449.0" mnemonicParsing="false" onAction="#clicBotonCancelar" prefHeight="37.0" prefWidth="105.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Cancelar" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recursos/iconoCancelar.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="367.0" layoutY="449.0" mnemonicParsing="false" onAction="#clicBotonRegistrar" prefHeight="37.0" prefWidth="105.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Registrar" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recursos/iconoCheck.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <ImageView fitHeight="65.0" fitWidth="60.0" layoutX="14.0" layoutY="432.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../recursos/lis_ONLYlogo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="14.0" layoutY="4.0" text="Registro de nuevo usuario">
+         <font>
+            <Font name="Gill Sans MT" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfNombre" layoutX="25.0" layoutY="68.0" onKeyPressed="#tfNombrePresionaEnter" prefHeight="25.0" prefWidth="252.0" promptText="Nombre" style="-fx-border-color: #00AC4F;">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="25.0" layoutY="51.0" text="Nombre">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="26.0" layoutY="119.0" text="Apellido paterno">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfApellidoPaterno" layoutX="26.0" layoutY="136.0" onKeyPressed="#tfApellidoPaternoPresionaEnter" prefHeight="25.0" prefWidth="252.0" promptText="Apellido paterno" style="-fx-border-color: #00AC4F;">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="tfApellidoMaterno" layoutX="26.0" layoutY="209.0" onKeyPressed="#tfApellidoMaternoPresionaEnter" prefHeight="25.0" prefWidth="252.0" promptText="Apellido materno" style="-fx-border-color: #00AC4F;">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="26.0" layoutY="192.0" text="Apellido materno">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfCorreoElectronico" layoutX="26.0" layoutY="282.0" onKeyPressed="#tfCorreoElectronicoPresionaEnter" prefHeight="25.0" prefWidth="252.0" promptText="Correo electrónico" style="-fx-border-color: #00AC4F;">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="26.0" layoutY="265.0" text="Correo electrónico">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="323.0" layoutY="192.0" text="Tipo de usuario">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cbTipoUsuario" layoutX="323.0" layoutY="209.0" prefHeight="30.0" prefWidth="252.0" promptText="Tipo de usuario" style="-fx-background-color: #FEFEFE; -fx-border-color: #00AC4F;" />
+      <Label layoutX="323.0" layoutY="120.0" text="Contraseña">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfPassword" layoutX="323.0" layoutY="137.0" prefHeight="25.0" prefWidth="252.0" promptText="Constraseña" style="-fx-border-color: #00AC4F;">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="322.0" layoutY="51.0" text="Usuario">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfUsuario" layoutX="322.0" layoutY="68.0" onKeyPressed="#tfUsuarioPresionaEnter" prefHeight="25.0" prefWidth="252.0" promptText="Usuario" style="-fx-border-color: #00AC4F;">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="tfPorDefinir" layoutX="323.0" layoutY="281.0" prefHeight="25.0" prefWidth="252.0" style="-fx-border-color: #00AC4F;">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </TextField>
+      <Label fx:id="lbPorDefinir" layoutX="323.0" layoutY="264.0">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="323.0" layoutY="330.0" text="Fecha de nacimiento">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="dpFechaNacimiento" layoutX="323.0" layoutY="346.0" prefHeight="25.0" prefWidth="252.0" promptText="Fecha de nacimiento" style="-fx-border-color: #00AC4F;" />
+   </children>
+</AnchorPane>
