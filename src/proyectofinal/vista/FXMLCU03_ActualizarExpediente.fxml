@@ -20,11 +20,6 @@
           <TableColumn fx:id="colDocumentos" prefWidth="325.0" />
         </columns>
       </TableView>
-      <Label fx:id="lblNombreEstudiante" layoutX="189.0" layoutY="22.0">
-         <font>
-            <Font name="Gill Sans MT" size="14.0" />
-         </font>
-      </Label>
       <Button layoutX="152.0" layoutY="350.0" mnemonicParsing="false" onAction="#clicBotonCargar" prefWidth="77.0" style="-fx-background-color: #26408B; -fx-border-color: #26408B; -fx-cursor: HAND;" text="Cargar" textFill="WHITE">
          <font>
             <Font name="Gill Sans MT" size="15.0" />

@@ -37,8 +37,6 @@ public class FXMLCU03_ActualizarExpedienteController implements Initializable {
     @FXML
     private TableView<String> tvExpediente;
     @FXML
-    private Label lblNombreEstudiante;
-    @FXML
     private TableColumn<String, String> colDocumentos;
     
     private ObservableList<String> documentos;
@@ -96,7 +94,6 @@ public class FXMLCU03_ActualizarExpedienteController implements Initializable {
     public void inicializarInformacion (Usuario estudiante) {
         try {
             this.estudiante = estudiante;
-            lblNombreEstudiante.setText(estudiante.toString());
             this.idExpediente = obtenerIdExpediente(estudiante.getIdUsuario());
             configurarTabla();
             cargarInformacionTabla();
