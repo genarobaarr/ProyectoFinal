@@ -9,7 +9,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import proyectofinal.modelo.dao.ProyectoDAO;
@@ -31,7 +31,7 @@ import proyectofinal.utilidades.Utilidad;
 public class FXMLCU09_1_ProyectosRegistradosActivosController implements Initializable {
 
     @FXML
-    private TableView<ProyectoConEstudiante> tvProyectoYEstudiante; 
+    private TableView<ProyectoConEstudiante> tvProyectoYEstudiante;
     @FXML
     private TableColumn<ProyectoConEstudiante, String> tcProyecto;
     @FXML
@@ -42,21 +42,20 @@ public class FXMLCU09_1_ProyectosRegistradosActivosController implements Initial
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        configurarTabla(); 
-        cargarProyectosConEstudiantes(); 
+        configurarTabla();
+        cargarProyectosConEstudiantes();
     }
 
     @FXML
     private void clicBotonEvaluar(ActionEvent event) {
         ProyectoConEstudiante seleccion = tvProyectoYEstudiante.getSelectionModel().getSelectedItem();
-        
+
         if (seleccion != null) {
             if (academicoEvaluador != null) {
                 int idAcademicoEvaluador = academicoEvaluador.getIdUsuario();
-                
+
                 try {
                     irPantallaSiguiente(seleccion.getIdExpediente(), idAcademicoEvaluador);
-
                 } catch (IOException e) {
                     Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
                         "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
@@ -64,7 +63,7 @@ public class FXMLCU09_1_ProyectosRegistradosActivosController implements Initial
                 }
             }
         } else {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, 
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING,
                     "Selección requerida", "Por favor, seleccione un proyecto con estudiante para evaluar.");
         }
     }
@@ -75,14 +74,14 @@ public class FXMLCU09_1_ProyectosRegistradosActivosController implements Initial
             Utilidad.getEscenario(tvProyectoYEstudiante).close();
         }
     }
-    
-    public void inicializarInformacion (Usuario academicoEvaluador) {
+
+    public void inicializarInformacion(Usuario academicoEvaluador) {
         this.academicoEvaluador = academicoEvaluador;
     }
 
     private void configurarTabla() {
-        tcProyecto.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombreProyecto()));
-        tcEstudianteVinculado.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombreCompletoEstudiante()));
+        tcProyecto.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        tcEstudianteVinculado.setCellValueFactory(new PropertyValueFactory<>("nombre"));
     }
 
     private void cargarProyectosConEstudiantes() {
@@ -92,17 +91,17 @@ public class FXMLCU09_1_ProyectosRegistradosActivosController implements Initial
             tvProyectoYEstudiante.setItems(listaProyectosConEstudiantes);
 
             if (proyectos.isEmpty()) {
-                Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, 
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION,
                         "Sin Datos", "No hay proyectos con estudiantes activos registrados en el sistema.");
             }
         } catch (SQLException e) {
-            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos",
                     "Error de conexión con base de datos, inténtalo más tarde");
             Utilidad.getEscenario(tvProyectoYEstudiante).close();
         }
     }
-    
-    private void irPantallaSiguiente (int idExpediente, int idAcademicoEvaluador) throws IOException {
+
+    private void irPantallaSiguiente(int idExpediente, int idAcademicoEvaluador) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/vista/FXMLCU09_2_EvaluarEstudiante.fxml"));
         Parent vista = loader.load();
 
