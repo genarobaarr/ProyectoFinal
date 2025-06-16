@@ -91,7 +91,9 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
 
     @FXML
     private void clicBotonCancelar(ActionEvent event) {
-        mostrarConfirmacionSalida();
+        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas salir?")) {
+            Utilidad.getEscenario(btnAceptar).close();
+        }
     }
 
     public void inicializarInformacion(Usuario estudiante) {
@@ -348,9 +350,4 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
         }
     }
 
-    private void mostrarConfirmacionSalida() {
-        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas salir?")) {
-            Utilidad.getEscenario(btnAceptar).close();
-        }
-    }
 }
