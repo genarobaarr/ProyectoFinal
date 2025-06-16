@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `proyecto_construccion` /*!40100 DEFAULT CHARACTE
 USE `proyecto_construccion`;
 -- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: proyecto_construccion
+-- Host: localhost    Database: proyecto_construccion
 -- ------------------------------------------------------
 -- Server version	8.0.39
 
@@ -97,6 +97,34 @@ INSERT INTO `afirmacion_evaluacion_ov` VALUES (1,'Mostró responsabilidad en las
 UNLOCK TABLES;
 
 --
+-- Table structure for table `asignacion_reporte`
+--
+
+DROP TABLE IF EXISTS `asignacion_reporte`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `asignacion_reporte` (
+  `idAsignacion` int NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(100) NOT NULL,
+  `descripcion` varchar(100) NOT NULL,
+  `fechaInicio` date NOT NULL,
+  `fechaFin` date NOT NULL,
+  `estatus` enum('Habilitado','Inhabilitado') DEFAULT 'Inhabilitado',
+  PRIMARY KEY (`idAsignacion`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `asignacion_reporte`
+--
+
+LOCK TABLES `asignacion_reporte` WRITE;
+/*!40000 ALTER TABLE `asignacion_reporte` DISABLE KEYS */;
+INSERT INTO `asignacion_reporte` VALUES (1,'Asignacion de verano','Los alumnos podrán subir sus reportes','2025-06-12','2025-06-16','Habilitado');
+/*!40000 ALTER TABLE `asignacion_reporte` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `categoria_evaluacion_ov`
 --
 
@@ -129,7 +157,7 @@ DROP TABLE IF EXISTS `coordinador`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `coordinador` (
   `idUsuario` int NOT NULL,
-  `telefono` varchar(10) NOT NULL,
+  `telefono` varchar(15) NOT NULL,
   PRIMARY KEY (`idUsuario`),
   KEY `fk_coordinador_usuario1_idx` (`idUsuario`),
   CONSTRAINT `fk_coordinador_usuario1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`)
@@ -162,7 +190,7 @@ CREATE TABLE `criterio_evaluacion_exposicion` (
   PRIMARY KEY (`idCriterioEvaluacionExposicion`),
   KEY `fk_criterio_evaluacion_exposicion_evaluacion_exposicion1_idx` (`idEvaluacionExposicion`),
   CONSTRAINT `fk_criterio_evaluacion_exposicion_evaluacion_exposicion1` FOREIGN KEY (`idEvaluacionExposicion`) REFERENCES `evaluacion_exposicion` (`idEvaluacionExposicion`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -171,7 +199,7 @@ CREATE TABLE `criterio_evaluacion_exposicion` (
 
 LOCK TABLES `criterio_evaluacion_exposicion` WRITE;
 /*!40000 ALTER TABLE `criterio_evaluacion_exposicion` DISABLE KEYS */;
-INSERT INTO `criterio_evaluacion_exposicion` VALUES (1,'Dominio del tema','Puede mejorar',0.70,1),(2,'Formalidad de la presentación','Excelente',1.00,1),(3,'Organización del equipo','Puede mejorar',0.70,1),(4,'Dominio del tema','Excelente',1.00,2),(5,'Formalidad de la presentación','Satisfactorio',0.85,2),(6,'Organización del equipo','No cumple con lo requerido',0.50,2),(7,'Dominio del tema','Satisfactorio',0.85,3),(8,'Formalidad de la presentación','Excelente',1.00,3),(9,'Organización del equipo','No cumple con lo requerido',0.50,3),(10,'Dominio del tema','Satisfactorio',0.85,4),(11,'Formalidad de la presentación','Satisfactorio',0.85,4),(12,'Organización del equipo','No cumple con lo requerido',0.50,4),(13,'Dominio del tema','Satisfactorio',0.85,5),(14,'Formalidad de la presentación','Satisfactorio',0.85,5),(15,'Organización del equipo','No cumple con lo requerido',0.50,5),(16,'Dominio del tema','Satisfactorio',0.85,6),(17,'Formalidad de la presentación','Satisfactorio',0.85,6),(18,'Organización del equipo','Puede mejorar',0.70,6),(19,'Dominio del tema','Excelente',1.00,7),(20,'Formalidad de la presentación','Satisfactorio',0.85,7),(21,'Organización del equipo','No cumple con lo requerido',0.50,7),(22,'Dominio del tema','Satisfactorio',0.85,8),(23,'Formalidad de la presentación','Satisfactorio',0.85,8),(24,'Organización del equipo','Puede mejorar',0.70,8),(25,'Dominio del tema','Satisfactorio',0.85,9),(26,'Formalidad de la presentación','Excelente',1.00,9),(27,'Organización del equipo','Puede mejorar',0.70,9),(28,'Dominio del tema','No cumple con lo requerido',0.50,10),(29,'Formalidad de la presentación','No cumple con lo requerido',0.50,10),(30,'Organización del equipo','Puede mejorar',0.70,10),(31,'Dominio del tema','No cumple con lo requerido',0.50,11),(32,'Formalidad de la presentación','Puede mejorar',0.70,11),(33,'Organización del equipo','Puede mejorar',0.70,11),(34,'Dominio del tema','No cumple con lo requerido',0.50,12),(35,'Formalidad de la presentación','Puede mejorar',0.70,12),(36,'Organización del equipo','Puede mejorar',0.70,12),(37,'Dominio del tema','Puede mejorar',0.70,13),(38,'Formalidad de la presentación','Puede mejorar',0.70,13),(39,'Organización del equipo','No cumple con lo requerido',0.50,13),(40,'Dominio del tema','Puede mejorar',0.70,14),(41,'Formalidad de la presentación','No cumple con lo requerido',0.50,14),(42,'Organización del equipo','Puede mejorar',0.70,14),(43,'Dominio del tema','No cumple con lo requerido',0.50,15),(44,'Formalidad de la presentación','Puede mejorar',0.70,15),(45,'Organización del equipo','Satisfactorio',0.85,15),(46,'Dominio del tema','Puede mejorar',0.70,16),(47,'Formalidad de la presentación','Puede mejorar',0.70,16),(48,'Organización del equipo','Satisfactorio',0.85,16),(49,'Dominio del tema','No cumple con lo requerido',0.50,17),(50,'Formalidad de la presentación','Puede mejorar',0.70,17),(51,'Organización del equipo','Puede mejorar',0.70,17),(52,'Dominio del tema','Excelente',1.00,18),(53,'Formalidad de la presentación','Excelente',1.00,18),(54,'Organización del equipo','Satisfactorio',0.85,18),(55,'Dominio del tema','Excelente',1.00,19),(56,'Formalidad de la presentación','Excelente',1.00,19),(57,'Organización del equipo','Satisfactorio',0.85,19),(58,'Dominio del tema','Excelente',1.00,20),(59,'Formalidad de la presentación','Excelente',1.00,20),(60,'Organización del equipo','Excelente',1.00,20),(61,'Dominio del tema','Excelente',1.00,21),(62,'Formalidad de la presentación','Excelente',1.00,21),(63,'Organización del equipo','Satisfactorio',0.85,21);
+INSERT INTO `criterio_evaluacion_exposicion` VALUES (1,'Dominio del tema','Puede mejorar',0.70,1),(2,'Formalidad de la presentación','Excelente',1.00,1),(3,'Organización del equipo','Puede mejorar',0.70,1),(4,'Dominio del tema','Excelente',1.00,2),(5,'Formalidad de la presentación','Satisfactorio',0.85,2),(6,'Organización del equipo','No cumple con lo requerido',0.50,2),(7,'Dominio del tema','Satisfactorio',0.85,3),(8,'Formalidad de la presentación','Excelente',1.00,3),(9,'Organización del equipo','No cumple con lo requerido',0.50,3),(10,'Dominio del tema','Satisfactorio',0.85,4),(11,'Formalidad de la presentación','Satisfactorio',0.85,4),(12,'Organización del equipo','No cumple con lo requerido',0.50,4),(13,'Dominio del tema','Satisfactorio',0.85,5),(14,'Formalidad de la presentación','Satisfactorio',0.85,5),(15,'Organización del equipo','No cumple con lo requerido',0.50,5),(16,'Dominio del tema','Satisfactorio',0.85,6),(17,'Formalidad de la presentación','Satisfactorio',0.85,6),(18,'Organización del equipo','Puede mejorar',0.70,6),(19,'Dominio del tema','Excelente',1.00,7),(20,'Formalidad de la presentación','Satisfactorio',0.85,7),(21,'Organización del equipo','No cumple con lo requerido',0.50,7),(22,'Dominio del tema','Satisfactorio',0.85,8),(23,'Formalidad de la presentación','Satisfactorio',0.85,8),(24,'Organización del equipo','Puede mejorar',0.70,8),(25,'Dominio del tema','Satisfactorio',0.85,9),(26,'Formalidad de la presentación','Excelente',1.00,9),(27,'Organización del equipo','Puede mejorar',0.70,9),(28,'Dominio del tema','No cumple con lo requerido',0.50,10),(29,'Formalidad de la presentación','No cumple con lo requerido',0.50,10),(30,'Organización del equipo','Puede mejorar',0.70,10),(31,'Dominio del tema','No cumple con lo requerido',0.50,11),(32,'Formalidad de la presentación','Puede mejorar',0.70,11),(33,'Organización del equipo','Puede mejorar',0.70,11),(34,'Dominio del tema','No cumple con lo requerido',0.50,12),(35,'Formalidad de la presentación','Puede mejorar',0.70,12),(36,'Organización del equipo','Puede mejorar',0.70,12),(37,'Dominio del tema','Puede mejorar',0.70,13),(38,'Formalidad de la presentación','Puede mejorar',0.70,13),(39,'Organización del equipo','No cumple con lo requerido',0.50,13),(40,'Dominio del tema','Puede mejorar',0.70,14),(41,'Formalidad de la presentación','No cumple con lo requerido',0.50,14),(42,'Organización del equipo','Puede mejorar',0.70,14),(43,'Dominio del tema','No cumple con lo requerido',0.50,15),(44,'Formalidad de la presentación','Puede mejorar',0.70,15),(45,'Organización del equipo','Satisfactorio',0.85,15),(46,'Dominio del tema','Puede mejorar',0.70,16),(47,'Formalidad de la presentación','Puede mejorar',0.70,16),(48,'Organización del equipo','Satisfactorio',0.85,16),(49,'Dominio del tema','No cumple con lo requerido',0.50,17),(50,'Formalidad de la presentación','Puede mejorar',0.70,17),(51,'Organización del equipo','Puede mejorar',0.70,17),(52,'Dominio del tema','Excelente',1.00,18),(53,'Formalidad de la presentación','Excelente',1.00,18),(54,'Organización del equipo','Satisfactorio',0.85,18),(55,'Dominio del tema','Excelente',1.00,19),(56,'Formalidad de la presentación','Excelente',1.00,19),(57,'Organización del equipo','Satisfactorio',0.85,19),(58,'Dominio del tema','Excelente',1.00,20),(59,'Formalidad de la presentación','Excelente',1.00,20),(60,'Organización del equipo','Excelente',1.00,20),(61,'Dominio del tema','Excelente',1.00,21),(62,'Formalidad de la presentación','Excelente',1.00,21),(63,'Organización del equipo','Satisfactorio',0.85,21),(64,'Dominio del tema','Excelente',1.00,22),(65,'Formalidad de la presentación','Satisfactorio',0.85,22),(66,'Organización del equipo','Satisfactorio',0.85,22),(67,'Dominio del tema','Excelente',1.00,23),(68,'Formalidad de la presentación','Excelente',1.00,23),(69,'Organización del equipo','Excelente',1.00,23),(70,'Dominio del tema','Excelente',1.00,24),(71,'Formalidad de la presentación','Excelente',1.00,24),(72,'Organización del equipo','Excelente',1.00,24),(73,'Dominio del tema','Excelente',1.00,25),(74,'Formalidad de la presentación','Satisfactorio',0.85,25),(75,'Organización del equipo','Satisfactorio',0.85,25),(76,'Dominio del tema','Excelente',1.00,26),(77,'Formalidad de la presentación','Satisfactorio',0.85,26),(78,'Organización del equipo','Puede mejorar',0.70,26),(79,'Dominio del tema','Excelente',1.00,27),(80,'Formalidad de la presentación','Satisfactorio',0.85,27),(81,'Organización del equipo','No cumple con lo requerido',0.50,27),(82,'Dominio del tema','Satisfactorio',0.85,28),(83,'Formalidad de la presentación','Satisfactorio',0.85,28),(84,'Organización','Excelente',1.00,28),(85,'Dominio del tema','Puede mejorar',0.70,29),(86,'Formalidad de la presentación','Satisfactorio',0.85,29),(87,'Organización','Satisfactorio',0.85,29);
 /*!40000 ALTER TABLE `criterio_evaluacion_exposicion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -217,7 +245,7 @@ CREATE TABLE `documento_final` (
   PRIMARY KEY (`idDocumentoFinal`),
   KEY `idx_entrega_doc_final_idexpediente` (`idExpediente`),
   CONSTRAINT `entrega_doc_final_ibfk_2` FOREIGN KEY (`idExpediente`) REFERENCES `expediente` (`idExpediente`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -226,7 +254,7 @@ CREATE TABLE `documento_final` (
 
 LOCK TABLES `documento_final` WRITE;
 /*!40000 ALTER TABLE `documento_final` DISABLE KEYS */;
-INSERT INTO `documento_final` VALUES (1,'2025-06-02','Autoevaluación','pdf',NULL,2),(2,'2025-06-02','Autoevaluación','pdf',NULL,3),(3,'2025-06-01','Autoevaluación','pdf',NULL,4),(4,'2025-06-01','Autoevaluación','pdf',NULL,5),(5,'2025-06-03','Autoevaluación','pdf',NULL,6);
+INSERT INTO `documento_final` VALUES (1,'2025-06-02','Autoevaluación','pdf',NULL,2),(2,'2025-06-02','Autoevaluación','pdf',NULL,3),(3,'2025-06-01','Autoevaluación','pdf',NULL,4),(4,'2025-06-01','Autoevaluación','pdf',NULL,5),(5,'2025-06-03','Autoevaluación','pdf',NULL,6),(6,'2025-06-15','04 Unidad IV. Programación de bases de datos_I.pdf','pdf',NULL,7),(7,'2025-06-16','docEval.pdf','pdf',NULL,8),(8,'2025-06-16','Miniproyecto4.pdf','pdf',NULL,8),(9,'2025-06-16','Proyecto_GenaroAlejandroBarradasSánchez.pdf','pdf',NULL,2),(10,'2025-06-16','Proyecto_GenaroAlejandroBarradasSánchez.pdf','pdf',NULL,2);
 /*!40000 ALTER TABLE `documento_final` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -247,7 +275,7 @@ CREATE TABLE `documento_inicio` (
   PRIMARY KEY (`idDocumentoInicio`),
   KEY `idx_entrega_doc_inicio_idexpediente` (`idExpediente`),
   CONSTRAINT `entrega_doc_inicio_ibfk_2` FOREIGN KEY (`idExpediente`) REFERENCES `expediente` (`idExpediente`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -256,7 +284,7 @@ CREATE TABLE `documento_inicio` (
 
 LOCK TABLES `documento_inicio` WRITE;
 /*!40000 ALTER TABLE `documento_inicio` DISABLE KEYS */;
-INSERT INTO `documento_inicio` VALUES (1,'2024-02-16','CartaAceptacion','pdf',NULL,1),(2,'2024-02-18','Cronograma','pdf',NULL,1),(3,'2024-02-19','Horario','pdf',NULL,1),(4,'2024-02-19','OficioAsignación','pdf',NULL,1),(5,'2025-02-10','CartaAceptacion','pdf',NULL,2),(6,'2025-02-10','Cronograma','pdf',NULL,2),(7,'2025-02-10','Horario','pdf',NULL,2),(8,'2025-02-10','OficioAsignación','pdf',NULL,2),(9,'2025-02-10','CartaAceptacion','pdf',NULL,3),(10,'2025-02-10','Cronograma','pdf',NULL,3),(11,'2025-02-10','Horario','pdf',NULL,3),(12,'2025-02-10','OficioAsignación','pdf',NULL,3),(13,'2025-02-10','CartaAceptacion','pdf',NULL,4),(14,'2025-02-10','Cronograma','pdf',NULL,4),(15,'2025-02-10','Horario','pdf',NULL,4),(16,'2025-02-10','OficioAsignación','pdf',NULL,4),(17,'2025-02-10','CartaAceptacion','pdf',NULL,5),(18,'2025-02-10','Cronograma','pdf',NULL,5),(19,'2025-02-10','Horario','pdf',NULL,5),(20,'2025-02-10','OficioAsignación','pdf',NULL,5),(21,'2025-02-10','CartaAceptacion','pdf',NULL,6),(22,'2025-02-10','Cronograma','pdf',NULL,6),(23,'2025-02-10','Horario','pdf',NULL,6),(24,'2025-02-10','OficioAsignación','pdf',NULL,6);
+INSERT INTO `documento_inicio` VALUES (1,'2024-02-16','CartaAceptacion','pdf',NULL,1),(2,'2024-02-18','Cronograma','pdf',NULL,1),(3,'2024-02-19','Horario','pdf',NULL,1),(4,'2024-02-19','OficioAsignación','pdf',NULL,1),(5,'2025-02-10','CartaAceptacion','pdf',NULL,2),(6,'2025-02-10','Cronograma','pdf',NULL,2),(7,'2025-02-10','Horario','pdf',NULL,2),(8,'2025-02-10','OficioAsignación','pdf',NULL,2),(9,'2025-02-10','CartaAceptacion','pdf',NULL,3),(10,'2025-02-10','Cronograma','pdf',NULL,3),(11,'2025-02-10','Horario','pdf',NULL,3),(12,'2025-02-10','OficioAsignación','pdf',NULL,3),(13,'2025-02-10','CartaAceptacion','pdf',NULL,4),(14,'2025-02-10','Cronograma','pdf',NULL,4),(15,'2025-02-10','Horario','pdf',NULL,4),(16,'2025-02-10','OficioAsignación','pdf',NULL,4),(17,'2025-02-10','CartaAceptacion','pdf',NULL,5),(18,'2025-02-10','Cronograma','pdf',NULL,5),(19,'2025-02-10','Horario','pdf',NULL,5),(20,'2025-02-10','OficioAsignación','pdf',NULL,5),(21,'2025-02-10','CartaAceptacion','pdf',NULL,6),(22,'2025-02-10','Cronograma','pdf',NULL,6),(23,'2025-02-10','Horario','pdf',NULL,6),(24,'2025-02-10','OficioAsignación','pdf',NULL,6),(25,'2025-06-15','docEval.pdf','pdf',NULL,2),(26,'2025-06-15','Listado de casos de uso.pdf','pdf',NULL,7),(27,'2025-06-15','Buen código vs. mal código.pdf','pdf',NULL,7),(28,'2025-06-15','0. Introducción-BD_LAHG.pdf','pdf',NULL,7),(29,'2025-06-15','1.ModeloE-R_LAHG_parte1.pdf','pdf',NULL,7),(30,'2025-06-15','Cálculo de Complejidad y Caminos Básicos_BarradasSánchezGenaroAlejandro.pdf','pdf',NULL,7),(31,'2025-06-15','111 - Estudio para 1ER PARCIAL CONSTRUCCIÓN.pdf','pdf',NULL,8),(32,'2025-06-15','0. Introducción-BD_LAHG.pdf','pdf',NULL,8),(33,'2025-06-15','1.ModeloE-R_LAHG_parte1.pdf','pdf',NULL,8),(34,'2025-06-15','3. Reducción a tablas.pdf','pdf',NULL,8),(35,'2025-06-16','C2IntroConstruccion.pdf','pdf',NULL,9);
 /*!40000 ALTER TABLE `documento_inicio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -303,12 +331,13 @@ CREATE TABLE `evaluacion_exposicion` (
   `puntajeFinal` decimal(5,2) NOT NULL,
   `idExpediente` int NOT NULL,
   `idAcademicoEvaluador` int NOT NULL,
+  `fechaEvaluacion` date NOT NULL DEFAULT (curdate()),
   PRIMARY KEY (`idEvaluacionExposicion`),
   KEY `idx_evaluacion_exposicion_idexpediente` (`idExpediente`),
   KEY `fk_evaluacion_exposicion_academico_evaluador1_idx` (`idAcademicoEvaluador`),
   CONSTRAINT `evaluacion_exposicion_ibfk_1` FOREIGN KEY (`idExpediente`) REFERENCES `expediente` (`idExpediente`),
   CONSTRAINT `fk_evaluacion_exposicion_academico_evaluador1` FOREIGN KEY (`idAcademicoEvaluador`) REFERENCES `academico_evaluador` (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -317,7 +346,7 @@ CREATE TABLE `evaluacion_exposicion` (
 
 LOCK TABLES `evaluacion_exposicion` WRITE;
 /*!40000 ALTER TABLE `evaluacion_exposicion` DISABLE KEYS */;
-INSERT INTO `evaluacion_exposicion` VALUES (1,NULL,2.40,2,10),(2,NULL,2.35,2,13),(3,NULL,2.35,2,16),(4,NULL,2.20,2,18),(5,NULL,2.20,2,22),(6,NULL,2.40,3,10),(7,NULL,2.35,3,13),(8,NULL,2.40,3,16),(9,NULL,2.35,3,18),(10,NULL,1.70,4,13),(11,NULL,1.90,4,16),(12,NULL,1.90,4,22),(13,NULL,1.90,5,10),(14,NULL,1.90,5,13),(15,NULL,2.05,5,16),(16,NULL,2.25,5,18),(17,NULL,1.90,5,22),(18,NULL,2.85,6,10),(19,NULL,2.85,6,13),(20,NULL,3.00,6,18),(21,NULL,2.85,6,22);
+INSERT INTO `evaluacion_exposicion` VALUES (1,NULL,2.40,2,10,'2025-06-10'),(2,NULL,2.35,2,13,'2025-06-10'),(3,NULL,2.35,2,16,'2025-06-10'),(4,NULL,2.20,2,18,'2025-06-10'),(5,NULL,2.20,2,22,'2025-06-10'),(6,NULL,2.40,3,10,'2025-06-10'),(7,NULL,2.35,3,13,'2025-06-10'),(8,NULL,2.40,3,16,'2025-06-10'),(9,NULL,2.35,3,18,'2025-06-10'),(10,NULL,1.70,4,13,'2025-06-10'),(11,NULL,1.90,4,16,'2025-06-10'),(12,NULL,1.90,4,22,'2025-06-10'),(13,NULL,1.90,5,10,'2025-06-10'),(14,NULL,1.90,5,13,'2025-06-10'),(15,NULL,2.05,5,16,'2025-06-10'),(16,NULL,2.25,5,18,'2025-06-10'),(17,NULL,1.90,5,22,'2025-06-10'),(18,NULL,2.85,6,10,'2025-06-10'),(19,NULL,2.85,6,13,'2025-06-10'),(20,NULL,3.00,6,18,'2025-06-10'),(21,NULL,2.85,6,22,'2025-06-10'),(22,'Bien hecho!',2.70,5,10,'2025-06-11'),(23,'El mejor!!',3.00,6,10,'2025-06-11'),(24,'Muy buen trabajo!!!!!!',3.00,5,10,'2025-06-11'),(25,'Fabulosa presentación',2.70,4,10,'2025-06-13'),(26,'Buena presentación chicos!',2.55,6,10,'2025-06-13'),(27,'TEST AHORA',2.35,4,10,'2025-06-13'),(28,'Buena organización, mala ejecución',2.70,9,10,'2025-06-16'),(29,'TEST',2.40,9,10,'2025-06-16');
 /*!40000 ALTER TABLE `evaluacion_exposicion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -337,7 +366,7 @@ CREATE TABLE `evaluacion_ov` (
   PRIMARY KEY (`idEvaluacionOV`),
   KEY `idx_evaluacion_a_ov_idexpediente` (`idExpediente`),
   CONSTRAINT `evaluacion_a_ov_ibfk_1` FOREIGN KEY (`idExpediente`) REFERENCES `expediente` (`idExpediente`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -346,7 +375,7 @@ CREATE TABLE `evaluacion_ov` (
 
 LOCK TABLES `evaluacion_ov` WRITE;
 /*!40000 ALTER TABLE `evaluacion_ov` DISABLE KEYS */;
-INSERT INTO `evaluacion_ov` VALUES (1,NULL,'2025-06-04',82.00,2),(2,NULL,'2025-06-04',83.00,3),(3,'Se necesita que el estudiante sea más responsable.','2025-06-04',76.00,4),(4,NULL,'2025-06-04',79.00,5),(5,'Excelente estudiante.','2025-06-04',84.00,6);
+INSERT INTO `evaluacion_ov` VALUES (1,NULL,'2025-06-04',82.00,2),(2,NULL,'2025-06-04',83.00,3),(3,'Se necesita que el estudiante sea más responsable.','2025-06-04',76.00,4),(4,NULL,'2025-06-04',79.00,5),(5,'Excelente estudiante.','2025-06-04',84.00,6),(6,'Muy buena participación!','2025-06-13',100.00,2),(7,'TEST','2025-06-13',100.00,2),(8,'TEST','2025-06-13',83.00,2),(9,'TEST','2025-06-16',100.00,8),(10,'TEST','2025-06-16',100.00,9);
 /*!40000 ALTER TABLE `evaluacion_ov` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -371,7 +400,7 @@ CREATE TABLE `expediente` (
   CONSTRAINT `expediente_ibfk_1` FOREIGN KEY (`idProyecto`) REFERENCES `proyecto` (`idProyecto`),
   CONSTRAINT `fk_expediente_estudiante1` FOREIGN KEY (`idEstudiante`) REFERENCES `estudiante` (`idUsuario`),
   CONSTRAINT `fk_expediente_periodo1` FOREIGN KEY (`idPeriodo`) REFERENCES `periodo` (`idPeriodo`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -380,7 +409,7 @@ CREATE TABLE `expediente` (
 
 LOCK TABLES `expediente` WRITE;
 /*!40000 ALTER TABLE `expediente` DISABLE KEYS */;
-INSERT INTO `expediente` VALUES (1,'Baja',20,3,5,19),(2,'Activo',440,1,6,7),(3,'Activo',440,2,6,15),(4,'Activo',440,4,6,19),(5,'Activo',440,5,6,23),(6,'Activo',440,1,6,24);
+INSERT INTO `expediente` VALUES (1,'Baja',20,3,5,19),(2,'Activo',537,1,6,7),(3,'Activo',440,2,6,15),(4,'Activo',440,4,6,19),(5,'Activo',440,5,6,23),(6,'Activo',440,1,6,24),(7,'Activo',45,11,6,30),(8,'Activo',43,9,6,28),(9,'Activo',39,12,6,29);
 /*!40000 ALTER TABLE `expediente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -426,11 +455,11 @@ DROP TABLE IF EXISTS `organizacion_vinculada`;
 CREATE TABLE `organizacion_vinculada` (
   `idOrganizacionVinculada` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL,
-  `telefono` varchar(10) NOT NULL,
+  `telefono` varchar(15) NOT NULL,
   `direccion` varchar(200) NOT NULL,
   `email` varchar(50) NOT NULL,
   PRIMARY KEY (`idOrganizacionVinculada`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -439,7 +468,7 @@ CREATE TABLE `organizacion_vinculada` (
 
 LOCK TABLES `organizacion_vinculada` WRITE;
 /*!40000 ALTER TABLE `organizacion_vinculada` DISABLE KEYS */;
-INSERT INTO `organizacion_vinculada` VALUES (1,'EPAM','2282345678','Faltante','epam@epam.com'),(2,'HighTek','2282836940','Faltante','hightek@hightek.com'),(3,'Grupo PerTI','2282841541','Faltante','grupoperti@grupoperti.com'),(4,'Tata','2281234567','Faltante','tata@tata.com'),(5,'SAP','2282836147','Faltante','sap@sap.com');
+INSERT INTO `organizacion_vinculada` VALUES (1,'EPAM','2282345678','Faltante','epam@epam.com'),(2,'HighTek','2282836940','Faltante','hightek@hightek.com'),(3,'Grupo PerTI','2282841541','Faltante','grupoperti@grupoperti.com'),(4,'Tata','2281234567','Faltante','tata@tata.com'),(5,'SAP','2282836147','Faltante','sap@sap.com'),(6,'Google','5553428400','C. Montes Urales 445, Lomas - Virreyes, Lomas de Chapultepec, Miguel Hidalgo, 11000 Ciudad de México, CDMX','google@google.com'),(7,'Pivot Software','2242124014','Calle Perla #4, Esquina Reforma, CDMX','pivotsoftware@pivot.com'),(8,'Amazon','524423489587','Periférico Blvrd Manuel Ávila Camacho 261, Polanco, Lomas de Chapultepec III Secc, Miguel Hidalgo, 11510 Ciudad de México, CDMX','amazon@amazon.com');
 /*!40000 ALTER TABLE `organizacion_vinculada` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -490,7 +519,7 @@ CREATE TABLE `proyecto` (
   KEY `fk_proyecto_coordinador1_idx` (`idCoordinador`),
   CONSTRAINT `fk_proyecto_coordinador1` FOREIGN KEY (`idCoordinador`) REFERENCES `coordinador` (`idUsuario`),
   CONSTRAINT `proyecto_ibfk_2` FOREIGN KEY (`idResponsableDeProyecto`) REFERENCES `responsable_de_proyecto` (`idResponsableDeProyecto`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -499,7 +528,7 @@ CREATE TABLE `proyecto` (
 
 LOCK TABLES `proyecto` WRITE;
 /*!40000 ALTER TABLE `proyecto` DISABLE KEYS */;
-INSERT INTO `proyecto` VALUES (1,'Plataforma de monitoreo y optimización de rendimiento para infraestructuras tecnológicas.','2025-02-11','2025-06-04','QuantumFlow',2,17,'Faltante'),(2,'Sistema de logística inteligente con trazabilidad en tiempo real para cadenas de suministro.','2025-02-11','2025-06-04','SmartLogix',4,17,'Faltante'),(3,'Suite modular ERP para pequeñas y medianas empresas enfocada en contabilidad, inventario y recursos humanos.','2024-02-11','2024-06-04','PerTISuite ERP',3,21,'Faltante'),(4,'Un sistema inteligente de integración de datos y automatización de procesos basado en IA.','2025-02-11','2025-06-04','NeuroSync',1,17,'Faltante'),(5,'Solución de análisis predictivo y visualización de KPIs empresariales integrada con SAP HANA.','2025-02-11','2025-06-04','VisionOps',5,20,'Faltante'),(6,'Desarrollo de App Móvil para Gestión de Eventos','2025-01-15','2025-07-28','App Eventos',6,32,'Faltante'),(7,'Seguridad informática en dispositivos locales de host','2025-01-15','2025-07-28','Seguridad de host',5,32,'Faltantes'),(8,'Desarrollo de sistemas web con HTML y PHP','2025-01-15','2025-07-28','Desarrollo web',1,17,'Faltante'),(9,'Un proyecto donde se requiere de conocimiento critíco de la situación actual de la comunidad, y en sus soluciones.','2025-02-04','2025-06-29','FastForward Software',2,12,'Realizar el diseño de base de datos del proyecto FastForward Software.\nQue el enseñado comprenda las relaciones del entorno y el software.');
+INSERT INTO `proyecto` VALUES (1,'Plataforma de monitoreo y optimización de rendimiento para infraestructuras tecnológicas.','2025-02-11','2025-06-04','QuantumFlow',2,17,'Faltante'),(2,'Sistema de logística inteligente con trazabilidad en tiempo real para cadenas de suministro.','2025-02-11','2025-06-04','SmartLogix',4,17,'Faltante'),(3,'Suite modular ERP para pequeñas y medianas empresas enfocada en contabilidad, inventario y recursos humanos.','2024-02-11','2024-06-04','PerTISuite ERP',3,21,'Faltante'),(4,'Un sistema inteligente de integración de datos y automatización de procesos basado en IA.','2025-02-11','2025-06-04','NeuroSync',1,17,'Faltante'),(5,'Solución de análisis predictivo y visualización de KPIs empresariales integrada con SAP HANA.','2025-02-11','2025-06-04','VisionOps',5,20,'Faltante'),(6,'Desarrollo de App Móvil para Gestión de Eventos','2025-01-15','2025-07-28','App Eventos',6,32,'Faltante'),(7,'Seguridad informática en dispositivos locales de host','2025-01-15','2025-07-28','Seguridad de host',5,32,'Faltantes'),(8,'Desarrollo de sistemas web con HTML y PHP','2025-01-15','2025-07-28','Desarrollo web',1,17,'Faltante'),(9,'Un proyecto donde se requiere de conocimiento critíco de la situación actual de la comunidad, y en sus soluciones.','2025-02-04','2025-06-29','FastForward Software',2,12,'Realizar el diseño de base de datos del proyecto FastForward Software.\nQue el enseñado comprenda las relaciones del entorno y el software.'),(10,'Se implementará un sistema para desarrollar aplicaciones para el sistema operativo Android','2025-02-06','2025-06-28','Desarrollo de aplicaciones Android',7,12,'Que el practicante realice correctamente la etapa de testing'),(11,'Proyecto donde se podrán desarrollar habilidades de liderazgo en el desarrollo de sistemas de accesibilidad para personas discapacitadas.','2025-03-06','2025-06-14','Google Asistance',7,12,'Que el practicante realice correctamente los pasos del ciclo de vida de desarrollo de software'),(12,'Proyecto donde se expermenta con nuevas tecnologías para levantar servidores web para contratistas.','2025-03-11','2025-06-19','Amazon Web Services',9,12,'Que el practicante realice correctamente los pasos necesarios para levantar servidores en el centro de Servicios Web de Amazon.');
 /*!40000 ALTER TABLE `proyecto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -517,12 +546,12 @@ CREATE TABLE `reporte_mensual` (
   `observaciones` varchar(200) DEFAULT NULL,
   `nombreArchivo` varchar(100) NOT NULL,
   `extensionArchivo` varchar(10) NOT NULL,
-  `archivo` longblob,
   `idExpediente` int NOT NULL,
+  `estatus` enum('Validado','No validado') NOT NULL DEFAULT 'No validado',
   PRIMARY KEY (`idReporteMensual`),
   KEY `idx_entrega_reporte_mensual_idexpediente` (`idExpediente`),
   CONSTRAINT `entrega_reporte_mensual_ibfk_2` FOREIGN KEY (`idExpediente`) REFERENCES `expediente` (`idExpediente`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -531,7 +560,7 @@ CREATE TABLE `reporte_mensual` (
 
 LOCK TABLES `reporte_mensual` WRITE;
 /*!40000 ALTER TABLE `reporte_mensual` DISABLE KEYS */;
-INSERT INTO `reporte_mensual` VALUES (1,1,85,NULL,'ReporteFebrero','pdf',NULL,2),(2,2,103,NULL,'ReporteMarzo','pdf',NULL,2),(3,3,120,NULL,'ReporteAbril','pdf',NULL,2),(4,4,132,NULL,'ReporteMayo','pdf',NULL,2),(5,1,70,NULL,'ReporteFebrero','pdf',NULL,3),(6,2,110,NULL,'ReporteMarzo','pdf',NULL,3),(7,3,138,NULL,'ReporteAbril','pdf',NULL,3),(8,4,122,NULL,'ReporteMayo','pdf',NULL,3),(9,1,75,NULL,'ReporteFebrero','pdf',NULL,4),(10,2,109,NULL,'ReporteMarzo','pdf',NULL,4),(11,3,133,NULL,'ReporteAbril','pdf',NULL,4),(12,4,123,NULL,'ReporteMayo','pdf',NULL,4),(13,1,87,NULL,'ReporteFebrero','pdf',NULL,5),(14,2,107,NULL,'ReporteMarzo','pdf',NULL,5),(15,3,129,NULL,'ReporteAbril','pdf',NULL,5),(16,4,117,NULL,'ReporteMayo','pdf',NULL,5),(17,1,77,NULL,'ReporteFebrero','pdf',NULL,6),(18,2,109,NULL,'ReporteMarzo','pdf',NULL,6),(19,3,137,NULL,'ReporteAbril','pdf',NULL,6),(20,4,117,NULL,'ReporteMayo','pdf',NULL,6);
+INSERT INTO `reporte_mensual` VALUES (1,1,85,NULL,'ReporteFebrero','pdf',2,'Validado'),(2,2,103,NULL,'ReporteMarzo','pdf',2,'Validado'),(3,3,120,NULL,'ReporteAbril','pdf',2,'Validado'),(4,4,132,NULL,'ReporteMayo','pdf',2,'Validado'),(5,1,70,NULL,'ReporteFebrero','pdf',3,'Validado'),(6,2,110,NULL,'ReporteMarzo','pdf',3,'Validado'),(7,3,138,NULL,'ReporteAbril','pdf',3,'Validado'),(8,4,122,NULL,'ReporteMayo','pdf',3,'Validado'),(9,1,75,NULL,'ReporteFebrero','pdf',4,'Validado'),(10,2,109,NULL,'ReporteMarzo','pdf',4,'Validado'),(11,3,133,NULL,'ReporteAbril','pdf',4,'Validado'),(12,4,123,NULL,'ReporteMayo','pdf',4,'Validado'),(13,1,87,NULL,'ReporteFebrero','pdf',5,'Validado'),(14,2,107,NULL,'ReporteMarzo','pdf',5,'Validado'),(15,3,129,NULL,'ReporteAbril','pdf',5,'Validado'),(16,4,117,NULL,'ReporteMayo','pdf',5,'Validado'),(17,1,77,NULL,'ReporteFebrero','pdf',6,'Validado'),(18,2,109,NULL,'ReporteMarzo','pdf',6,'Validado'),(19,3,137,NULL,'ReporteAbril','pdf',6,'Validado'),(20,4,117,NULL,'ReporteMayo','pdf',6,'Validado'),(21,5,49,'Me costó mucho hacer las actividades','LauraGómezRamírez_Reporte_Mensual_5_Junio-Julio','.pdf',2,'Validado'),(22,6,67,'He realizado las actividades que me aplicaron y realicé tambien ','LauraGómezRamírez_Reporte_Mensual_6_Junio-Julio','.pdf',2,'Validado'),(23,7,40,'Fabulosa experiencia!','LauraGómezRamírez_ReporteMensual_7_Febrero-Marzo','pdf',2,'No validado'),(24,8,43,'TEST TEST','LauraGómezRamírez_ReporteMensual_8_Marzo-Abril','pdf',2,'Validado'),(25,9,42,'TEST','LauraGómezRamírez_ReporteMensual_9_TEST','pdf',2,'Validado'),(26,10,43,'TEST','LauraGómezRamírez_ReporteMensual_10_TEST','pdf',2,'No validado'),(27,11,43,'TEST TEST TEST','LauraGómezRamírez_ReporteMensual_11_TEST','pdf',2,'Validado'),(28,12,10,'TEST DE MESES','LauraGómezRamírez_ReporteMensual_12_Febrero-Marzo','pdf',2,'No validado'),(29,1,45,'TEST','KarlaFigueroaFernández_ReporteMensual_1_Febrero-Marzo','pdf',7,'No validado'),(30,1,43,'TEST','JustinNavarroSilva_ReporteMensual_1_Febrero-Marzo','pdf',8,'No validado'),(31,1,39,'TEST','MonicaIllescasLuna_ReporteMensual_1_Febrero-Marzo','pdf',9,'Validado');
 /*!40000 ALTER TABLE `reporte_mensual` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -546,14 +575,14 @@ CREATE TABLE `responsable_de_proyecto` (
   `idResponsableDeProyecto` int NOT NULL AUTO_INCREMENT,
   `email` varchar(50) NOT NULL,
   `nombre` varchar(100) NOT NULL,
-  `telefono` varchar(10) NOT NULL,
+  `telefono` varchar(15) NOT NULL,
   `idOrganizacionVinculada` int NOT NULL,
   `departamento` varchar(50) NOT NULL,
   `puesto` varchar(50) NOT NULL,
   PRIMARY KEY (`idResponsableDeProyecto`),
   KEY `idx_responsable_de_proyecto_idorganizacionvinculada` (`idOrganizacionVinculada`),
   CONSTRAINT `responsable_de_proyecto_ibfk_1` FOREIGN KEY (`idOrganizacionVinculada`) REFERENCES `organizacion_vinculada` (`idOrganizacionVinculada`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -562,7 +591,7 @@ CREATE TABLE `responsable_de_proyecto` (
 
 LOCK TABLES `responsable_de_proyecto` WRITE;
 /*!40000 ALTER TABLE `responsable_de_proyecto` DISABLE KEYS */;
-INSERT INTO `responsable_de_proyecto` VALUES (1,'robinson.jg@epam.com','John G. Robinson','2282456781',1,'Recursos Humanos','Especialista de Adquisición de Talento'),(2,'gomez.xd@hightek.com','Daniel Gómez Xolot','2288744557',2,'Recursos Humanos','Especialista de Adquisición de Talento'),(3,'sofia.hv@grupoperti.com','Sofía Herrera Velez','2283456598',3,'Recursos Humanos','Especialista de Adquisición de Talento'),(4,'drequansmith@tata.com','Drequan Smith','2284539724',4,'Recursos Humanos','Especialista de Adquisición de Talento'),(5,'karim.hafs@sap.com','Karim Hafstanovic','2289764041',5,'Recursos Humanos','Especialista de Adquisición de Talento'),(6,'javierA@gmail.com','Javier Aguirre','228105792',4,'Recursos Humanos','Especialista de Adquisición de Talento');
+INSERT INTO `responsable_de_proyecto` VALUES (1,'robinson.jg@epam.com','John G. Robinson','2282456781',1,'Recursos Humanos','Especialista de Adquisición de Talento'),(2,'gomez.xd@hightek.com','Daniel Gómez Xolot','2288744557',2,'Recursos Humanos','Especialista de Adquisición de Talento'),(3,'sofia.hv@grupoperti.com','Sofía Herrera Velez','2283456598',3,'Recursos Humanos','Especialista de Adquisición de Talento'),(4,'drequansmith@tata.com','Drequan Smith','2284539724',4,'Recursos Humanos','Especialista de Adquisición de Talento'),(5,'karim.hafs@sap.com','Karim Hafstanovic','2289764041',5,'Recursos Humanos','Especialista de Adquisición de Talento'),(6,'javierA@gmail.com','Javier Aguirre','228105792',4,'Recursos Humanos','Especialista de Adquisición de Talento'),(7,'julianjg@google.com','Julian Jímenez García','5551427942',6,'Oficina de tecnología','Jefe de oficina'),(8,'fabianresyesc@pivot.com','Fabián Reyes Castro','2143747610',7,'Recursos Humanos','Adquisición de Talentos'),(9,'gabrielbv@amazon.com','Gabriel Barrera Valdés','524412389587',8,'Recursos Humanos','Adquisición de Talentos'),(10,'fabianoro@amazon.com','Fabián Orozco Rodríguez','524423481237',8,'Recursos Humanos','Adquisición de Talentos');
 /*!40000 ALTER TABLE `responsable_de_proyecto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -585,7 +614,7 @@ CREATE TABLE `resultado_evaluacion_ov` (
   CONSTRAINT `fk_resultado_evaluacion_ov_afirmacion_evaluacion_ov1` FOREIGN KEY (`idAfirmacionEvaluacionOV`) REFERENCES `afirmacion_evaluacion_ov` (`idAfirmacionEvaluacionOV`),
   CONSTRAINT `fk_resultado_evaluacion_ov_criterio_evaluacion_ov1` FOREIGN KEY (`idCriterioEvaluacionOV`) REFERENCES `criterio_evaluacion_ov` (`idCriterioEvaluacionOV`),
   CONSTRAINT `fk_resultado_evaluacion_ov_evaluacion_ov1` FOREIGN KEY (`idEvaluacionOV`) REFERENCES `evaluacion_ov` (`idEvaluacionOV`)
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=201 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -594,7 +623,7 @@ CREATE TABLE `resultado_evaluacion_ov` (
 
 LOCK TABLES `resultado_evaluacion_ov` WRITE;
 /*!40000 ALTER TABLE `resultado_evaluacion_ov` DISABLE KEYS */;
-INSERT INTO `resultado_evaluacion_ov` VALUES (1,4,1,1),(2,4,2,1),(3,4,3,1),(4,4,4,1),(5,4,5,1),(6,4,6,1),(7,4,7,1),(8,4,8,1),(9,4,9,1),(10,4,10,1),(11,5,11,1),(12,4,12,1),(13,4,13,1),(14,4,14,1),(15,5,15,1),(16,4,16,1),(17,4,17,1),(18,4,18,1),(19,4,19,1),(20,4,20,1),(21,4,1,2),(22,4,2,2),(23,4,3,2),(24,4,4,2),(25,4,5,2),(26,4,6,2),(27,4,7,2),(28,4,8,2),(29,4,9,2),(30,4,10,2),(31,5,11,2),(32,4,12,2),(33,5,13,2),(34,4,14,2),(35,5,15,2),(36,4,16,2),(37,4,17,2),(38,4,18,2),(39,4,19,2),(40,4,20,2),(41,3,1,3),(42,3,2,3),(43,3,3,3),(44,4,4,3),(45,4,5,3),(46,3,6,3),(47,3,7,3),(48,3,8,3),(49,4,9,3),(50,4,10,3),(51,5,11,3),(52,4,12,3),(53,4,13,3),(54,4,14,3),(55,5,15,3),(56,4,16,3),(57,4,17,3),(58,4,18,3),(59,4,19,3),(60,4,20,3),(61,4,1,4),(62,2,2,4),(63,3,3,4),(64,4,4,4),(65,4,5,4),(66,4,6,4),(67,4,7,4),(68,4,8,4),(69,4,9,4),(70,4,10,4),(71,5,11,4),(72,4,12,4),(73,4,13,4),(74,4,14,4),(75,5,15,4),(76,4,16,4),(77,4,17,4),(78,4,18,4),(79,4,19,4),(80,4,20,4),(81,4,1,5),(82,4,2,5),(83,4,3,5),(84,4,4,5),(85,4,5,5),(86,4,6,5),(87,4,7,5),(88,5,8,5),(89,4,9,5),(90,5,10,5),(91,5,11,5),(92,4,12,5),(93,4,13,5),(94,4,14,5),(95,5,15,5),(96,4,16,5),(97,4,17,5),(98,4,18,5),(99,4,19,5),(100,4,20,5);
+INSERT INTO `resultado_evaluacion_ov` VALUES (1,4,1,1),(2,4,2,1),(3,4,3,1),(4,4,4,1),(5,4,5,1),(6,4,6,1),(7,4,7,1),(8,4,8,1),(9,4,9,1),(10,4,10,1),(11,5,11,1),(12,4,12,1),(13,4,13,1),(14,4,14,1),(15,5,15,1),(16,4,16,1),(17,4,17,1),(18,4,18,1),(19,4,19,1),(20,4,20,1),(21,4,1,2),(22,4,2,2),(23,4,3,2),(24,4,4,2),(25,4,5,2),(26,4,6,2),(27,4,7,2),(28,4,8,2),(29,4,9,2),(30,4,10,2),(31,5,11,2),(32,4,12,2),(33,5,13,2),(34,4,14,2),(35,5,15,2),(36,4,16,2),(37,4,17,2),(38,4,18,2),(39,4,19,2),(40,4,20,2),(41,3,1,3),(42,3,2,3),(43,3,3,3),(44,4,4,3),(45,4,5,3),(46,3,6,3),(47,3,7,3),(48,3,8,3),(49,4,9,3),(50,4,10,3),(51,5,11,3),(52,4,12,3),(53,4,13,3),(54,4,14,3),(55,5,15,3),(56,4,16,3),(57,4,17,3),(58,4,18,3),(59,4,19,3),(60,4,20,3),(61,4,1,4),(62,2,2,4),(63,3,3,4),(64,4,4,4),(65,4,5,4),(66,4,6,4),(67,4,7,4),(68,4,8,4),(69,4,9,4),(70,4,10,4),(71,5,11,4),(72,4,12,4),(73,4,13,4),(74,4,14,4),(75,5,15,4),(76,4,16,4),(77,4,17,4),(78,4,18,4),(79,4,19,4),(80,4,20,4),(81,4,1,5),(82,4,2,5),(83,4,3,5),(84,4,4,5),(85,4,5,5),(86,4,6,5),(87,4,7,5),(88,5,8,5),(89,4,9,5),(90,5,10,5),(91,5,11,5),(92,4,12,5),(93,4,13,5),(94,4,14,5),(95,5,15,5),(96,4,16,5),(97,4,17,5),(98,4,18,5),(99,4,19,5),(100,4,20,5),(101,5,1,6),(102,5,2,6),(103,5,3,6),(104,5,4,6),(105,5,5,6),(106,5,6,6),(107,5,7,6),(108,5,8,6),(109,5,9,6),(110,5,10,6),(111,5,11,6),(112,5,12,6),(113,5,13,6),(114,5,14,6),(115,5,15,6),(116,5,16,6),(117,5,17,6),(118,5,18,6),(119,5,19,6),(120,5,20,6),(121,5,1,7),(122,5,2,7),(123,5,3,7),(124,5,4,7),(125,5,5,7),(126,5,6,7),(127,5,7,7),(128,5,8,7),(129,5,9,7),(130,5,10,7),(131,5,11,7),(132,5,12,7),(133,5,13,7),(134,5,14,7),(135,5,15,7),(136,5,16,7),(137,5,17,7),(138,5,18,7),(139,5,19,7),(140,5,20,7),(141,4,1,8),(142,3,2,8),(143,3,3,8),(144,4,4,8),(145,4,5,8),(146,4,6,8),(147,4,7,8),(148,4,8,8),(149,5,9,8),(150,4,10,8),(151,4,11,8),(152,5,12,8),(153,4,13,8),(154,5,14,8),(155,4,15,8),(156,4,16,8),(157,4,17,8),(158,4,18,8),(159,5,19,8),(160,5,20,8),(161,5,1,9),(162,5,2,9),(163,5,3,9),(164,5,4,9),(165,5,5,9),(166,5,6,9),(167,5,7,9),(168,5,8,9),(169,5,9,9),(170,5,10,9),(171,5,11,9),(172,5,12,9),(173,5,13,9),(174,5,14,9),(175,5,15,9),(176,5,16,9),(177,5,17,9),(178,5,18,9),(179,5,19,9),(180,5,20,9),(181,5,1,10),(182,5,2,10),(183,5,3,10),(184,5,4,10),(185,5,5,10),(186,5,6,10),(187,5,7,10),(188,5,8,10),(189,5,9,10),(190,5,10,10),(191,5,11,10),(192,5,12,10),(193,5,13,10),(194,5,14,10),(195,5,15,10),(196,5,16,10),(197,5,17,10),(198,5,18,10),(199,5,19,10),(200,5,20,10);
 /*!40000 ALTER TABLE `resultado_evaluacion_ov` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -636,4 +665,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-10 10:57:39
+-- Dump completed on 2025-06-16  1:01:51
