@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import proyectofinal.modelo.pojo.Estudiante;
 import proyectofinal.modelo.pojo.Proyecto;
 import proyectofinal.modelo.dao.ProyectoDAO;
@@ -40,8 +41,7 @@ public class FXMLCU01_AsignarProyectoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        tcEstudianteNombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().toString()));
-        tcProyectoNombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
+        configurarTabla();
         cargarDatos();
     }
 
@@ -86,6 +86,11 @@ public class FXMLCU01_AsignarProyectoController implements Initializable {
         if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas salir? No se guardarán los cambios")) {
             Utilidad.getEscenario(tvProyectos).close();
         }
+    }
+    
+    public void configurarTabla(){
+        tcEstudianteNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        tcProyectoNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
     }
 
     private void cargarDatos() {

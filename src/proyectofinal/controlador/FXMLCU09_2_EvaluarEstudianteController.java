@@ -82,7 +82,7 @@ public class FXMLCU09_2_EvaluarEstudianteController implements Initializable {
         List<EvaluacionExposicionCriterio> criterios = new ArrayList<>();
         double puntajeDominioTema = getPuntajeYCriterio(tgDominioTema, "Dominio del tema", criterios);
         double puntajeFormalidad = getPuntajeYCriterio(tgFormalidadPresentacion, "Formalidad de la presentación", criterios);
-        double puntajeOrganizacion = getPuntajeYCriterio(tgOrganizacionEquipo, "Organización del equipo", criterios);
+        double puntajeOrganizacion = getPuntajeYCriterio(tgOrganizacionEquipo, "Organización", criterios);
 
         double puntajeTotal = (puntajeDominioTema + puntajeFormalidad + puntajeOrganizacion);
 
@@ -113,7 +113,9 @@ public class FXMLCU09_2_EvaluarEstudianteController implements Initializable {
 
     @FXML
     private void clicBotonCancelar(ActionEvent event) {
-        Utilidad.getEscenario(taComentarios).close();
+        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas salir?")) {
+            Utilidad.getEscenario(taComentarios).close();
+        }
     }
 
     public void inicializarInformacion(int idExpediente, int idAcademico) {
