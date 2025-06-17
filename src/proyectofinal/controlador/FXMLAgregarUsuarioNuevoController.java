@@ -194,16 +194,16 @@ public class FXMLAgregarUsuarioNuevoController implements Initializable {
         String textFieldVariable = tfPorDefinir.getText().trim();
         LocalDate fechaNacimiento = dpFechaNacimiento.getValue();
         
-        if (nombre.isEmpty()) {
+        if (nombre.isEmpty() || nombre.length() > 50 || nombre.length() < 2) {
             camposValidos = false;
         }
-        if (apellidoPaterno.isEmpty()) {
+        if (apellidoPaterno.isEmpty() || apellidoPaterno.length() > 50 || apellidoPaterno.length() < 3) {
             camposValidos = false;
         }
-        if (apellidoMaterno.isEmpty()) {
+        if (apellidoMaterno.isEmpty() || apellidoMaterno.length() > 50 || apellidoMaterno.length() < 3) {
             camposValidos = false;
         }
-        if (correoElectronico.isEmpty()) {
+        if (correoElectronico.isEmpty() || correoElectronico.length() > 50  || correoElectronico.length() < 7) {
             camposValidos = false;
         } else {
             int indiceArroba = correoElectronico.indexOf('@');
@@ -220,7 +220,7 @@ public class FXMLAgregarUsuarioNuevoController implements Initializable {
                 camposValidos = false;
             }
         }
-        if (usuario.isEmpty()) {
+        if (usuario.isEmpty() || usuario.length() > 25  || usuario.length() < 5) {
             camposValidos = false;
         } else {
             try {
@@ -234,7 +234,7 @@ public class FXMLAgregarUsuarioNuevoController implements Initializable {
                 Utilidad.getEscenario(tfNombre).close();
             }
         }
-        if (password.isEmpty()) {
+        if (password.isEmpty() || password.length() > 25 || password.length() < 8) {
             camposValidos = false;
         }
         
@@ -292,13 +292,10 @@ public class FXMLAgregarUsuarioNuevoController implements Initializable {
                         } else {
                             LocalDate fechaActual = LocalDate.now();
                             int edad = Period.between(fechaNacimiento, fechaActual).getYears();
-                            if (edad < 18) {
+                            if (edad < 18 || edad > 100) {
                                 camposValidos = false;
                                 dpFechaNacimiento.setValue(null);
-                            } else if (edad > 100) {
-                                camposValidos = false;
-                                dpFechaNacimiento.setValue(null);
-                            }
+                            } 
                         }
                         break;
                     }
@@ -345,7 +342,7 @@ public class FXMLAgregarUsuarioNuevoController implements Initializable {
                 coordinador.setEmail(tfCorreoElectronico.getText());
                 coordinador.setUsername(tfUsuario.getText());
                 coordinador.setPassword(tfPassword.getText());
-                coordinador.setTelefono(tfPorDefinir.getText());
+                coordinador.setTelefono(tfPorDefinir.getText().replaceAll("[^0-9]", ""));
                 usuarioNuevo = coordinador;
                 break;
             }
