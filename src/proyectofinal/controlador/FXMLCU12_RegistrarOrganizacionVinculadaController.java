@@ -101,7 +101,7 @@ public class FXMLCU12_RegistrarOrganizacionVinculadaController implements Initia
         String direccion = tfDireccion.getText().trim();
         String telefono = tfTelefono.getText().trim();
         
-        if (nombreOrganizacion.isEmpty() || nombreOrganizacion.length() > 100 || nombreOrganizacion.length() < 10) {
+        if (nombreOrganizacion.isEmpty() || nombreOrganizacion.length() > 100 || nombreOrganizacion.length() < 2) {
             camposValidos = false;
             tfNombreOrganizacion.setText("");
         }
