@@ -124,19 +124,19 @@ public class FXMLCU03_ActualizarExpedienteController implements Initializable {
     
     private void cargarInformacionTabla() {
         try {
-            ObservableList<String> nombresArchivos = FXCollections.observableArrayList();
+            documentos = FXCollections.observableArrayList();
 
             ArrayList<DocumentoInicio> documentosInicio = DocumentoInicioDAO.obtenerDocumentoIniciosPorEstudiante(estudiante.getIdUsuario());
             for (DocumentoInicio documentoInicio : documentosInicio) {
-                nombresArchivos.add(documentoInicio.getNombreArchivo());
+                documentos.add(documentoInicio.getNombreArchivo());
             }
 
             ArrayList<DocumentoFinal> documentosFinales = DocumentoFinalDAO.obtenerDocumentosFinalesPorEstudiante(estudiante.getIdUsuario());
             for (DocumentoFinal documentoFinal : documentosFinales) {
-                nombresArchivos.add(documentoFinal.getNombreArchivo());
+                documentos.add(documentoFinal.getNombreArchivo());
             }
 
-            tvExpediente.setItems(nombresArchivos);
+            tvExpediente.setItems(documentos);
         } catch (SQLException e) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
                     "Error de conexion con base de datos, intentalo más tarde");
