@@ -82,6 +82,11 @@ public class FXMLCU09_2_EvaluarEstudianteController implements Initializable {
 
         double puntajeTotal = calcularPuntajeTotal(puntajeDominioTema, puntajeFormalidad, puntajeOrganizacion);
         String comentarios = obtenerComentarios();
+        if (comentarios.equals("Comentario muy largo")) {
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Error", 
+                    "La longitud del comentario es muy larga. Intente de nuevo");
+            return;
+        }
 
         EvaluacionExposicion evaluacionPrincipal = crearEvaluacionPrincipal(puntajeTotal, comentarios);
 
@@ -154,7 +159,7 @@ public class FXMLCU09_2_EvaluarEstudianteController implements Initializable {
         if (taComentarios.getText().length() < 201) {
             return taComentarios.getText().trim();
         } else {
-            return "";
+            return "Comentario muy largo";
         }
     }
 
