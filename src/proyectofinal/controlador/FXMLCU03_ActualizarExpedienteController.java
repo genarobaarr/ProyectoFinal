@@ -107,7 +107,7 @@ public class FXMLCU03_ActualizarExpedienteController implements Initializable {
     public void inicializarInformacion (Usuario estudiante) {
         try {
             this.estudiante = estudiante;
-            this.idExpediente = obtenerIdExpediente(estudiante.getIdUsuario());
+            this.idExpediente = ExpedienteDAO.obtenerIdExpedientePorIdEstudiante(estudiante.getIdUsuario());
             btnSubir.setDisable(true);
             btnCargar.setDisable(false);
             configurarTabla();
@@ -142,11 +142,6 @@ public class FXMLCU03_ActualizarExpedienteController implements Initializable {
                     "Error de conexion con base de datos, intentalo más tarde");
             Utilidad.getEscenario(tvExpediente).close();
         }
-    }
-
-    private int obtenerIdExpediente(int idEstudiante) throws SQLException {
-        int idExpediente = ExpedienteDAO.obtenerIdExpedientePorIdEstudiante(idEstudiante);
-        return idExpediente;
     }
     
     private File seleccionarArchivo() {

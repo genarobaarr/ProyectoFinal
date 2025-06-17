@@ -32,6 +32,7 @@ public class PeriodoDAO {
                         periodo.setIdPeriodo(resultado.getInt("idPeriodo"));
                         periodo.setFechaInicio(resultado.getString("fechaInicio"));
                         periodo.setFechaFin(resultado.getString("fechaFin"));
+                        periodo.setNombre(resultado.getString("nombre"));
                     }
                 }
             }
@@ -41,7 +42,7 @@ public class PeriodoDAO {
         return periodo;
     }
     
-    public static Periodo obtenerIdUltimoPeriodoReciente() throws SQLException {
+    public static Periodo obtenerUltimoPeriodoReciente() throws SQLException {
         Periodo periodo = null;
         String consulta = "SELECT idPeriodo, fechaInicio, fechaFin, nombre FROM periodo ORDER BY fechaFin DESC LIMIT 1";
 
@@ -57,6 +58,7 @@ public class PeriodoDAO {
                     periodo.setIdPeriodo(resultado.getInt("idPeriodo"));
                     periodo.setFechaInicio(resultado.getString("fechaInicio"));
                     periodo.setFechaFin(resultado.getString("fechaFin"));
+                    periodo.setFechaFin(resultado.getString("nombre"));
                 } else {
                     throw new SQLException("No hay periodos registrados en la base de datos.");
                 }
