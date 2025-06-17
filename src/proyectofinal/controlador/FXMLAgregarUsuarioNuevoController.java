@@ -206,9 +206,18 @@ public class FXMLAgregarUsuarioNuevoController implements Initializable {
         if (correoElectronico.isEmpty()) {
             camposValidos = false;
         } else {
-            if (!correoElectronico.contains(String.valueOf('@')) || !correoElectronico.contains(String.valueOf('.'))) {
-                camposValidos = false;
+            int indiceArroba = correoElectronico.indexOf('@');
+            int indicePunto = correoElectronico.lastIndexOf('.');
+
+            if (indiceArroba == -1 || indicePunto == -1) {
                 tfCorreoElectronico.setText("");
+                camposValidos = false;
+            } else if (indiceArroba > indicePunto || indiceArroba == 0 || indicePunto == correoElectronico.length() - 1 || (indicePunto - indiceArroba) < 2) {
+                tfCorreoElectronico.setText("");
+                camposValidos = false;
+            } else if (correoElectronico.contains("..") || correoElectronico.contains("@.")) { 
+                tfCorreoElectronico.setText("");
+                camposValidos = false;
             }
         }
         if (usuario.isEmpty()) {

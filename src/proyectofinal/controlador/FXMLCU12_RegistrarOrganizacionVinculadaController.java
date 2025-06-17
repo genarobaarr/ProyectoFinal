@@ -96,9 +96,18 @@ public class FXMLCU12_RegistrarOrganizacionVinculadaController implements Initia
         if (email.isEmpty()) {
             camposValidos = false;
         } else {
-            if (!email.contains(String.valueOf('@')) || !email.contains(String.valueOf('.'))) {
-                camposValidos = false;
+            int indiceArroba = email.indexOf('@');
+            int indicePunto = email.lastIndexOf('.');
+
+            if (indiceArroba == -1 || indicePunto == -1) {
                 tfCorreoElectronico.setText("");
+                camposValidos = false;
+            } else if (indiceArroba > indicePunto || indiceArroba == 0 || indicePunto == email.length() - 1 || (indicePunto - indiceArroba) < 2) {
+                tfCorreoElectronico.setText("");
+                camposValidos = false;
+            } else if (email.contains("..") || email.contains("@.")) { 
+                tfCorreoElectronico.setText("");
+                camposValidos = false;
             }
         }
         if (direccion.isEmpty()) {
