@@ -37,8 +37,19 @@ public class FXMLCU12_RegistrarOrganizacionVinculadaController implements Initia
     @FXML
     private void clicBotonRegistrar(ActionEvent event) {
         if (validarCampos()) {
-            OrganizacionVinculada organizacionVinculada = obtenerOrganizacionVinculadaNueva();
-            guardarOrganizacion(organizacionVinculada);
+            try {
+                if (!OrganizacionVinculadaDAO.existeOrganizacionVinculada(tfNombreOrganizacion.getText())) {
+                    OrganizacionVinculada organizacionVinculada = obtenerOrganizacionVinculadaNueva();
+                    guardarOrganizacion(organizacionVinculada);
+                } else {
+                    Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Organización ya existe", 
+                    "La organización que intentas ingresar ya existe.");
+                }
+            } catch (SQLException ex) {
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
+                Utilidad.getEscenario(tfTelefono).close();
+            }
         } else {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Error", "Datos inválidos y/o campos vacíos");
         }

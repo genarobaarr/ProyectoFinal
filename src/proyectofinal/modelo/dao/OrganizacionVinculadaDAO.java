@@ -63,6 +63,43 @@ public class OrganizacionVinculadaDAO {
         return organizacion;
     }
     
+    public static boolean existeOrganizacionVinculada(String nombre) throws SQLException {
+        boolean existe = false;
+        String consulta = "SELECT COUNT(*) FROM organizacion_vinculada WHERE nombre = ?";
+        
+        Connection conexionBD = null;
+        PreparedStatement sentencia = null;
+        ResultSet resultado = null;
+
+        try {
+            conexionBD = ConexionBD.abrirConexion();
+            if (conexionBD == null) {
+                throw new SQLException("No hay conexión con la base de datos.");
+            }
+
+            sentencia = conexionBD.prepareStatement(consulta);
+            sentencia.setString(1, nombre);
+            resultado = sentencia.executeQuery();
+
+            if (resultado.next()) {
+                if (resultado.getInt(1) > 0) {
+                    existe = true;
+                }
+            }
+        } finally {
+            if (resultado != null) { 
+                resultado.close(); 
+            }
+            if (sentencia != null) { 
+                sentencia.close();
+            }
+            if (conexionBD != null) { 
+                conexionBD.close();
+            }
+        }
+        return existe;
+    }
+    
     public static ResultadoOperacion registrarOrganizacionVinculada(OrganizacionVinculada organizacion) throws SQLException {
         ResultadoOperacion resultado = new ResultadoOperacion();
         Connection conexionBD = ConexionBD.abrirConexion();
