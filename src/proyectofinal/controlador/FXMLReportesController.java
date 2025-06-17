@@ -57,6 +57,7 @@ public class FXMLReportesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Utilidad.mostrarHora(lbReloj);
+        validarFechaAsignacionReporte();
     }
 
     @FXML
@@ -66,6 +67,13 @@ public class FXMLReportesController implements Initializable {
 
     @FXML
     private void clicBotonNuevoReporte(ActionEvent event) {
+        AsignacionReporte asignacionActual = obtenerAsignacionReporteActual();
+        if (asignacionActual != null && "Inhabilitado".equals(asignacionActual.getEstatus())) {
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION,
+                    "Asignación Inactiva",
+                    "No se pueden entregar nuevos reportes. La asignación actual está inactiva.");  
+            return; 
+        }
         irPantalla("vista/FXMLCU04_1_EntregaReportes.fxml", "Reportes mensuales");
     }
 
@@ -123,7 +131,6 @@ public class FXMLReportesController implements Initializable {
             
             switch (fxmlPath) {
                 case "vista/FXMLCU04_1_EntregaReportes.fxml": {
-                    validarFechaAsignacionReporte();
                     FXMLCU04_1_EntregaReportesController controladorEntregaReportes = cargador.getController();
                     controladorEntregaReportes.inicializarInformacion(estudiante);
                     break;
@@ -134,7 +141,6 @@ public class FXMLReportesController implements Initializable {
                     break;
                 }
                 case "vista/FXMLCU05_HabilitarEntregas.fxml": {
-                    validarFechaAsignacionReporte();
                     FXMLCU05_HabilitarEntregasController controladorHabilitarEntregas = cargador.getController();
                     controladorHabilitarEntregas.incializarInformacion();
                     break;
@@ -155,27 +161,40 @@ public class FXMLReportesController implements Initializable {
     public void validarFechaAsignacionReporte() {
         AsignacionReporte resultadoAsignacionReporte = obtenerAsignacionReporteActual();
         
-        if (resultadoAsignacionReporte != null) {
-            if (resultadoAsignacionReporte.getEstatus().equals("Inhabilitado")) {
-                return;
-            }
-            String fechaFinActual = resultadoAsignacionReporte.getFechaFin();
-            
-            if (fechaFinActual != null && !fechaFinActual.trim().isEmpty()) {
-                try {
-                    LocalDate fechaFinAsignacion = LocalDate.parse(fechaFinActual, FORMATO_FECHA);
-                    
-                    if (LocalDate.now().isAfter(fechaFinAsignacion)) {
-                        resultadoAsignacionReporte.setEstatus("Inhabilitado");
-                        actualizarEstatusAsignacionReporte(resultadoAsignacionReporte);
-                    }
-                } catch (DateTimeParseException ex) {
-                    Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                        "Error al cargar la pantalla", "No se pudo cargar la pantalla siguiente.");
-                    Utilidad.getEscenario(lbReloj).close();
-                }
-            }
+        if (resultadoAsignacionReporte == null) {
+            return;
         }
+        String fechaInicioActual = resultadoAsignacionReporte.getFechaInicio();
+        String fechaFinActual = resultadoAsignacionReporte.getFechaFin();
+        LocalDate fechaActual = LocalDate.now();
+        String estatusActual = resultadoAsignacionReporte.getEstatus();
+        String valorDeEstatusCalculado = "Inhabilitado";
+
+        try {
+            if (fechaInicioActual != null && !fechaInicioActual.trim().isEmpty() &&
+                fechaFinActual != null && !fechaFinActual.trim().isEmpty()) {
+                LocalDate fechaInicioAsignacion = LocalDate.parse(fechaInicioActual, FORMATO_FECHA);
+                LocalDate fechaFinAsignacion = LocalDate.parse(fechaFinActual, FORMATO_FECHA);
+
+                if (!fechaActual.isBefore(fechaInicioAsignacion) 
+                        && !fechaActual.isAfter(fechaFinAsignacion)) {
+                    valorDeEstatusCalculado = "Habilitado";
+                } else {
+                    valorDeEstatusCalculado = "Inhabilitado";
+                }
+            } else {
+                valorDeEstatusCalculado = "Inhabilitado";
+            }
+
+            if (!estatusActual.equals(valorDeEstatusCalculado)) {
+                resultadoAsignacionReporte.setEstatus(valorDeEstatusCalculado);
+                actualizarEstatusAsignacionReporte(resultadoAsignacionReporte);
+            }
+        } catch (DateTimeParseException ex) {
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
+                "Error al cargar la pantalla", "No se pudo cargar la pantalla siguiente.");
+        }
+        
     }
     
     public AsignacionReporte obtenerAsignacionReporteActual() {
