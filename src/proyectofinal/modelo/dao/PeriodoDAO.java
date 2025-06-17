@@ -10,34 +10,53 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import proyectofinal.modelo.ConexionBD;
+import proyectofinal.modelo.pojo.Periodo;
 
 public class PeriodoDAO {
 
-    public static int obtenerIdPeriodoActual() throws SQLException {
-        int idPeriodo = -1;
-        String consultaActual = "SELECT idPeriodo FROM periodo WHERE ? BETWEEN fechaInicio AND fechaFin LIMIT 1";
-        String consultaMasReciente = "SELECT idPeriodo FROM periodo ORDER BY fechaFin DESC LIMIT 1";
+    public static Periodo obtenerPeriodoActual() throws SQLException {
+        Periodo periodo = null;
+        String consulta = "SELECT idPeriodo, fechaInicio, fechaFin, nombre FROM periodo WHERE ? BETWEEN fechaInicio AND fechaFin LIMIT 1";
 
         try (Connection conexionBD = ConexionBD.abrirConexion()) {
             if (conexionBD == null) {
                 throw new SQLException("No se pudo establecer conexión con la base de datos.");
             }
 
-            try (PreparedStatement sentenciaPeriodoActual = conexionBD.prepareStatement(consultaActual)) {
-                sentenciaPeriodoActual.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
+            try (PreparedStatement sentencia = conexionBD.prepareStatement(consulta)) {
+                sentencia.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
 
-                try (ResultSet resultado = sentenciaPeriodoActual.executeQuery()) {
+                try (ResultSet resultado = sentencia.executeQuery()) {
                     if (resultado.next()) {
-                        idPeriodo = resultado.getInt("idPeriodo");
-                        return idPeriodo;
+                        periodo = new Periodo();
+                        periodo.setIdPeriodo(resultado.getInt("idPeriodo"));
+                        periodo.setFechaInicio(resultado.getString("fechaInicio"));
+                        periodo.setFechaFin(resultado.getString("fechaFin"));
                     }
                 }
             }
+        } catch (SQLException e) {
+            throw new SQLException("Error al obtener el ID del período desde la base de datos.", e);
+        }
+        return periodo;
+    }
+    
+    public static Periodo obtenerIdUltimoPeriodoReciente() throws SQLException {
+        Periodo periodo = null;
+        String consulta = "SELECT idPeriodo, fechaInicio, fechaFin, nombre FROM periodo ORDER BY fechaFin DESC LIMIT 1";
 
-            try (PreparedStatement sentenciaUltimoPeriodo = conexionBD.prepareStatement(consultaMasReciente);
-                 ResultSet resultadoUltimo = sentenciaUltimoPeriodo.executeQuery()) {
-                if (resultadoUltimo.next()) {
-                    idPeriodo = resultadoUltimo.getInt("idPeriodo");
+        try (Connection conexionBD = ConexionBD.abrirConexion()) {
+            if (conexionBD == null) {
+                throw new SQLException("No se pudo establecer conexión con la base de datos.");
+            }
+
+            try (PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+                 ResultSet resultado = sentencia.executeQuery()) {
+                if (resultado.next()) {
+                    periodo = new Periodo();
+                    periodo.setIdPeriodo(resultado.getInt("idPeriodo"));
+                    periodo.setFechaInicio(resultado.getString("fechaInicio"));
+                    periodo.setFechaFin(resultado.getString("fechaFin"));
                 } else {
                     throw new SQLException("No hay periodos registrados en la base de datos.");
                 }
@@ -45,6 +64,6 @@ public class PeriodoDAO {
         } catch (SQLException e) {
             throw new SQLException("Error al obtener el ID del período desde la base de datos.", e);
         }
-        return idPeriodo;
+        return periodo;
     }
 }
