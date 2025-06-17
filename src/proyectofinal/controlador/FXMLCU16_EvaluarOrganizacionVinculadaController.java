@@ -335,7 +335,7 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
                 EvaluacionOVResultadoDAO.guardarResultadosEvaluacionOV(resultadosRubrica);
 
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION,
-                        "Operación exitosa", "Evaluación a organización vinculada registrada y rúbrica guardada.");
+                        "Operación exitosa", "Evaluación a organización vinculada registrada.");
                 Utilidad.getEscenario(btnAceptar).close();
                 btnAceptar.getScene().getWindow().hide();
             } else {

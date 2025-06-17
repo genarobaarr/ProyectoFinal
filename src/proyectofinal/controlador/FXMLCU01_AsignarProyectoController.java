@@ -81,7 +81,7 @@ public class FXMLCU01_AsignarProyectoController implements Initializable {
             }
         }
     }
-
+    
     @FXML
     private void clicBotonSalir(ActionEvent event) {
         if (Utilidad.mostrarAlertaConfirmacion("Confirmación", 
