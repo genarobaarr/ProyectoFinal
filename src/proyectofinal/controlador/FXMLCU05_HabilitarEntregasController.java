@@ -116,8 +116,13 @@ public class FXMLCU05_HabilitarEntregasController implements Initializable {
         if (fechaFin == null) {
             camposValidos = false;
         }
-        if (fechaInicio != null || fechaFin != null) {
+        if (fechaInicio != null && fechaFin != null) {
             if (fechaInicio.isAfter(fechaFin)) {
+                dpFechaInicio.setValue(null);
+                dpFechaFin.setValue(null);
+                camposValidos = false;
+            }
+            if (fechaInicio.isEqual(fechaFin)) {
                 dpFechaInicio.setValue(null);
                 dpFechaFin.setValue(null);
                 camposValidos = false;
