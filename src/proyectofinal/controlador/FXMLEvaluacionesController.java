@@ -6,6 +6,7 @@ package proyectofinal.controlador;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,6 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import proyectofinal.ProyectoFinal;
+import proyectofinal.modelo.dao.EvaluacionOVDAO;
 import proyectofinal.modelo.pojo.AcademicoEvaluador;
 import proyectofinal.modelo.pojo.Estudiante;
 import proyectofinal.modelo.pojo.Usuario;
@@ -48,6 +50,17 @@ public class FXMLEvaluacionesController implements Initializable {
 
     @FXML
     private void clicBotonEvaluarOrganizacion(ActionEvent event) {
+        try {
+            if (EvaluacionOVDAO.tieneEvaluacionOVRegistrada(usuario.getIdUsuario())) {
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, 
+                        "Acceso denegado", "Ya registraste tu evaluación a una organización vinculada.");
+                return;
+            }
+        } catch (SQLException ex) {
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
+                    "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
+            Utilidad.getEscenario(lbReloj).close();
+        }
         irPantalla("vista/FXMLCU16_EvaluarOrganizacionVinculada.fxml", "Evaluación de organización");
     }
 

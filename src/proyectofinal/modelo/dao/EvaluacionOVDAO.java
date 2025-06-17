@@ -46,4 +46,47 @@ public class EvaluacionOVDAO {
         }
         return idGenerado;
     }
+    
+    public static boolean tieneEvaluacionOVRegistrada(int idEstudiante) throws SQLException {
+        boolean tieneEvaluacion = false;
+        String consulta = "SELECT COUNT(eov.idEvaluacionOV) AS totalEvaluaciones " +
+                          "FROM evaluacion_ov eov " +
+                          "INNER JOIN expediente exp ON eov.idExpediente = exp.idExpediente " +
+                          "WHERE exp.idEstudiante = ?";
+
+        Connection conexionBD = null;
+        PreparedStatement sentencia = null;
+        ResultSet resultado = null;
+
+        try {
+            conexionBD = ConexionBD.abrirConexion();
+            if (conexionBD == null) {
+                throw new SQLException("No hay conexión con la base de datos.");
+            }
+
+            sentencia = conexionBD.prepareStatement(consulta);
+            sentencia.setInt(1, idEstudiante);
+            resultado = sentencia.executeQuery();
+
+            if (resultado.next()) {
+                int count = resultado.getInt("totalEvaluaciones");
+                if (count > 0) {
+                    tieneEvaluacion = true;
+                }
+            }
+        } catch (SQLException e) {
+            throw  new SQLException("Error al obtener obtener evaluacion");
+        } finally {
+            if (resultado != null) { 
+                resultado.close(); 
+            } 
+            if (sentencia != null) { 
+                sentencia.close();
+            }
+            if (conexionBD != null) {
+                conexionBD.close();
+            }
+        }
+        return tieneEvaluacion;
+    }
 }
