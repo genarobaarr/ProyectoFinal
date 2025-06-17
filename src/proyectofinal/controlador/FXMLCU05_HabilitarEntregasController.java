@@ -103,10 +103,10 @@ public class FXMLCU05_HabilitarEntregasController implements Initializable {
         LocalDate fechaInicioAsignacion = dpFechaInicio.getValue();
         LocalDate fechaFinAsignacion = dpFechaFin.getValue();
         
-        if (titulo.isEmpty()) {
+        if (titulo.isEmpty() || titulo.length() > 100) {
             camposValidos = false;
         }
-        if (descripcion.isEmpty()) {
+        if (descripcion.isEmpty() || descripcion.length() > 100) {
             camposValidos = false;
         } else {
             if (descripcion.length() < 20) {

@@ -151,7 +151,11 @@ public class FXMLCU09_2_EvaluarEstudianteController implements Initializable {
     }
 
     private String obtenerComentarios() {
-        return taComentarios.getText().trim();
+        if (taComentarios.getText().length() < 201) {
+            return taComentarios.getText().trim();
+        } else {
+            return "";
+        }
     }
 
     private EvaluacionExposicion crearEvaluacionPrincipal(double puntajeTotal, String comentarios) {

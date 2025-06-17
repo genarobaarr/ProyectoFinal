@@ -22,7 +22,6 @@ import proyectofinal.modelo.dao.ReporteMensualDAO;
 import proyectofinal.modelo.dao.ResponsableDeProyectoDAO;
 import proyectofinal.modelo.pojo.Estudiante;
 import proyectofinal.modelo.pojo.Expediente;
-import proyectofinal.modelo.pojo.OrganizacionVinculada;
 import proyectofinal.modelo.pojo.Proyecto;
 import proyectofinal.modelo.pojo.ReporteMensual;
 import proyectofinal.modelo.pojo.ResponsableDeProyecto;

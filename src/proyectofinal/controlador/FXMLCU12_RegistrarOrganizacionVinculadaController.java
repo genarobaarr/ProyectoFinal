@@ -90,10 +90,10 @@ public class FXMLCU12_RegistrarOrganizacionVinculadaController implements Initia
         String direccion = tfDireccion.getText().trim();
         String telefono = tfTelefono.getText().trim();
         
-        if (nombreOrganizacion.isEmpty()) {
+        if (nombreOrganizacion.isEmpty() || nombreOrganizacion.length() > 100) {
             camposValidos = false;
         }
-        if (email.isEmpty()) {
+        if (email.isEmpty() || email.length() > 50) {
             camposValidos = false;
         } else {
             int indiceArroba = email.indexOf('@');
@@ -110,7 +110,7 @@ public class FXMLCU12_RegistrarOrganizacionVinculadaController implements Initia
                 camposValidos = false;
             }
         }
-        if (direccion.isEmpty()) {
+        if (direccion.isEmpty() || direccion.length() > 200) {
             camposValidos = false;
         } else {
             if (direccion.length() < 25) {

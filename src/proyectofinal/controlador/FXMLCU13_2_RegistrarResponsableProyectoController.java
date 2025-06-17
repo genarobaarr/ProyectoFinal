@@ -112,10 +112,10 @@ public class FXMLCU13_2_RegistrarResponsableProyectoController implements Initia
         String nombrePuesto = tfNombrePuesto.getText().trim();
         String telefono = tfTelefono.getText().trim();
         
-        if (nombreResponsable.isEmpty()) {
+        if (nombreResponsable.isEmpty() || nombreResponsable.length() > 100) {
             camposValidos = false;
         }
-        if (email.isEmpty()) {
+        if (email.isEmpty() || email.length() > 50) {
             camposValidos = false;
         } else {
             int indiceArroba = email.indexOf('@');
@@ -132,10 +132,10 @@ public class FXMLCU13_2_RegistrarResponsableProyectoController implements Initia
                 camposValidos = false;
             }
         }
-        if (departamento.isEmpty()) {
+        if (departamento.isEmpty() || departamento.length() > 50) {
             camposValidos = false;
         }
-        if (nombrePuesto.isEmpty()) {
+        if (nombrePuesto.isEmpty() || nombrePuesto.length() > 50) {
             camposValidos = false;
         }
         if (telefono.isEmpty()) {

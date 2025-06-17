@@ -138,7 +138,7 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
         String periodoReporte = tfPeriodoReporte.getText().trim();
         String descripcion = taDescripcion.getText().trim();
         
-        if (numeroHoras.isEmpty()) {
+        if (numeroHoras.isEmpty() || numeroHoras.length() > 3) {
             camposValidos = false;
         } else {
             try {
@@ -158,7 +158,7 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
             camposValidos = false;
             tfPeriodoReporte.setText("");
         }
-        if (descripcion.isEmpty()) {
+        if (descripcion.isEmpty() || descripcion.length() > 200) {
             camposValidos = false;
         }
         return camposValidos;

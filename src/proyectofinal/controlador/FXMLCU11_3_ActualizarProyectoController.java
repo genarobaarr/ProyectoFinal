@@ -100,13 +100,13 @@ public class FXMLCU11_3_ActualizarProyectoController implements Initializable {
         LocalDate fechaInicio = dpFechaInicio.getValue();
         LocalDate fechaFin = dpFechaFin.getValue();
         
-        if (nombreProyecto.isEmpty()) {
+        if (nombreProyecto.isEmpty() || nombreProyecto.length() > 50) {
             camposValidos = false;
         }
-        if (descripcion.isEmpty()) {
+        if (descripcion.isEmpty() || descripcion.length() > 200) {
             camposValidos = false;
         }
-        if (objetivos.isEmpty()) {
+        if (objetivos.isEmpty() || objetivos.length() > 255) {
             camposValidos = false;
         }
         if (fechaInicio == null) {

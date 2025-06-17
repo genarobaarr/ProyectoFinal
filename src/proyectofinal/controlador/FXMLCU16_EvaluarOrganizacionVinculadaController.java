@@ -274,7 +274,7 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
     }
 
     private boolean validarComentariosGenerales() {
-        if (taComentariosGenerales.getText().trim().isEmpty()) {
+        if (taComentariosGenerales.getText().trim().isEmpty() || taComentariosGenerales.getText().length() > 200) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING,
                     "Campos vacíos", "Debes añadir comentarios generales de la evaluación.");
             return false;
