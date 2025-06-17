@@ -116,46 +116,21 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
     public void inicializarInformacion (Estudiante estudiante) {
         try {
             this.estudiante = estudiante;
-            this.proyecto = obtenerProyectoDeEstudiante(estudiante.getIdUsuario());
-            this.responsableProyecto = obtenerResponsableDeProyecto(proyecto.getIdResponsableDeProyecto());
-            this.idExpediente = obtenerIdExpediente(estudiante.getIdUsuario());
-            tfNumeroReporte.setText(String.valueOf(obtenerNumeroReporte(idExpediente)));
+            this.proyecto = ProyectoDAO.obtenerProyectoPorEstudiante(estudiante.getIdUsuario());
+            this.responsableProyecto = ResponsableDeProyectoDAO.obtenerResponsableDeProyectoPorId(proyecto.getIdResponsableDeProyecto());
+            this.idExpediente = ExpedienteDAO.obtenerIdExpedientePorIdEstudiante(estudiante.getIdUsuario());
+            tfNumeroReporte.setText(String.valueOf(ReporteMensualDAO.obtenerSiguienteNumeroReporte(idExpediente)));
             tfNombreEstudiante.setText(estudiante.getNombre() + " " + 
                     estudiante.getApellidoPaterno() + " " + estudiante.getApellidoMaterno());
             tfMatricula.setText(estudiante.getMatricula());
             tfProyectoVinculado.setText(proyecto.getNombre());
             tfResponsableProyecto.setText(responsableProyecto.getNombre());
-            tfOrganizacionVinculada.setText(obtenerOrganizacionVinculada(responsableProyecto.getIdOrganizacionVinculada()).getNombre());
+            tfOrganizacionVinculada.setText(OrganizacionVinculadaDAO.obtenerOrganizacionVinculadaPorId(responsableProyecto.getIdOrganizacionVinculada()).getNombre());
         } catch (SQLException ex) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
                     "Error de conexión con base de datos, inténtalo más tarde");
             Utilidad.getEscenario(tfNumeroReporte).close();
         }
-    }
-    
-    private Proyecto obtenerProyectoDeEstudiante(int idEstudiante) throws SQLException {
-        Proyecto proyecto = ProyectoDAO.obtenerProyectoPorEstudiante(idEstudiante);
-        return proyecto;
-    }
-    
-    private ResponsableDeProyecto obtenerResponsableDeProyecto(int idResponsableProyecto) throws SQLException {
-        ResponsableDeProyecto responsableProyecto = ResponsableDeProyectoDAO.obtenerResponsableDeProyectoPorId(idResponsableProyecto);
-        return responsableProyecto;
-    }
-    
-    private OrganizacionVinculada obtenerOrganizacionVinculada(int idOrganizacionVinculada) throws SQLException {
-        OrganizacionVinculada organizacionVinculada = OrganizacionVinculadaDAO.obtenerOrganizacionVinculadaPorId(idOrganizacionVinculada);
-        return organizacionVinculada;
-    }
-    
-    private int obtenerIdExpediente(int idEstudiante) throws SQLException {
-        int idExpediente = ExpedienteDAO.obtenerIdExpedientePorIdEstudiante(idEstudiante);
-        return idExpediente;
-    }
-    
-    private int obtenerNumeroReporte(int idExpediente) throws SQLException {
-        int numeroReporte = ReporteMensualDAO.obtenerSiguienteNumeroReporte(idExpediente);
-        return numeroReporte;
     }
     
     private boolean validarCampos() {
@@ -191,7 +166,6 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
     }
     
     private int obtenerNumeroMes(String nombreMes) {
-        // NOMBRES_MESES es 0-indexed, los meses de LocalDate son 1-indexed.
         int indice = NOMBRES_MESES.indexOf(nombreMes);
         return (indice != -1) ? (indice + 1) : -1;
     }

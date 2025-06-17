@@ -49,13 +49,24 @@ public class FXMLCU04_1_EntregaReportesController implements Initializable {
     @FXML
     private void clicBotonNuevoReporte(ActionEvent event) {
         try {
-            if (asignacionReporte != null && asignacionReporte.getEstatus().equals("Habilitado")) {
-                    irPantallaSiguiente();
-            } else {
-                Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, 
+            int numeroReportes = ReporteMensualDAO.obtenerNumeroTotalReportesEstudiante(estudiante.getIdUsuario());
+            if (numeroReportes < 6) {
+                if (asignacionReporte != null && asignacionReporte.getEstatus().equals("Habilitado")) {
+                   irPantallaSiguiente();
+                } else {
+                    Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, 
                         "Acceso denegado", 
                         "La entrega de reportes está actualmente inhabilitada.");
+                }
+            } else {
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, 
+                    "Acceso denegado", 
+                    "Ya completaste la entrega de todos los reportes.");
             }
+        } catch (SQLException ex) {
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
+                    "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");
+            Utilidad.getEscenario(tvReportesMensuales).close();
         } catch (IOException ex) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
                     "Error al cargar la pantalla", "No se pudo cargar la siguiente pantalla");

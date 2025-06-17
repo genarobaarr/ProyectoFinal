@@ -42,31 +42,6 @@ public class ReporteMensualDAO {
         return reportes;
     }
 
-    public static ArrayList<Integer> obtenerNumerosReportesMensualesPorEstudiante(int idEstudiante) throws SQLException{
-        ArrayList<Integer> reportes = new ArrayList<>();
-        String consulta = "SELECT rm.numeroReporteMensual" +
-                       "FROM reporte_mensual rm " +
-                       "INNER JOIN expediente exp ON rm.idExpediente = exp.idExpediente " +
-                       "WHERE exp.idEstudiante = ? ORDER BY rm.numeroReporteMensual ASC;";
-
-        try (Connection conexionBD = ConexionBD.abrirConexion();
-        PreparedStatement sentencia = conexionBD.prepareStatement(consulta)) {
-            if (conexionBD == null) {
-                throw new SQLException("No hay conexión con la base de datos.");
-            }
-
-            sentencia.setInt(1, idEstudiante);
-            try (ResultSet resultado = sentencia.executeQuery()) {
-                while (resultado.next()) {
-                    reportes.add(resultado.getInt(consulta));
-                }
-            }
-        } catch (SQLException e) {
-            throw new SQLException("Error al cargar los reportes desde la base de datos.", e);
-        }
-        return reportes;
-    }
-
     public static ArrayList<ReporteMensual> obtenerReportesMensualesNoValidados() throws SQLException{
         ArrayList<ReporteMensual> reportes = new ArrayList<>();
         String consulta = "SELECT rm.idReporteMensual, rm.numeroReporteMensual, rm.numeroHoras, rm.observaciones, " +
@@ -186,6 +161,45 @@ public class ReporteMensualDAO {
             conexionBD.close();
         }
         return siguienteNumero;
+    }
+    
+    public static int obtenerNumeroTotalReportesEstudiante(int idEstudiante) throws SQLException {
+        Connection conexionBD = null;
+        PreparedStatement sentencia = null;
+        ResultSet resultado = null;
+        int totalReportes = 0;
+
+        try {
+            conexionBD = ConexionBD.abrirConexion();
+
+            if (conexionBD != null) {
+                String consulta = "SELECT COUNT(rm.idReporteMensual) AS totalReportes " +
+                                  "FROM reporte_mensual rm " +
+                                  "INNER JOIN expediente exp ON rm.idExpediente = exp.idExpediente " +
+                                  "WHERE exp.idEstudiante = ?";
+                
+                sentencia = conexionBD.prepareStatement(consulta);
+                sentencia.setInt(1, idEstudiante);
+                resultado = sentencia.executeQuery();
+
+                if (resultado.next()) {
+                    totalReportes = resultado.getInt("totalReportes");
+                }
+            } else {
+                throw new SQLException("Error: Sin conexión a la base de datos.");
+            }
+        } finally {
+            if (resultado != null) {
+                resultado.close(); 
+            }
+            if (sentencia != null) { 
+                sentencia.close();
+            }       
+            if (conexionBD != null) { 
+                conexionBD.close(); 
+            }
+        }
+        return totalReportes;
     }
 
     public static ReporteMensual convertirReporteMensual(ResultSet resultado) throws SQLException {

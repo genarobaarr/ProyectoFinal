@@ -165,6 +165,8 @@ public class FXMLCU03_ActualizarExpedienteController implements Initializable {
 
         double tamanioEnMB = archivoSeleccionado.length() / (1024.0 * 1024.0);
         if (tamanioEnMB > 20) {
+            Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Error de carga", 
+                    "El tamaño del archivo seleccionado excede lo permitido (20MB). Por favor, intente nuevamente.");
             return false;
         }
         return true;
