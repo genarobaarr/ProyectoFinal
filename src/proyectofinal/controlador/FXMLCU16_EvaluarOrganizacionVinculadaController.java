@@ -70,8 +70,6 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
     private TextArea taComentariosGenerales;
     @FXML
     private Button btnAceptar;
-    @FXML
-    private Button btnCancelar;
 
     private EvaluacionOV evaluacionOVActual;
     private Estudiante estudiante;
@@ -86,7 +84,15 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
 
     @FXML
     private void clicBotonAceptar(ActionEvent event) {
-        manejarAceptar();
+        if (!validarDatosPrevios() || !validarSeleccionesRubrica() || !validarComentariosGenerales()) {
+            return;
+        }
+
+        List<EvaluacionOVResultado> resultadosRubrica = obtenerResultadosRubrica();
+        double puntajeTotal = calcularPuntajeTotal(resultadosRubrica);
+
+        establecerDatosEvaluacionOV(puntajeTotal);
+        guardarEvaluacionOV(resultadosRubrica);
     }
 
     @FXML
@@ -258,18 +264,6 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
         return true;
     }
 
-    private void manejarAceptar() {
-        if (!validarDatosPrevios() || !validarSeleccionesRubrica() || !validarComentariosGenerales()) {
-            return;
-        }
-
-        List<EvaluacionOVResultado> resultadosRubrica = obtenerResultadosRubrica();
-        double puntajeTotal = calcularPuntajeTotal(resultadosRubrica);
-
-        establecerDatosEvaluacionOV(puntajeTotal);
-        guardarEvaluacionOV(resultadosRubrica);
-    }
-
     private boolean validarDatosPrevios() {
         if (estudiante == null || evaluacionOVActual.getIdExpediente() == 0) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
@@ -349,5 +343,4 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
             Utilidad.getEscenario(btnAceptar).close();
         }
     }
-
 }

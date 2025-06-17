@@ -72,8 +72,8 @@ public class FXMLCU11_3_ActualizarProyectoController implements Initializable {
     public void inicializarInformacion (Proyecto proyecto) {
         try {
             this.proyectoAntiguo = proyecto;
-            this.responsableDeProyecto = obtenerResponsableDeProyecto(proyecto.getIdResponsableDeProyecto());
-            this.organizacionVinculada = obtenerOrganizacionVinculada(responsableDeProyecto.getIdOrganizacionVinculada());
+            this.responsableDeProyecto = ResponsableDeProyectoDAO.obtenerResponsableDeProyectoPorId(proyecto.getIdResponsableDeProyecto());
+            this.organizacionVinculada = OrganizacionVinculadaDAO.obtenerOrganizacionVinculadaPorId(responsableDeProyecto.getIdOrganizacionVinculada());
             cargarInformacionFormulario();
         } catch (SQLException ex) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
@@ -123,16 +123,6 @@ public class FXMLCU11_3_ActualizarProyectoController implements Initializable {
             }
         }
         return camposValidos;
-    }
-    
-    private ResponsableDeProyecto obtenerResponsableDeProyecto(int idResponsableDeProyecto) throws SQLException {
-        ResponsableDeProyecto responsableDeProyecto = ResponsableDeProyectoDAO.obtenerResponsableDeProyectoPorId(idResponsableDeProyecto);
-        return responsableDeProyecto;
-    }
-    
-    private OrganizacionVinculada obtenerOrganizacionVinculada(int idOrganizacionVinculada) throws SQLException {
-        OrganizacionVinculada organizacionVinculada = OrganizacionVinculadaDAO.obtenerOrganizacionVinculadaPorId(idOrganizacionVinculada);
-        return organizacionVinculada;
     }
     
     private Proyecto obtenerProyectoNuevo() {

@@ -142,7 +142,7 @@
          <font>
             <Font name="Gill Sans MT" size="15.0" />
          </font></Button>
-        <Button fx:id="btnCancelar" layoutX="720.0" layoutY="748.0" mnemonicParsing="false" onAction="#clicBotonCancelar" prefHeight="35.0" prefWidth="90.0" style="-fx-border-color: #26408B; -fx-background-color: #26408B; -fx-cursor: HAND;" text="Cancelar" textFill="WHITE">
+        <Button layoutX="720.0" layoutY="748.0" mnemonicParsing="false" onAction="#clicBotonCancelar" prefHeight="35.0" prefWidth="90.0" style="-fx-border-color: #26408B; -fx-background-color: #26408B; -fx-cursor: HAND;" text="Cancelar" textFill="WHITE">
          <font>
             <Font name="Gill Sans MT" size="15.0" />
          </font></Button>

@@ -78,15 +78,15 @@ public class FXMLCU06_2_ValidarReportesController implements Initializable {
     public void inicializarInformacion (ReporteMensual reporte) {
         try {
             this.reporte = reporte;
-            this.expediente = obtenerExpediente(reporte.getIdExpediente());
-            this.estudiante = obtenerEstudiante(expediente.getIdEstudiante());
-            this.proyecto = obtenerProyectoDeEstudiante(estudiante.getIdUsuario());
-            this.responsableProyecto = obtenerResponsableDeProyecto(proyecto.getIdResponsableDeProyecto());
-            tfNombreEstudiante.setText(estudiante.getNombre()+" "+estudiante.getApellidoPaterno()+" "+estudiante.getApellidoMaterno());
+            this.expediente = ExpedienteDAO.obtenerExpedientePorId(reporte.getIdExpediente());
+            this.estudiante = EstudianteDAO.obtenerEstudiantePorIdUsuario(expediente.getIdEstudiante());
+            this.proyecto = ProyectoDAO.obtenerProyectoPorEstudiante(estudiante.getIdUsuario());
+            this.responsableProyecto = ResponsableDeProyectoDAO.obtenerResponsableDeProyectoPorId(proyecto.getIdResponsableDeProyecto());
+            tfNombreEstudiante.setText(estudiante.getNombre() + " " + estudiante.getApellidoPaterno() + " " + estudiante.getApellidoMaterno());
             tfMatricula.setText(estudiante.getMatricula());
             tfProyectoVinculado.setText(proyecto.getNombre());
             tfResponsableProyecto.setText(responsableProyecto.getNombre());
-            tfOrganizacionVinculada.setText(obtenerOrganizacionVinculada(responsableProyecto.getIdOrganizacionVinculada()).getNombre());
+            tfOrganizacionVinculada.setText(OrganizacionVinculadaDAO.obtenerOrganizacionVinculadaPorId(responsableProyecto.getIdOrganizacionVinculada()).getNombre());
             tfPeriodoReporte.setText(obtenerPeriodoDeArchivo(reporte.getNombreArchivo()));
             tfNumeroHoras.setText(String.valueOf(reporte.getNumeroHoras()));
             tfNumeroReporte.setText(String.valueOf(reporte.getNumeroReporte()));
@@ -97,31 +97,6 @@ public class FXMLCU06_2_ValidarReportesController implements Initializable {
                     "Error de conexión con base de datos, inténtalo más tarde");
             Utilidad.getEscenario(tfNumeroReporte).close();
         }
-    }
-    
-    private Proyecto obtenerProyectoDeEstudiante(int idEstudiante) throws SQLException {
-        Proyecto proyecto = ProyectoDAO.obtenerProyectoPorEstudiante(idEstudiante);
-        return proyecto;
-    }
-    
-    private Estudiante obtenerEstudiante(int idEstudiante) throws SQLException {
-        Estudiante estudiante = EstudianteDAO.obtenerEstudiantePorIdUsuario(idEstudiante);
-        return estudiante;
-    }
-    
-    private ResponsableDeProyecto obtenerResponsableDeProyecto(int idResponsableProyecto) throws SQLException {
-        ResponsableDeProyecto responsableProyecto = ResponsableDeProyectoDAO.obtenerResponsableDeProyectoPorId(idResponsableProyecto);
-        return responsableProyecto;
-    }
-    
-    private OrganizacionVinculada obtenerOrganizacionVinculada(int idOrganizacionVinculada) throws SQLException {
-        OrganizacionVinculada organizacionVinculada = OrganizacionVinculadaDAO.obtenerOrganizacionVinculadaPorId(idOrganizacionVinculada);
-        return organizacionVinculada;
-    }
-    
-    private Expediente obtenerExpediente(int idExpediente) throws SQLException {
-        Expediente expediente = ExpedienteDAO.obtenerExpedientePorId(idExpediente);
-        return expediente;
     }
     
     private void validarReporte (ReporteMensual reporte) {

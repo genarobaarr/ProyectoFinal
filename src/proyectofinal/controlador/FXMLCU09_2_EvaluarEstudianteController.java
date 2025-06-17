@@ -68,11 +68,6 @@ public class FXMLCU09_2_EvaluarEstudianteController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
-    
-    public void inicializarInformacion(int idExpediente, int idAcademico) {
-        this.idExpediente = idExpediente;
-        this.idAcademico = idAcademico;
-    }
 
     @FXML
     private void clicBotonRegistrar(ActionEvent event) {
@@ -102,6 +97,18 @@ public class FXMLCU09_2_EvaluarEstudianteController implements Initializable {
             return false;
         }
         return true;
+    }
+
+    @FXML
+    private void clicBotonCancelar(ActionEvent event) {
+        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas salir?")) {
+            Utilidad.getEscenario(taComentarios).close();
+        }
+    }
+    
+    public void inicializarInformacion(int idExpediente, int idAcademico) {
+        this.idExpediente = idExpediente;
+        this.idAcademico = idAcademico;
     }
 
     private double obtenerPuntajeYCriterio(ToggleGroup group, String nombreCriterio, List<EvaluacionExposicionCriterio> criteriosLista) {
@@ -172,13 +179,6 @@ public class FXMLCU09_2_EvaluarEstudianteController implements Initializable {
         } catch (SQLException e) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos",
                     "Error de conexión con base de datos, inténtalo más tarde");
-            Utilidad.getEscenario(taComentarios).close();
-        }
-    }
-
-    @FXML
-    private void clicBotonCancelar(ActionEvent event) {
-        if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas salir?")) {
             Utilidad.getEscenario(taComentarios).close();
         }
     }
