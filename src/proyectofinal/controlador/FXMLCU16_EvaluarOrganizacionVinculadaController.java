@@ -267,7 +267,8 @@ public class FXMLCU16_EvaluarOrganizacionVinculadaController implements Initiali
     private boolean validarDatosPrevios() {
         if (estudiante == null || evaluacionOVActual.getIdExpediente() == 0) {
             Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR,
-                    "Error de datos", "No se pudo obtener el expediente del estudiante. Asegúrate de que los datos del estudiante se cargaron correctamente.");
+                    "Error de datos", 
+                    "No se pudo obtener el expediente del estudiante. Asegúrate de que los datos del estudiante se cargaron correctamente.");
             return false;
         }
         return true;

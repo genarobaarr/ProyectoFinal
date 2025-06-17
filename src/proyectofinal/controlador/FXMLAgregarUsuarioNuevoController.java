@@ -195,15 +195,19 @@ public class FXMLAgregarUsuarioNuevoController implements Initializable {
         LocalDate fechaNacimiento = dpFechaNacimiento.getValue();
         
         if (nombre.isEmpty() || nombre.length() > 50 || nombre.length() < 2) {
+            tfNombre.setText("");
             camposValidos = false;
         }
         if (apellidoPaterno.isEmpty() || apellidoPaterno.length() > 50 || apellidoPaterno.length() < 3) {
+            tfApellidoPaterno.setText("");
             camposValidos = false;
         }
         if (apellidoMaterno.isEmpty() || apellidoMaterno.length() > 50 || apellidoMaterno.length() < 3) {
+            tfApellidoMaterno.setText("");
             camposValidos = false;
         }
         if (correoElectronico.isEmpty() || correoElectronico.length() > 50  || correoElectronico.length() < 7) {
+            tfCorreoElectronico.setText("");
             camposValidos = false;
         } else {
             int indiceArroba = correoElectronico.indexOf('@');
@@ -221,6 +225,7 @@ public class FXMLAgregarUsuarioNuevoController implements Initializable {
             }
         }
         if (usuario.isEmpty() || usuario.length() > 25  || usuario.length() < 5) {
+            tfUsuario.setText("");
             camposValidos = false;
         } else {
             try {
@@ -235,6 +240,7 @@ public class FXMLAgregarUsuarioNuevoController implements Initializable {
             }
         }
         if (password.isEmpty() || password.length() > 25 || password.length() < 8) {
+            tfPassword.setText("");
             camposValidos = false;
         }
         

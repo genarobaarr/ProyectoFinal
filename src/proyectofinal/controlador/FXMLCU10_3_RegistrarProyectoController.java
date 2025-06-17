@@ -83,13 +83,16 @@ public class FXMLCU10_3_RegistrarProyectoController implements Initializable {
         LocalDate fechaInicio = dpFechaInicio.getValue();
         LocalDate fechaFin = dpFechaFin.getValue();
         
-        if (nombreProyecto.isEmpty() || nombreProyecto.length() > 50) {
+        if (nombreProyecto.isEmpty() || nombreProyecto.length() > 50 || nombreProyecto.length() < 5) {
+            tfNombreProyecto.setText("");
             camposValidos = false;
         }
-        if (descripcion.isEmpty() || descripcion.length() > 200) {
+        if (descripcion.isEmpty() || descripcion.length() > 200 || descripcion.length() < 15) {
+            taBreveDescripcion.setText("");
             camposValidos = false;
         }
-        if (objetivos.isEmpty() || objetivos.length() > 255) {
+        if (objetivos.isEmpty() || objetivos.length() > 255 || objetivos.length() < 15) {
+            taObjetivosGenerales.setText("");
             camposValidos = false;
         }
         if (fechaInicio == null) {

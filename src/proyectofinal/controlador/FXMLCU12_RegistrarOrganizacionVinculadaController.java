@@ -90,11 +90,13 @@ public class FXMLCU12_RegistrarOrganizacionVinculadaController implements Initia
         String direccion = tfDireccion.getText().trim();
         String telefono = tfTelefono.getText().trim();
         
-        if (nombreOrganizacion.isEmpty() || nombreOrganizacion.length() > 100) {
+        if (nombreOrganizacion.isEmpty() || nombreOrganizacion.length() > 100 || nombreOrganizacion.length() < 10) {
             camposValidos = false;
+            tfNombreOrganizacion.setText("");
         }
-        if (email.isEmpty() || email.length() > 50) {
+        if (email.isEmpty() || email.length() > 50 || email.length() < 7) {
             camposValidos = false;
+            tfCorreoElectronico.setText("");
         } else {
             int indiceArroba = email.indexOf('@');
             int indicePunto = email.lastIndexOf('.');
@@ -110,13 +112,9 @@ public class FXMLCU12_RegistrarOrganizacionVinculadaController implements Initia
                 camposValidos = false;
             }
         }
-        if (direccion.isEmpty() || direccion.length() > 200) {
+        if (direccion.isEmpty() || direccion.length() > 200 || direccion.length() < 25) {
             camposValidos = false;
-        } else {
-            if (direccion.length() < 25) {
-                camposValidos = false;
-                tfDireccion.setText("");
-            }
+            tfDireccion.setText("");
         }
         if (telefono.isEmpty()) {
             camposValidos = false;
