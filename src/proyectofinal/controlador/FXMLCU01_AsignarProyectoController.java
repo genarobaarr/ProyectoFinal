@@ -60,7 +60,16 @@ public class FXMLCU01_AsignarProyectoController implements Initializable {
                 proyectoSeleccionado.getNombre() + " al estudiante " + 
                 estudianteSeleccionado.toString() + "?";
         if (Utilidad.mostrarAlertaConfirmacion("Confirmación", mensajeConfirmacion)) {
-            try {
+            crearExpediente(estudianteSeleccionado, proyectoSeleccionado);
+        } else {
+            if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas cancelar el proceso?")) {
+                Utilidad.getEscenario(tvProyectos).close();
+            }
+        }
+    }
+    
+    private void crearExpediente(Estudiante estudianteSeleccionado, Proyecto proyectoSeleccionado){
+        try {
                 Periodo periodoActual = PeriodoDAO.obtenerPeriodoActual();
                 if (periodoActual == null) {
                     Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error de Período", 
@@ -76,11 +85,6 @@ public class FXMLCU01_AsignarProyectoController implements Initializable {
                     "Error de conexión con base de datos, inténtalo más tarde");
                 Utilidad.getEscenario(tvProyectos).close();
             }
-        } else {
-            if (Utilidad.mostrarAlertaConfirmacion("Confirmación", "¿Deseas cancelar el proceso?")) {
-                Utilidad.getEscenario(tvProyectos).close();
-            }
-        }
     }
 
     @FXML
