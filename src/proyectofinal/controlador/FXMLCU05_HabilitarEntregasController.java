@@ -7,6 +7,7 @@ package proyectofinal.controlador;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,7 +20,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import proyectofinal.modelo.dao.AsignacionReporteDAO;
+import proyectofinal.modelo.dao.PeriodoDAO;
 import proyectofinal.modelo.pojo.AsignacionReporte;
+import proyectofinal.modelo.pojo.Periodo;
 import proyectofinal.modelo.pojo.ResultadoOperacion;
 import proyectofinal.utilidades.Utilidad;
 
@@ -36,6 +39,7 @@ public class FXMLCU05_HabilitarEntregasController implements Initializable {
 
     private AsignacionReporte asignacionActual;
     private boolean esEdicion;
+    private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ISO_LOCAL_DATE;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -96,8 +100,8 @@ public class FXMLCU05_HabilitarEntregasController implements Initializable {
         boolean camposValidos = true;
         String titulo = tfTituloAsignacion.getText().trim();
         String descripcion = taDescripcion.getText().trim();
-        LocalDate fechaInicio = dpFechaInicio.getValue();
-        LocalDate fechaFin = dpFechaFin.getValue();
+        LocalDate fechaInicioAsignacion = dpFechaInicio.getValue();
+        LocalDate fechaFinAsignacion = dpFechaFin.getValue();
         
         if (titulo.isEmpty()) {
             camposValidos = false;
@@ -110,22 +114,51 @@ public class FXMLCU05_HabilitarEntregasController implements Initializable {
                 taDescripcion.setText("");
             }
         }
-        if (fechaInicio == null) {
+        if (fechaInicioAsignacion == null) {
             camposValidos = false;
         }
-        if (fechaFin == null) {
+        if (fechaFinAsignacion == null) {
             camposValidos = false;
         }
-        if (fechaInicio != null && fechaFin != null) {
-            if (fechaInicio.isAfter(fechaFin)) {
+        if (fechaInicioAsignacion != null && fechaFinAsignacion != null) {
+            if (fechaInicioAsignacion.isAfter(fechaFinAsignacion)) {
                 dpFechaInicio.setValue(null);
                 dpFechaFin.setValue(null);
                 camposValidos = false;
             }
-            if (fechaInicio.isEqual(fechaFin)) {
+            if (fechaInicioAsignacion.isEqual(fechaFinAsignacion)) {
                 dpFechaInicio.setValue(null);
                 dpFechaFin.setValue(null);
                 camposValidos = false;
+            }
+            
+            try {
+                Periodo periodoActual = PeriodoDAO.obtenerPeriodoActual();
+
+                if (periodoActual == null) {
+                    Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error de Período", "No se encontró un período actual o reciente en la base de datos. No se puede crear la asignación.");
+                    return false;
+                }
+
+                LocalDate fechaInicioPeriodo = LocalDate.parse(periodoActual.getFechaInicio(), FORMATO_FECHA);
+                LocalDate fechaFinPeriodo = LocalDate.parse(periodoActual.getFechaFin(), FORMATO_FECHA);
+
+                if (fechaInicioAsignacion.isBefore(fechaInicioPeriodo)) {
+                    dpFechaInicio.setValue(null);
+                    return false;
+                }
+
+                if (fechaFinAsignacion.isAfter(fechaFinPeriodo)) {
+                    Utilidad.mostrarAlertaSimple(Alert.AlertType.WARNING, "Fecha de Fin Inválida",
+                            "La fecha de fin de la asignación (" + fechaFinAsignacion.format(FORMATO_FECHA) +
+                            ") no puede ser posterior a la fecha de fin del período actual (" + fechaFinPeriodo.format(FORMATO_FECHA) + ").");
+                    dpFechaFin.setValue(null);
+                    return false;
+                }
+            } catch (SQLException ex) {
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error en la base de datos", 
+                    "Error de conexión con base de datos, inténtalo más tarde");
+                Utilidad.getEscenario(dpFechaFin).close();
             }
         }
         return camposValidos;

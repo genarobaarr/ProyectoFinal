@@ -6,6 +6,10 @@ package proyectofinal.controlador;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -19,11 +23,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import proyectofinal.modelo.dao.ExpedienteDAO;
 import proyectofinal.modelo.dao.OrganizacionVinculadaDAO;
+import proyectofinal.modelo.dao.PeriodoDAO;
 import proyectofinal.modelo.dao.ProyectoDAO;
 import proyectofinal.modelo.dao.ReporteMensualDAO;
 import proyectofinal.modelo.dao.ResponsableDeProyectoDAO;
 import proyectofinal.modelo.pojo.Estudiante;
 import proyectofinal.modelo.pojo.OrganizacionVinculada;
+import proyectofinal.modelo.pojo.Periodo;
 import proyectofinal.modelo.pojo.Proyecto;
 import proyectofinal.modelo.pojo.ReporteMensual;
 import proyectofinal.modelo.pojo.ResponsableDeProyecto;
@@ -58,6 +64,7 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
     private static final List<String> NOMBRES_MESES = Arrays.asList(
             "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", 
             "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+    private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ISO_LOCAL_DATE;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -173,7 +180,7 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
         }
         if (periodoReporte.isEmpty()) {
             camposValidos = false;
-        } else if (!validarFormatoPeriodo(periodoReporte)) {
+        } else if (!validarFormatoPeriodoReporte(periodoReporte)) {
             camposValidos = false;
             tfPeriodoReporte.setText("");
         }
@@ -183,11 +190,17 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
         return camposValidos;
     }
     
-    private boolean validarFormatoPeriodo(String periodo) {
-        if (!periodo.contains("-")) {
+    private int obtenerNumeroMes(String nombreMes) {
+        // NOMBRES_MESES es 0-indexed, los meses de LocalDate son 1-indexed.
+        int indice = NOMBRES_MESES.indexOf(nombreMes);
+        return (indice != -1) ? (indice + 1) : -1;
+    }
+    
+    private boolean validarFormatoPeriodoReporte(String periodoReporte) {
+        if (!periodoReporte.contains("-")) {
             return false;
         }
-        String[] partes = periodo.split("-");
+        String[] partes = periodoReporte.split("-");
         if (partes.length != 2) {
             return false;
         }
@@ -214,6 +227,40 @@ public class FXMLCU04_2_EntregaReportesController implements Initializable {
             }
             return false;
         }
+        try {
+            Periodo periodoSemestral = PeriodoDAO.obtenerPeriodoActual();
+            
+            if (periodoSemestral == null) {
+                return false;
+            }
+
+            LocalDate fechaInicioSemestre = LocalDate.parse(periodoSemestral.getFechaInicio(), FORMATO_FECHA);
+            LocalDate fechaFinSemestre = LocalDate.parse(periodoSemestral.getFechaFin(), FORMATO_FECHA);
+            int semestreAnio = fechaInicioSemestre.getYear();
+
+            LocalDate periodoReporteFechaInicio = LocalDate.of(semestreAnio, obtenerNumeroMes(mes1), 1);
+            LocalDate periodoReporteFechaFin;
+
+            if (indiceMes1 == 11 && indiceMes2 == 0) { 
+                periodoReporteFechaFin = LocalDate.of(semestreAnio + 1, obtenerNumeroMes(mes2), Month.of(obtenerNumeroMes(mes2)).length(periodoReporteFechaInicio.isLeapYear()));
+            } else {
+                periodoReporteFechaFin = LocalDate.of(semestreAnio, obtenerNumeroMes(mes2), Month.of(obtenerNumeroMes(mes2)).length(periodoReporteFechaInicio.isLeapYear()));
+            }
+            
+            if (periodoReporteFechaInicio.isBefore(fechaInicioSemestre)) {
+                return false;
+            }
+
+            if (periodoReporteFechaFin.isAfter(fechaFinSemestre)) {
+                return false;
+            }
+
+        } catch (SQLException ex) {
+            return false;
+        } catch (DateTimeParseException ex) {
+            return false;
+        }
+        
         return true;
     }
     

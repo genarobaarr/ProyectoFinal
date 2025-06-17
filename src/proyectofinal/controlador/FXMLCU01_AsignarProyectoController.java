@@ -21,6 +21,7 @@ import proyectofinal.modelo.pojo.Proyecto;
 import proyectofinal.modelo.dao.ProyectoDAO;
 import proyectofinal.modelo.dao.PeriodoDAO;
 import proyectofinal.modelo.dao.EstudianteDAO;
+import proyectofinal.modelo.pojo.Periodo;
 import proyectofinal.utilidades.Utilidad;
 
 
@@ -60,13 +61,13 @@ public class FXMLCU01_AsignarProyectoController implements Initializable {
                 estudianteSeleccionado.toString() + "?";
         if (Utilidad.mostrarAlertaConfirmacion("Confirmación", mensajeConfirmacion)) {
             try {
-                int idPeriodoActual = PeriodoDAO.obtenerIdPeriodoActual();
-                if (idPeriodoActual == -1) {
+                Periodo periodoActual = PeriodoDAO.obtenerPeriodoActual();
+                if (periodoActual == null) {
                     Utilidad.mostrarAlertaSimple(Alert.AlertType.ERROR, "Error de Período", 
                             "No se pudo determinar el período actual. No se puede asignar el proyecto.");
                     return;
                 }
-                EstudianteDAO.crearExpedienteEstudianteProyecto(estudianteSeleccionado.getIdUsuario(), proyectoSeleccionado.getIdProyecto(), idPeriodoActual);
+                EstudianteDAO.crearExpedienteEstudianteProyecto(estudianteSeleccionado.getIdUsuario(), proyectoSeleccionado.getIdProyecto(), periodoActual.getIdPeriodo());
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, "Operación exitosa", 
                         "El proyecto ha sido asignado exitosamente");
                 cargarDatos();
