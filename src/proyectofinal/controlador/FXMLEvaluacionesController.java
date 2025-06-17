@@ -23,8 +23,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import proyectofinal.ProyectoFinal;
 import proyectofinal.modelo.dao.EvaluacionOVDAO;
+import proyectofinal.modelo.dao.ExpedienteDAO;
 import proyectofinal.modelo.pojo.AcademicoEvaluador;
 import proyectofinal.modelo.pojo.Estudiante;
+import proyectofinal.modelo.pojo.Expediente;
 import proyectofinal.modelo.pojo.Usuario;
 import proyectofinal.utilidades.Utilidad;
 
@@ -54,6 +56,22 @@ public class FXMLEvaluacionesController implements Initializable {
             if (EvaluacionOVDAO.tieneEvaluacionOVRegistrada(usuario.getIdUsuario())) {
                 Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, 
                         "Acceso denegado", "Ya registraste tu evaluación a una organización vinculada.");
+                return;
+            }
+            
+            Expediente expediente = ExpedienteDAO.obtenerExpedientePorIdEstudiante(usuario.getIdUsuario());
+            
+            if (expediente == null) {
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, 
+                    "Acceso denegado", 
+                    "No se encontró un expediente vinculado.");
+                return;
+            }
+            final int HORAS_MINIMAS_REQUERIDAS = 450;
+            if (expediente.getHorasAcumuladas() < HORAS_MINIMAS_REQUERIDAS) {
+                Utilidad.mostrarAlertaSimple(Alert.AlertType.INFORMATION, 
+                    "Acceso denegado", 
+                    "No tienes la cantidad de horas requeridas para poder registrar una evaluación.");
                 return;
             }
         } catch (SQLException ex) {
